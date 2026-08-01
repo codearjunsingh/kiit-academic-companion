@@ -1,7 +1,7 @@
 {
-  "name": "kiit-academic-companion",
+  "name": "study-os",
   "private": true,
-  "version": "1.0.0",
+  "version": "10.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
