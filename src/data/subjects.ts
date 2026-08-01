@@ -1,562 +1,411 @@
 export interface Chapter {
   id: string;
   title: string;
+  module: string;
+  difficulty: 'Easy' | 'Medium' | 'Hard';
 }
 
 export interface Subject {
   code: string;
   name: string;
-  ltpc: string;
-  credits: number;
+  scheme: 'Scheme A' | 'Scheme B';
+  semester: 1 | 2;
+  category: 'BS' | 'ES' | 'GER' | 'Core';
   type: 'Theory' | 'Practical' | 'Sessional';
-  textbook?: string;
+  ltpc: {
+    l: number; // Lecture hours
+    t: number; // Tutorial hours
+    p: number; // Practical hours
+    total: number;
+    credits: number;
+  };
+  prerequisites: string;
+  textbook: string;
+  referenceBook?: string;
+  youtubeSearchQuery: string;
+  chapters: Chapter[];
   isElective?: boolean;
   electiveCategory?: 'Engineering' | 'Science' | 'GER';
-  chapters: Chapter[];
 }
 
-export interface ElectiveOption {
-  code: string;
-  name: string;
-  ltpc: string;
-  credits: number;
-  category: 'Engineering' | 'Science' | 'GER';
-  description: string;
-  textbook?: string;
-  chapters: Chapter[];
-}
-
-// Complete Electives Data
-export const ENGINEERING_ELECTIVES: ElectiveOption[] = [
-  {
-    code: 'EE10005',
-    name: 'Instrumentation & Automation',
-    ltpc: '2-0-0-2',
-    credits: 2,
-    category: 'Engineering',
-    textbook: 'R.K. Rajput, "Electrical and Electronic Measurements and Instruments"',
-    description: 'Analog/digital instruments, sensors & transducers, PLC automation, biomedical instruments (ECG, BP, CT, sonography).',
-    chapters: [
-      { id: 'EE10005_1', title: 'Analog and Digital Instruments' },
-      { id: 'EE10005_2', title: 'Sensors and Transducers' },
-      { id: 'EE10005_3', title: 'Programmable Logic Controllers (PLC) & Automation' },
-      { id: 'EE10005_4', title: 'Biomedical Instruments (ECG, BP, CT, Sonography)' },
-    ]
-  },
-  {
-    code: 'CE10001',
-    name: 'Basic Civil Engineering',
-    ltpc: '2-0-0-2',
-    credits: 2,
-    category: 'Engineering',
-    textbook: 'Dhale & Tajne, "Basics of Civil Engineering"',
-    description: 'Surveying, construction materials, geotechnical/hydraulics/environmental/transportation engineering overview.',
-    chapters: [
-      { id: 'CE10001_1', title: 'Surveying fundamentals and leveling' },
-      { id: 'CE10001_2', title: 'Construction materials and structural components' },
-      { id: 'CE10001_3', title: 'Geotechnical and Hydraulics Engineering overview' },
-      { id: 'CE10001_4', title: 'Environmental and Transportation Engineering basics' },
-    ]
-  },
-  {
-    code: 'EC10007',
-    name: 'Biosensors and Instrumentation',
-    ltpc: '2-0-0-2',
-    credits: 2,
-    category: 'Engineering',
-    textbook: 'R.S. Khanpur, "Handbook of Biomedical Instrumentation"',
-    description: 'Biomedical instrumentation, biosensors, ECG/EEG/EMG monitoring, medical imaging (X-ray, CT, MRI, ultrasound).',
-    chapters: [
-      { id: 'EC10007_1', title: 'Biomedical Instrumentation principles' },
-      { id: 'EC10007_2', title: 'Biosensors and bio-signal acquisition' },
-      { id: 'EC10007_3', title: 'ECG, EEG, and EMG monitoring systems' },
-      { id: 'EC10007_4', title: 'Medical Imaging modalities (X-ray, CT, MRI, Ultrasound)' },
-    ]
-  },
-  {
-    code: 'ME10003',
-    name: 'Basic Mechanical Engineering',
-    ltpc: '2-0-0-2',
-    credits: 2,
-    category: 'Engineering',
-    textbook: 'Sadhu Singh, "Basic Mechanical Engineering"',
-    description: 'Thermodynamics/fluid mechanics basics, materials & mechanics of materials, power transmission & robotics, manufacturing processes.',
-    chapters: [
-      { id: 'ME10003_1', title: 'Thermodynamics and Fluid Mechanics basics' },
-      { id: 'ME10003_2', title: 'Engineering Materials & Mechanics of Materials' },
-      { id: 'ME10003_3', title: 'Power Transmission & Robotics' },
-      { id: 'ME10003_4', title: 'Manufacturing Processes' },
-    ]
-  }
-];
-
-export const SCIENCE_ELECTIVES: ElectiveOption[] = [
-  {
-    code: 'CH10015',
-    name: 'Nanoscience',
-    ltpc: '3-0-0-3',
-    credits: 3,
-    category: 'Science',
-    textbook: 'Murty et al., "Textbook of Nanoscience and Nanotechnology"',
-    description: 'Nanomaterial classification, synthesis (top-down/bottom-up), characterization (XRD/SEM/TEM/AFM), applications in medicine/cosmetics/energy.',
-    chapters: [
-      { id: 'CH10015_1', title: 'Classification of Nanomaterials' },
-      { id: 'CH10015_2', title: 'Synthesis methods: Top-down vs Bottom-up approaches' },
-      { id: 'CH10015_3', title: 'Characterization techniques (XRD, SEM, TEM, AFM)' },
-      { id: 'CH10015_4', title: 'Nanotechnology applications in medicine, cosmetics & energy' },
-    ]
-  },
-  {
-    code: 'LS10007',
-    name: 'Molecular Diagnostics',
-    ltpc: '3-0-0-3',
-    credits: 3,
-    category: 'Science',
-    textbook: 'Campbell & Farrell, "Biochemistry", 9th Ed.',
-    description: 'Central dogma, PCR/ELISA/Western blotting, NGS, CRISPR diagnostics, bioinformatics & AI in diagnostics.',
-    chapters: [
-      { id: 'LS10007_1', title: 'Central dogma review and DNA/RNA isolation' },
-      { id: 'LS10007_2', title: 'PCR, ELISA, and Western Blotting assays' },
-      { id: 'LS10007_3', title: 'Next-Generation Sequencing (NGS) and CRISPR diagnostics' },
-      { id: 'LS10007_4', title: 'Bioinformatics & AI integration in medical diagnostics' },
-    ]
-  },
-  {
-    code: 'MA10013',
-    name: 'Linear Programming',
-    ltpc: '3-0-0-3',
-    credits: 3,
-    category: 'Science',
-    textbook: 'Gupta & Hira, "Operations Research"',
-    description: 'LPP formulation, Simplex/Big-M/Duality methods, transportation & assignment models, game theory.',
-    chapters: [
-      { id: 'MA10013_1', title: 'Linear Programming Problem (LPP) formulation & graphical method' },
-      { id: 'MA10013_2', title: 'Simplex Method, Big-M, and Duality theory' },
-      { id: 'MA10013_3', title: 'Transportation and Assignment models' },
-      { id: 'MA10013_4', title: 'Game Theory and strategic decisions' },
-    ]
-  },
-  {
-    code: 'PH10009',
-    name: 'Smart and Emerging Materials',
-    ltpc: '3-0-0-3',
-    credits: 3,
-    category: 'Science',
-    textbook: 'Avadhanulu et al., "A Textbook of Engineering Physics"',
-    description: 'Crystal structures, piezoelectrics, shape memory alloys, low-dimensional materials (graphene, quantum dots), superconductivity.',
-    chapters: [
-      { id: 'PH10009_1', title: 'Crystal structures and lattice defects' },
-      { id: 'PH10009_2', title: 'Piezoelectric and ferroelectric materials' },
-      { id: 'PH10009_3', title: 'Shape Memory Alloys & Low-dimensional materials (Graphene, Quantum Dots)' },
-      { id: 'PH10009_4', title: 'Superconductivity fundamentals & applications' },
-    ]
-  },
-  {
-    code: 'PH10013',
-    name: 'Introduction to Quantum Technologies',
-    ltpc: '3-0-0-3',
-    credits: 3,
-    category: 'Science',
-    textbook: 'Anirban Pathak, "Elements of Quantum Computation and Quantum Communication"',
-    description: 'Wave-particle duality, Hilbert space & operators, qubits & entanglement, quantum computing/communication/sensing basics.',
-    chapters: [
-      { id: 'PH10013_1', title: 'Wave-particle duality & Quantum State postulates' },
-      { id: 'PH10013_2', title: 'Hilbert space, operators, and state vectors' },
-      { id: 'PH10013_3', title: 'Qubits, Superposition, and Quantum Entanglement' },
-      { id: 'PH10013_4', title: 'Quantum computing algorithms, communication & sensing basics' },
-    ]
-  },
-  {
-    code: 'CH10013',
-    name: 'Geology and Geohazards',
-    ltpc: '3-0-0-3',
-    credits: 3,
-    category: 'Science',
-    textbook: 'B.P. Verma, "Engineering Geology and Rock Mechanics"',
-    description: 'Minerals & rocks, structural geology, engineering properties of rock/soil, earthquakes/landslides/floods, hazard mitigation.',
-    chapters: [
-      { id: 'CH10013_1', title: 'Mineralogy and Petrology (Rocks & Minerals)' },
-      { id: 'CH10013_2', title: 'Structural Geology and rock deformation' },
-      { id: 'CH10013_3', title: 'Engineering properties of soils and rocks' },
-      { id: 'CH10013_4', title: 'Geohazards: Earthquakes, landslides, floods & mitigation' },
-    ]
-  },
-  {
-    code: 'ID10001',
-    name: 'Citizen Science and Open Data',
-    ltpc: '3-0-0-3',
-    credits: 3,
-    category: 'Science',
-    textbook: 'Seinfeld & Pandis, "Atmospheric Chemistry and Physics"; Hecker et al., "Citizen Science"',
-    description: 'Open science policy, heat transfer & urban heat, air/noise pollution sensing, IoT sensors, data analysis & modelling.',
-    chapters: [
-      { id: 'ID10001_1', title: 'Open Science policy and community data crowdsourcing' },
-      { id: 'ID10001_2', title: 'Heat transfer, microclimate, and Urban Heat Islands' },
-      { id: 'ID10001_3', title: 'Air & Noise pollution sensing with IoT sensors' },
-      { id: 'ID10001_4', title: 'Data cleaning, spatial analysis & community modelling' },
-    ]
-  }
-];
-
-export const GER_ELECTIVES: ElectiveOption[] = [
-  {
-    code: 'SY18001',
-    name: 'Sports and Yoga',
-    ltpc: '0-0-2-1',
-    credits: 1,
-    category: 'GER',
-    description: 'Yoga postures/pranayama, physical education fundamentals, one sport of choice (volleyball/basketball/football/kabaddi/cricket/badminton/swimming), fitness & wellness theory.',
-    chapters: [
-      { id: 'SY18001_1', title: 'Yoga postures (Asanas) and breathing exercises (Pranayama)' },
-      { id: 'SY18001_2', title: 'Physical education & motor fitness development' },
-      { id: 'SY18001_3', title: 'Sports skills training (Volleyball/Basketball/Football/Cricket/Badminton/Swimming)' },
-      { id: 'SY18001_4', title: 'Wellness, lifestyle disease prevention, and physical assessment' },
-    ]
-  },
-  {
-    code: 'ID18001',
-    name: 'National Service Scheme (NSS)',
-    ltpc: '0-0-2-1',
-    credits: 1,
-    category: 'GER',
-    description: 'NSS history/structure, community service, Indian Constitution & social justice, volunteerism & leadership, field project.',
-    chapters: [
-      { id: 'ID18001_1', title: 'NSS history, objectives, and organizational setup' },
-      { id: 'ID18001_2', title: 'Community development and rural immersion' },
-      { id: 'ID18001_3', title: 'Indian Constitution, human rights, and social justice' },
-      { id: 'ID18001_4', title: 'Field service project & leadership exercises' },
-    ]
-  },
-  {
-    code: 'ID18002',
-    name: 'National Cadet Corps (NCC)',
-    ltpc: '0-0-2-1',
-    credits: 1,
-    category: 'GER',
-    description: 'NCC structure, armed forces overview, national integration, personality development, disaster management.',
-    chapters: [
-      { id: 'ID18002_1', title: 'NCC organization, drill, and military history' },
-      { id: 'ID18002_2', title: 'National integration and civic duties' },
-      { id: 'ID18002_3', title: 'Personality development and leadership principles' },
-      { id: 'ID18002_4', title: 'Disaster management and first aid training' },
-    ]
-  },
-  {
-    code: 'SA38021',
-    name: 'Debate and Public Speaking',
-    ltpc: '0-0-2-1',
-    credits: 1,
-    category: 'GER',
-    description: 'Communication fundamentals, public speaking techniques, parliamentary debate, persuasive presentation, mock debates.',
-    chapters: [
-      { id: 'SA38021_1', title: 'Public speaking foundations and stage confidence' },
-      { id: 'SA38021_2', title: 'Speech structuring and persuasive rhetoric' },
-      { id: 'SA38021_3', title: 'Parliamentary debate formats and rebuttal techniques' },
-      { id: 'SA38021_4', title: 'Mock debates and impromptu speaking sessions' },
-    ]
-  },
-  {
-    code: 'SA38011',
-    name: 'Hindustani Classical Music',
-    ltpc: '0-0-2-1',
-    credits: 1,
-    category: 'GER',
-    description: 'Swara/raga/tala fundamentals, voice training, classical compositions (bhajans, khayal, dhrupad), group recital.',
-    chapters: [
-      { id: 'SA38011_1', title: 'Swara, Raga, and Tala basics' },
-      { id: 'SA38011_2', title: 'Voice culture and ear training' },
-      { id: 'SA38011_3', title: 'Study of classical compositions (Khayal, Bhajan, Dhrupad)' },
-      { id: 'SA38011_4', title: 'Group performance and raga recognition' },
-    ]
-  },
-  {
-    code: 'SA38009',
-    name: 'Indian Classical Dance',
-    ltpc: '0-0-2-1',
-    credits: 1,
-    category: 'GER',
-    description: 'Major dance forms (Bharatanatyam, Odissi, Kathak, etc.), postures/mudras/expressions, rhythm & stagecraft, group performance.',
-    chapters: [
-      { id: 'SA38009_1', title: 'Introduction to major Indian classical dance forms' },
-      { id: 'SA38009_2', title: 'Basic postures (Sthanakas), hand gestures (Mudras), and facial expressions (Abhinaya)' },
-      { id: 'SA38009_3', title: 'Tala, rhythm pattern, and footwork drills' },
-      { id: 'SA38009_4', title: 'Stagecraft and group choreography recital' },
-    ]
-  },
-  {
-    code: 'SA38031',
-    name: 'Quiz and Knowledge Excellence',
-    ltpc: '0-0-2-1',
-    credits: 1,
-    category: 'GER',
-    description: 'Quiz formats & techniques, current affairs/general awareness, logical reasoning, audio-visual/rapid-fire rounds, quiz event management.',
-    chapters: [
-      { id: 'SA38031_1', title: 'Quiz formats and lateral thinking techniques' },
-      { id: 'SA38031_2', title: 'Current affairs, history, science & tech knowledge building' },
-      { id: 'SA38031_3', title: 'Audio-visual identification and rapid-fire strategies' },
-      { id: 'SA38031_4', title: 'Quiz design, hosting, and event execution' },
-    ]
-  }
-];
-
-// Core Subjects List (Scheme A Sem 1 Base)
-export const BASE_SEM1_COURSES: Subject[] = [
+// ==================== SCHEME A ====================
+// SEMESTER 1 - SCHEME A (Physics, Programming, Electrical, ScLS, UHV, Workshop)
+export const SCHEME_A_SEM1_COURSES: Subject[] = [
   {
     code: 'MA11009',
     name: 'Calculus and Differential Equations',
-    ltpc: '3-1-0-4',
-    credits: 4,
+    scheme: 'Scheme A',
+    semester: 1,
+    category: 'BS',
     type: 'Theory',
-    textbook: 'Kreyszig, "Advanced Engineering Mathematics", 10th Ed., Wiley',
+    ltpc: { l: 3, t: 1, p: 0, total: 4, credits: 4 },
+    prerequisites: 'Class 11-12 Calculus, Differentiation, Integration',
+    textbook: 'Advanced Engineering Mathematics by Erwin Kreyszig (10th Ed, Wiley)',
+    referenceBook: 'Higher Engineering Mathematics by B.S. Grewal (44th Ed)',
+    youtubeSearchQuery: 'Calculus and Differential Equations MA11009 KIIT',
     chapters: [
-      { id: 'MA11009_1', title: "Calculus of several variables, Taylor's series, Maxima/Minima, Lagrange multipliers" },
-      { id: 'MA11009_2', title: 'First-order ODEs: separable, exact, integrating factors, linear, Bernoulli' },
-      { id: 'MA11009_3', title: 'Second-order Linear ODEs: homogeneous/non-homogeneous, Euler-Cauchy, power series method' },
-      { id: 'MA11009_4', title: 'Laplace Transform: shifting theorems, convolution, solving ODEs' },
+      { id: 'ma1_ch1', title: 'Review of Calculus & Functions of Several Variables', module: 'Module 1', difficulty: 'Medium' },
+      { id: 'ma1_ch2', title: 'Taylors Series, Maxima/Minima & Lagrange Multipliers', module: 'Module 1', difficulty: 'Hard' },
+      { id: 'ma1_ch3', title: 'First-Order ODEs: Separable, Exact & Bernoulli Equations', module: 'Module 2', difficulty: 'Medium' },
+      { id: 'ma1_ch4', title: 'Second-Order Linear ODEs: Homogeneous & Undetermined Coefficients', module: 'Module 3', difficulty: 'Hard' },
+      { id: 'ma1_ch5', title: 'Variation of Parameters & Power Series Method', module: 'Module 3', difficulty: 'Hard' },
+      { id: 'ma1_ch6', title: 'Laplace Transform: Linearity, Shifting & ODE Solutions', module: 'Module 4', difficulty: 'Medium' },
     ]
   },
   {
     code: 'PH10005',
     name: 'Physics',
-    ltpc: '3-0-0-3',
-    credits: 3,
+    scheme: 'Scheme A',
+    semester: 1,
+    category: 'BS',
     type: 'Theory',
-    textbook: 'Avadhanulu, Kshirsagar & Arun Murthy, "A Textbook of Engineering Physics", 11th Ed., S Chand',
+    ltpc: { l: 3, t: 0, p: 0, total: 3, credits: 3 },
+    prerequisites: 'Class 11-12 Wave Optics, Electrostatics, Quantum Theory',
+    textbook: 'Engineering Physics by B.K. Pandey & S. Chaturvedi (Cengage) / Avadhanulu (S. Chand)',
+    referenceBook: 'Concepts of Modern Physics by Arthur Beiser',
+    youtubeSearchQuery: 'Engineering Physics PH10005 KIIT',
     chapters: [
-      { id: 'PH10005_1', title: "Wave Optics: interference, diffraction, Newton's rings, Michelson interferometer, diffraction grating" },
-      { id: 'PH10005_2', title: "Electromagnetic Theory: vector calculus, Maxwell's equations, EM waves" },
-      { id: 'PH10005_3', title: "Quantum Mechanics: wave-particle duality, uncertainty principle, Schrödinger equation, particle in a box, tunnelling" },
-      { id: 'PH10005_4', title: 'Semiconductor Physics: energy bands, intrinsic/extrinsic semiconductors, Fermi level' },
-      { id: 'PH10005_5', title: 'Laser and Fiber Optics' },
+      { id: 'ph1_ch1', title: 'Wave Optics: Interference, Newtons Rings & Michelson Interferometer', module: 'Module 1', difficulty: 'Medium' },
+      { id: 'ph1_ch2', title: 'Fraunhofer Diffraction & Plane Diffraction Grating', module: 'Module 1', difficulty: 'Medium' },
+      { id: 'ph1_ch3', title: 'Electromagnetic Theory: Maxwell Equations & Vector Calculus', module: 'Module 2', difficulty: 'Hard' },
+      { id: 'ph1_ch4', title: 'Quantum Mechanics: Wave-Particle Duality & Schrodingers Equation', module: 'Module 3', difficulty: 'Hard' },
+      { id: 'ph1_ch5', title: 'Semiconductor Physics: Energy Bands, Fermi Level & Conductance', module: 'Module 4', difficulty: 'Medium' },
+      { id: 'ph1_ch6', title: 'Lasers & Optical Fibers: Pumping, Numerical Aperture & Applications', module: 'Module 5', difficulty: 'Easy' },
     ]
   },
   {
     code: 'EE10002',
     name: 'Basic Electrical Engineering',
-    ltpc: '2-0-0-2',
-    credits: 2,
+    scheme: 'Scheme A',
+    semester: 1,
+    category: 'ES',
     type: 'Theory',
-    textbook: 'V. K. Mehta & Rohit Mehta, "Principles of Electrical Engineering and Electronics", S Chand',
+    ltpc: { l: 2, t: 0, p: 0, total: 2, credits: 2 },
+    prerequisites: 'Class 12 Current Electricity, Ohm Law, Magnetic Field',
+    textbook: 'Principles of Electrical Engineering and Electronics by V.K. Mehta & Rohit Mehta (S. Chand)',
+    referenceBook: 'Basic Electrical Engineering by D.C. Kulshreshtha',
+    youtubeSearchQuery: 'Basic Electrical Engineering EE10002 KIIT',
     chapters: [
-      { id: 'EE10002_1', title: "DC Circuits: Kirchhoff's laws, source transformation, mesh/nodal analysis, Thevenin/Norton" },
-      { id: 'EE10002_2', title: 'AC Circuits: RMS values, phasors, RLC circuits, three-phase circuits' },
-      { id: 'EE10002_3', title: 'Magnetic Circuits: flux, MMF, reluctance, BH curve, hysteresis' },
-      { id: 'EE10002_4', title: 'Electrical Energy & Safety: transformers, motors, earthing, MCB/RCCB/ELCB' },
+      { id: 'ee1_ch1', title: 'DC Circuits: KVL, KCL, Nodal/Mesh & Thevenin-Norton Theorems', module: 'Module 1', difficulty: 'Medium' },
+      { id: 'ee1_ch2', title: 'AC Circuits: RMS Values, Phasors & 3-Phase Star/Delta', module: 'Module 2', difficulty: 'Medium' },
+      { id: 'ee1_ch3', title: 'Magnetic Circuits: B-H Curve, Reluctance & Permeance', module: 'Module 3', difficulty: 'Easy' },
+      { id: 'ee1_ch4', title: 'Electrical Energy & Safety: Transformers, Motors & ELCB/MCB', module: 'Module 4', difficulty: 'Easy' },
+    ]
+  },
+  {
+    code: 'EE10005',
+    name: 'Engineering Elective (Instrumentation & Automation)',
+    scheme: 'Scheme A',
+    semester: 1,
+    category: 'ES',
+    type: 'Theory',
+    ltpc: { l: 2, t: 0, p: 0, total: 2, credits: 2 },
+    prerequisites: 'Basic Physics & Measurement units',
+    textbook: 'Electrical & Electronic Measurements and Instruments by R.K. Rajput',
+    youtubeSearchQuery: 'Instrumentation and Automation EE10005 KIIT',
+    isElective: true,
+    electiveCategory: 'Engineering',
+    chapters: [
+      { id: 'eng_elec_1', title: 'Analog & Digital Instruments: Voltmeter, Multimeter, Oscilloscope', module: 'Module 1', difficulty: 'Easy' },
+      { id: 'eng_elec_2', title: 'Sensors & Transducers: Thermocouples, RTD, Ultrasonic & Optical', module: 'Module 2', difficulty: 'Medium' },
+      { id: 'eng_elec_3', title: 'PLC Automation: Programmable Controllers & Sensor Interfacing', module: 'Module 3', difficulty: 'Hard' },
     ]
   },
   {
     code: 'LS10005',
     name: 'Science of Living Systems',
-    ltpc: '2-0-0-2',
-    credits: 2,
+    scheme: 'Scheme A',
+    semester: 1,
+    category: 'BS',
     type: 'Theory',
-    textbook: 'Vidya Rajesh, "Biology for Engineers", 1st Ed., Cengage Learning India',
+    ltpc: { l: 2, t: 0, p: 0, total: 2, credits: 2 },
+    prerequisites: 'Class 10 Biology Basics',
+    textbook: 'Biology for Engineers by Vidya Rajesh (1st Ed, Cengage)',
+    youtubeSearchQuery: 'Science of Living Systems LS10005 KIIT',
     chapters: [
-      { id: 'LS10005_1', title: 'Molecular Organization: biomolecules, cell as thermodynamic system, ATP/NADPH' },
-      { id: 'LS10005_2', title: 'Programming Code in Living Systems: central dogma, transcription, translation' },
-      { id: 'LS10005_3', title: 'Functional Analogy of Biology and Engineering: biomimetics, photosynthesis/solar cells' },
-      { id: 'LS10005_4', title: 'Biological and Artificial Intelligence: neurons vs neural networks' },
-      { id: 'LS10005_5', title: 'Applications: biosensors, biomining, tissue engineering' },
+      { id: 'ls1_ch1', title: 'Molecular Organization: Cell as Thermodynamic System, ATP/NADPH', module: 'Module 1', difficulty: 'Easy' },
+      { id: 'ls1_ch2', title: 'Central Dogma & Genetic Code Mapping to Binary', module: 'Module 2', difficulty: 'Medium' },
+      { id: 'ls1_ch3', title: 'Biomimetics: Wood Web, Bio-concrete & Photosynthesis Solar Cells', module: 'Module 3', difficulty: 'Easy' },
+      { id: 'ls1_ch4', title: 'Biological vs Artificial Neural Networks (ANN)', module: 'Module 4', difficulty: 'Medium' },
     ]
   },
   {
     code: 'ID10003',
     name: 'Universal Human Values',
-    ltpc: '3-0-0-3',
-    credits: 3,
+    scheme: 'Scheme A',
+    semester: 1,
+    category: 'GER',
     type: 'Theory',
-    textbook: 'R. R. Gaur, R. Sangal & G. P. Bagaria, "Human Values and Professional Ethics", Excel Books',
+    ltpc: { l: 3, t: 0, p: 0, total: 3, credits: 3 },
+    prerequisites: 'None',
+    textbook: 'Human Values and Professional Ethics by R.R. Gaur',
+    youtubeSearchQuery: 'Universal Human Values ID10003 KIIT',
     chapters: [
-      { id: 'ID10003_1', title: 'Self-exploration and basic human aspirations' },
-      { id: 'ID10003_2', title: 'Harmony in the human being (Self and Body)' },
-      { id: 'ID10003_3', title: 'Harmony in family and society' },
-      { id: 'ID10003_4', title: 'Harmony in nature and existence' },
-      { id: 'ID10003_5', title: 'Implications for professional ethics' },
+      { id: 'uhv_ch1', title: 'Self-Exploration, Natural Acceptance & Continuous Happiness', module: 'Module 1', difficulty: 'Easy' },
+      { id: 'uhv_ch2', title: 'Harmony in Myself: Sentient I vs Physical Body', module: 'Module 2', difficulty: 'Easy' },
+      { id: 'uhv_ch3', title: 'Harmony in Family & Society: Trust, Respect & Justice', module: 'Module 3', difficulty: 'Easy' },
+      { id: 'uhv_ch4', title: 'Harmony in Nature & Professional Ethics', module: 'Module 4', difficulty: 'Easy' },
     ]
   },
   {
     code: 'PH19001',
     name: 'Physics Laboratory',
-    ltpc: '0-0-2-1',
-    credits: 1,
+    scheme: 'Scheme A',
+    semester: 1,
+    category: 'BS',
     type: 'Practical',
+    ltpc: { l: 0, t: 0, p: 2, total: 2, credits: 1 },
+    prerequisites: 'Physics PH10005',
+    textbook: 'KIIT Physics Laboratory Manual',
+    youtubeSearchQuery: 'KIIT Physics Lab PH19001',
     chapters: [
-      { id: 'PH19001_1', title: 'Vernier calipers, screw gauge, spherometer review' },
-      { id: 'PH19001_2', title: "Newton's ring — wavelength of monochromatic light" },
-      { id: 'PH19001_3', title: 'Michelson interferometer — sodium D-line wavelength difference' },
-      { id: 'PH19001_4', title: 'Plane diffraction grating element' },
-      { id: 'PH19001_5', title: "Planck's constant using photocell" },
-      { id: 'PH19001_6', title: 'Photocell characteristics' },
-      { id: 'PH19001_7', title: 'Solar cell characteristics' },
-      { id: 'PH19001_8', title: "Young's modulus by bending of beam" },
-      { id: 'PH19001_9', title: "Poisson's ratio of rubber" },
-      { id: 'PH19001_10', title: 'Rigidity modulus by dynamic method' },
-      { id: 'PH19001_11', title: "Refractive index by Boy's method" },
-      { id: 'PH19001_12', title: 'Numerical aperture of optical fibre' },
-      { id: 'PH19001_13', title: 'Acceleration due to gravity — bar pendulum' },
-      { id: 'PH19001_14', title: 'Damped harmonic oscillation — simple pendulum' },
-      { id: 'PH19001_15', title: 'Velocity of sound — resonance column' },
-      { id: 'PH19001_16', title: 'Dielectric/multiferroic material studies' },
-      { id: 'PH19001_17', title: 'Laser diffraction studies' },
+      { id: 'phlab_1', title: 'Newton Ring Wavelength & Michelson Interferometer', module: 'Lab Experiments', difficulty: 'Medium' },
+      { id: 'phlab_2', title: 'Diffraction Grating & Photocell Planck Constant', module: 'Lab Experiments', difficulty: 'Medium' },
     ]
   },
   {
     code: 'CS13003',
     name: 'Introduction to Computer Programming',
-    ltpc: '0-2-4-4',
-    credits: 4,
+    scheme: 'Scheme A',
+    semester: 1,
+    category: 'ES',
     type: 'Practical',
-    textbook: 'E. Balagurusamy, "Programming in ANSI C", 8th Ed.',
+    ltpc: { l: 0, t: 2, p: 4, total: 6, credits: 4 },
+    prerequisites: 'Basic Logic & Computers',
+    textbook: 'Programming in ANSI C by E. Balagurusamy (9th Ed, McGraw Hill)',
+    youtubeSearchQuery: 'Introduction to Computer Programming CS13003 KIIT C language',
     chapters: [
-      { id: 'CS13003_1', title: 'Computer basics, number systems, algorithms, flowcharts, pseudo-code' },
-      { id: 'CS13003_2', title: 'Program constructs: data types, operators, control structures (branching & looping)' },
-      { id: 'CS13003_3', title: 'Arrays and Strings' },
-      { id: 'CS13003_4', title: 'Functions: library/user-defined, parameter passing, recursion' },
-      { id: 'CS13003_5', title: 'Pointers and dynamic memory allocation' },
-      { id: 'CS13003_6', title: 'Structures and Unions' },
-      { id: 'CS13003_7', title: 'File handling' },
+      { id: 'cs1_ch1', title: 'Linux Commands & C Compilation Process', module: 'Module 1', difficulty: 'Easy' },
+      { id: 'cs1_ch2', title: 'Variables, Data Types, Control Constructs & Loops', module: 'Module 2', difficulty: 'Easy' },
+      { id: 'cs1_ch3', title: '1D/2D Arrays & String Manipulations', module: 'Module 3', difficulty: 'Medium' },
+      { id: 'cs1_ch4', title: 'Functions, Parameter Passing & Storage Classes', module: 'Module 4', difficulty: 'Medium' },
+      { id: 'cs1_ch5', title: 'Pointers, Memory Allocation & Dynamic Arrays', module: 'Module 5', difficulty: 'Hard' },
+      { id: 'cs1_ch6', title: 'Structures, Unions & File Handling (Binary/Text)', module: 'Module 6', difficulty: 'Hard' },
     ]
   },
   {
     code: 'ME18001',
     name: 'Workshop',
-    ltpc: '0-0-2-1',
-    credits: 1,
+    scheme: 'Scheme A',
+    semester: 1,
+    category: 'ES',
     type: 'Sessional',
-    textbook: 'K.C. John, "Mechanical Workshop Practice", Prentice Hall India',
+    ltpc: { l: 0, t: 0, p: 2, total: 2, credits: 1 },
+    prerequisites: 'Workshop Safety Rules',
+    textbook: 'Mechanical Workshop Practice by K.C. John',
+    youtubeSearchQuery: 'KIIT Workshop ME18001 fitting welding turning',
     chapters: [
-      { id: 'ME18001_1', title: 'Fitting' },
-      { id: 'ME18001_2', title: 'Welding' },
-      { id: 'ME18001_3', title: 'Turning operations' },
-      { id: 'ME18001_4', title: 'Sheet metal operations' },
+      { id: 'ws_ch1', title: 'Fitting & Welding Shop Practice', module: 'Sessional', difficulty: 'Easy' },
+      { id: 'ws_ch2', title: 'Turning & Sheet Metal Work', module: 'Sessional', difficulty: 'Easy' },
     ]
   }
 ];
 
-// Core Subjects List (Scheme A Sem 2 Base)
-export const BASE_SEM2_COURSES: Subject[] = [
+// SEMESTER 2 - SCHEME A (Chemistry, Linear Algebra, Basic Electronics, Science Elective, English, Drawing)
+export const SCHEME_A_SEM2_COURSES: Subject[] = [
   {
     code: 'HS10003',
     name: 'English Communication Skills',
-    ltpc: '2-0-0-2',
-    credits: 2,
+    scheme: 'Scheme A',
+    semester: 2,
+    category: 'GER',
     type: 'Theory',
-    textbook: 'Rizvi & Patnaik (eds.), "Effective Technical Communication", TMH; Raman & Sharma, "Technical Communication: Principles and Practice", OUP',
+    ltpc: { l: 2, t: 0, p: 0, total: 2, credits: 2 },
+    prerequisites: 'Basic English Grammar',
+    textbook: 'Effective Technical Communication by M. Ashraf Rizvi & Priyadarshi Patnaik (3rd Ed, McGraw Hill)',
+    youtubeSearchQuery: 'English Communication Skills HS10003 KIIT',
     chapters: [
-      { id: 'HS10003_1', title: "Fundamentals of professional communication + 'The Gift of the Magi'" },
-      { id: 'HS10003_2', title: "Verbal/non-verbal communication, listening & speaking + 'Thank You, Ma'am'" },
-      { id: 'HS10003_3', title: "Effective reading skills + 'The Fun They Had'" },
-      { id: 'HS10003_4', title: "Business writing, technical reports, referencing + 'On Letter Writing'" },
+      { id: 'eng_ch1', title: 'Technical Communication & Non-Verbal Signals', module: 'Module 1', difficulty: 'Easy' },
+      { id: 'eng_ch2', title: 'Listening, Pronunciation & Literature Analysis', module: 'Module 2', difficulty: 'Easy' },
+      { id: 'eng_ch3', title: 'Business Letters, Technical Reports & Generative AI Ethics', module: 'Module 3', difficulty: 'Medium' },
     ]
   },
   {
     code: 'MA11011',
     name: 'Linear Algebra and Fourier Analysis',
-    ltpc: '3-1-0-4',
-    credits: 4,
+    scheme: 'Scheme A',
+    semester: 2,
+    category: 'BS',
     type: 'Theory',
-    textbook: 'Kreyszig, "Advanced Engineering Mathematics", 10th Ed., Wiley',
+    ltpc: { l: 3, t: 1, p: 0, total: 4, credits: 4 },
+    prerequisites: 'MA11009 Calculus',
+    textbook: 'Numerical Methods by M.K. Jain, S.R.K. Iyengar & R.K. Jain (9th Ed, New Age)',
+    youtubeSearchQuery: 'Linear Algebra and Fourier Analysis MA11011 KIIT',
     chapters: [
-      { id: 'MA11011_1', title: 'Vector spaces and systems of linear equations (Gauss elimination/Jacobi/Seidel)' },
-      { id: 'MA11011_2', title: 'Eigenvalues and eigenvectors, diagonalization' },
-      { id: 'MA11011_3', title: 'Numerical methods: root-finding, interpolation, integration, IVPs (Runge-Kutta)' },
-      { id: 'MA11011_4', title: 'Fourier series and Fourier transform' },
+      { id: 'ma2_ch1', title: 'Vector Spaces & Systems of Linear Equations (Gauss-Jordan)', module: 'Module 1', difficulty: 'Medium' },
+      { id: 'ma2_ch2', title: 'Eigenvalues, Eigenvectors & Matrix Diagonalization', module: 'Module 2', difficulty: 'Hard' },
+      { id: 'ma2_ch3', title: 'Numerical Methods: Root Finding, Interpolation & Integration', module: 'Module 3', difficulty: 'Medium' },
+      { id: 'ma2_ch4', title: 'Fourier Series & Fourier Transforms', module: 'Module 4', difficulty: 'Hard' },
     ]
   },
   {
     code: 'CH10009',
     name: 'Chemistry',
-    ltpc: '3-0-0-3',
-    credits: 3,
+    scheme: 'Scheme A',
+    semester: 2,
+    category: 'BS',
     type: 'Theory',
-    textbook: 'P. Rath, "Engineering Chemistry", Cengage Learning India',
+    ltpc: { l: 3, t: 0, p: 0, total: 3, credits: 3 },
+    prerequisites: 'Class 11-12 Chemistry',
+    textbook: 'Textbook of Engineering Chemistry by Shashi Chawla / P. Rath (Cengage)',
+    youtubeSearchQuery: 'Engineering Chemistry CH10009 KIIT',
     chapters: [
-      { id: 'CH10009_1', title: 'Chemical thermodynamics: Gibbs free energy, equilibrium, Clausius-Clapeyron' },
-      { id: 'CH10009_2', title: 'Chemical kinetics and catalysis: rate laws, enzyme catalysis' },
-      { id: 'CH10009_3', title: 'Electrochemical energy systems: Nernst equation, fuel cells, batteries' },
-      { id: 'CH10009_4', title: 'Material characterization: UV-Vis, IR/Raman, XPS spectroscopy' },
-      { id: 'CH10009_5', title: 'Functional materials: magnetic materials, liquid crystals' },
+      { id: 'ch1_ch1', title: 'Chemical Thermodynamics: Gibbs Free Energy & Phase Equilibria', module: 'Module 1', difficulty: 'Medium' },
+      { id: 'ch1_ch2', title: 'Chemical Kinetics & Enzyme Catalysis', module: 'Module 2', difficulty: 'Medium' },
+      { id: 'ch1_ch3', title: 'Electrochemical Energy Systems: Batteries & Fuel Cells', module: 'Module 3', difficulty: 'Hard' },
+      { id: 'ch1_ch4', title: 'Spectroscopy Characterization: UV-Vis, IR, Raman & XPS', module: 'Module 4', difficulty: 'Hard' },
     ]
   },
   {
     code: 'EC10005',
     name: 'Basic Electronics Circuits and Logic Design',
-    ltpc: '3-0-0-3',
-    credits: 3,
+    scheme: 'Scheme A',
+    semester: 2,
+    category: 'ES',
     type: 'Theory',
-    textbook: 'Theraja & Sedha, "Principles of Electronic Devices and Circuits", Revised Ed., S Chand',
+    ltpc: { l: 3, t: 0, p: 0, total: 3, credits: 3 },
+    prerequisites: 'Physics Semiconductor Concepts',
+    textbook: 'Principles of Electronic Devices and Circuits by B.L. Theraja & R.S. Sedha (S. Chand)',
+    youtubeSearchQuery: 'Basic Electronics Circuits and Logic Design EC10005 KIIT',
     chapters: [
-      { id: 'EC10005_1', title: 'Analog circuits: diodes, BJT/JFET, Op-Amp basics' },
-      { id: 'EC10005_2', title: 'Binary codes and Boolean algebra, K-Maps' },
-      { id: 'EC10005_3', title: 'Combinational circuits: adders, subtractors, decoders, MUX/DEMUX' },
-      { id: 'EC10005_4', title: 'Sequential circuits: flip-flops, shift registers, counters' },
+      { id: 'ec1_ch1', title: 'Analog Circuits: Diodes, BJTs, JFETs & Op-Amps', module: 'Module 1', difficulty: 'Medium' },
+      { id: 'ec1_ch2', title: 'Boolean Algebra, K-Maps & Min-term/Max-term SOP', module: 'Module 2', difficulty: 'Medium' },
+      { id: 'ec1_ch3', title: 'Combinational Circuits: Adders, Subtractors, Decoders & Multiplexers', module: 'Module 3', difficulty: 'Hard' },
+      { id: 'ec1_ch4', title: 'Sequential Circuits: Flip-Flops (SR, JK, D, T), Counters & Registers', module: 'Module 4', difficulty: 'Hard' },
+    ]
+  },
+  {
+    code: 'CH10015',
+    name: 'Science Elective (Nanoscience)',
+    scheme: 'Scheme A',
+    semester: 2,
+    category: 'BS',
+    type: 'Theory',
+    ltpc: { l: 3, t: 0, p: 0, total: 3, credits: 3 },
+    prerequisites: 'Basic Physics & Chemistry',
+    textbook: 'Textbook of Nanoscience and Nanotechnology by B.S. Murty',
+    youtubeSearchQuery: 'Nanoscience CH10015 KIIT',
+    isElective: true,
+    electiveCategory: 'Science',
+    chapters: [
+      { id: 'sci_elec_1', title: '0D/1D/2D Nanomaterials & Size Effects', module: 'Module 1', difficulty: 'Easy' },
+      { id: 'sci_elec_2', title: 'Synthesis Methods: Sol-Gel, CVD & Lithography', module: 'Module 2', difficulty: 'Medium' },
+      { id: 'sci_elec_3', title: 'Characterization: XRD, SEM, TEM & AFM', module: 'Module 3', difficulty: 'Hard' },
     ]
   },
   {
     code: 'CH19001',
     name: 'Chemistry Laboratory',
-    ltpc: '0-0-2-1',
-    credits: 1,
+    scheme: 'Scheme A',
+    semester: 2,
+    category: 'BS',
     type: 'Practical',
+    ltpc: { l: 0, t: 0, p: 2, total: 2, credits: 1 },
+    prerequisites: 'Chemistry CH10009',
+    textbook: 'KIIT Chemistry Lab Manual',
+    youtubeSearchQuery: 'KIIT Chemistry Lab CH19001',
     chapters: [
-      { id: 'CH19001_1', title: 'Water hardness by EDTA method' },
-      { id: 'CH19001_2', title: 'NaOH/Na2CO3 mixture estimation' },
-      { id: 'CH19001_3', title: "KMnO4 standardization / Mohr's salt Fe2+ estimation" },
-      { id: 'CH19001_4', title: "Dissolved oxygen — Winkler's method" },
-      { id: 'CH19001_5', title: 'Potentiometric titration for Fe2+' },
-      { id: 'CH19001_6', title: 'Rate constant of ethyl acetate hydrolysis' },
-      { id: 'CH19001_7', title: 'Chloride estimation — argentometric method' },
-      { id: 'CH19001_8', title: 'pH-metric acid-base titration' },
-      { id: 'CH19001_9', title: 'Conductometric titration' },
-      { id: 'CH19001_10', title: "Beer-Lambert's law verification" },
+      { id: 'chlab_1', title: 'Water Hardness EDTA & Dissolved Oxygen Winkler Method', module: 'Lab Experiments', difficulty: 'Easy' },
+      { id: 'chlab_2', title: 'Potentiometric & Conductometric Titrations', module: 'Lab Experiments', difficulty: 'Medium' },
     ]
   },
   {
     code: 'EC19001',
     name: 'Electronic Circuit and Logic Laboratory',
-    ltpc: '0-0-2-1',
-    credits: 1,
+    scheme: 'Scheme A',
+    semester: 2,
+    category: 'ES',
     type: 'Practical',
+    ltpc: { l: 0, t: 0, p: 2, total: 2, credits: 1 },
+    prerequisites: 'Electronics EC10005',
+    textbook: 'KIIT Basic Electronics Lab Manual',
+    youtubeSearchQuery: 'KIIT Electronics Lab EC19001',
     chapters: [
-      { id: 'EC19001_1', title: 'Component identification and characterization' },
-      { id: 'EC19001_2', title: 'Full-wave rectified power supply' },
-      { id: 'EC19001_3', title: 'Transistor-based logic gates' },
-      { id: 'EC19001_4', title: 'Op-amp signal conditioning circuits' },
-      { id: 'EC19001_5', title: 'Adder/subtractor circuits' },
-      { id: 'EC19001_6', title: 'Multiplexer/demultiplexer circuits' },
-      { id: 'EC19001_7', title: 'Flip-flops and conversions' },
-      { id: 'EC19001_8', title: 'Asynchronous counters (JK flip-flops)' },
-      { id: 'EC19001_9', title: 'Shift registers' },
+      { id: 'eclab_1', title: 'Rectifier & Op-Amp Circuit Verification', module: 'Lab Experiments', difficulty: 'Medium' },
+      { id: 'eclab_2', title: 'Logic Gates, Multiplexers & Flip-Flop Counters', module: 'Lab Experiments', difficulty: 'Medium' },
     ]
   },
   {
     code: 'CE18003',
     name: 'Engineering Drawing & Graphics',
-    ltpc: '0-1-2-2',
-    credits: 2,
+    scheme: 'Scheme A',
+    semester: 2,
+    category: 'ES',
     type: 'Sessional',
+    ltpc: { l: 0, t: 1, p: 2, total: 3, credits: 2 },
+    prerequisites: 'Geometry Concepts',
+    textbook: 'Engineering Drawing + AutoCAD by K. Venugopal',
+    youtubeSearchQuery: 'Engineering Drawing CE18003 AutoCAD projections solids KIIT',
     chapters: [
-      { id: 'CE18003_1', title: 'Engineering graphics fundamentals, BIS standards, lettering' },
-      { id: 'CE18003_2', title: 'Projection of points and lines' },
-      { id: 'CE18003_3', title: 'Projection of planes' },
-      { id: 'CE18003_4', title: 'Projection of solids and sections' },
-      { id: 'CE18003_5', title: 'Computer Aided Drafting (CAD) basics' },
+      { id: 'ed_ch1', title: 'BIS Standards, Lettering & Projection of Points & Lines', module: 'Module 1', difficulty: 'Easy' },
+      { id: 'ed_ch2', title: 'Projections of Planes & Solids (Prisms, Pyramids, Cones)', module: 'Module 2', difficulty: 'Medium' },
+      { id: 'ed_ch3', title: 'Sections of Solids, Surface Development & 2D AutoCAD Commands', module: 'Module 3', difficulty: 'Hard' },
     ]
   },
   {
     code: 'HS18003',
     name: 'English Communication Laboratory',
-    ltpc: '0-0-2-1',
-    credits: 1,
+    scheme: 'Scheme A',
+    semester: 2,
+    category: 'GER',
     type: 'Sessional',
+    ltpc: { l: 0, t: 0, p: 2, total: 2, credits: 1 },
+    prerequisites: 'English HS10003',
+    textbook: 'KIIT Communication Lab Manual',
+    youtubeSearchQuery: 'English Communication Lab HS18003 KIIT',
     chapters: [
-      { id: 'HS18003_1', title: 'Reading & listening comprehension strategies' },
-      { id: 'HS18003_2', title: 'Situational vocabulary and phrasal verbs' },
-      { id: 'HS18003_3', title: 'Self-introduction / mock interview' },
-      { id: 'HS18003_4', title: 'Netiquette and email writing' },
-      { id: 'HS18003_5', title: 'Resume writing (incl. LinkedIn)' },
-      { id: 'HS18003_6', title: 'Group discussion' },
-      { id: 'HS18003_7', title: 'PPT presentation skills' },
+      { id: 'englab_1', title: 'Group Discussions, Resume Writing & Mock Interviews', module: 'Sessional', difficulty: 'Easy' },
+    ]
+  },
+  {
+    code: 'SY18001',
+    name: 'GER Elective (Sports and Yoga)',
+    scheme: 'Scheme A',
+    semester: 2,
+    category: 'GER',
+    type: 'Sessional',
+    ltpc: { l: 0, t: 0, p: 2, total: 2, credits: 1 },
+    prerequisites: 'None',
+    textbook: 'Yogic Education by K. Arya',
+    youtubeSearchQuery: 'Sports and Yoga SY18001 KIIT',
+    isElective: true,
+    electiveCategory: 'GER',
+    chapters: [
+      { id: 'ger_ch1', title: 'Ashtanga Yoga, Surya Namaskar & Fitness Exercises', module: 'Sessional', difficulty: 'Easy' },
     ]
   }
 ];
+
+// ==================== SCHEME B ====================
+// SEMESTER 1 - SCHEME B (Chemistry, Linear Algebra, Basic Electronics, Science Elective, English, Drawing)
+export const SCHEME_B_SEM1_COURSES: Subject[] = SCHEME_A_SEM2_COURSES.map(c => ({ ...c, scheme: 'Scheme B', semester: 1 }));
+
+// SEMESTER 2 - SCHEME B (Physics, Programming, Electrical, ScLS, UHV, Workshop)
+export const SCHEME_B_SEM2_COURSES: Subject[] = SCHEME_A_SEM1_COURSES.map(c => ({ ...c, scheme: 'Scheme B', semester: 2 }));
+
+export const ENGINEERING_ELECTIVES = [
+  { code: 'EE10005', name: 'Instrumentation & Automation', textbook: 'Electrical & Electronic Measurements by R.K. Rajput', chapters: [{ id: 'ee10005_1', title: 'Sensors, Transducers & PLC Automation', module: 'Module 1', difficulty: 'Medium' as const }] },
+  { code: 'CE10001', name: 'Basic Civil Engineering', textbook: 'Basics of Civil Engineering by S.A. Dhale', chapters: [{ id: 'ce10001_1', title: 'Building Materials, Surveying & Foundations', module: 'Module 1', difficulty: 'Easy' as const }] },
+  { code: 'EC10007', name: 'Biosensors and Instrumentation', textbook: 'Handbook of Biomedical Instrumentation by R.S. Khandpur', chapters: [{ id: 'ec10007_1', title: 'Biomedical Sensors, ECG & Medical Imaging', module: 'Module 1', difficulty: 'Medium' as const }] },
+  { code: 'ME10003', name: 'Basic Mechanical Engineering', textbook: 'Basic Mechanical Engineering by Sadhu Singh', chapters: [{ id: 'me10003_1', title: 'Thermodynamics, Robotics & Manufacturing', module: 'Module 1', difficulty: 'Medium' as const }] },
+];
+
+export const SCIENCE_ELECTIVES = [
+  { code: 'CH10015', name: 'Nanoscience', textbook: 'Textbook of Nanoscience by B.S. Murty', chapters: [{ id: 'ch10015_1', title: 'Nanomaterials, XRD/SEM/TEM & Applications', module: 'Module 1', difficulty: 'Medium' as const }] },
+  { code: 'LS10007', name: 'Molecular Diagnostics', textbook: 'Molecular Diagnostics by AE Biochemistry', chapters: [{ id: 'ls10007_1', title: 'PCR assays, NGS & AI in Health Diagnostics', module: 'Module 1', difficulty: 'Hard' as const }] },
+  { code: 'MA10013', name: 'Linear Programming', textbook: 'Operations Research by P.K. Gupta', chapters: [{ id: 'ma10013_1', title: 'Simplex Method, Duality & Transportation Problems', module: 'Module 1', difficulty: 'Hard' as const }] },
+  { code: 'PH10009', name: 'Smart and Emerging Materials', textbook: 'Smart Materials by M. Schwartz', chapters: [{ id: 'ph10009_1', title: 'Piezoelectrics, Shape Memory Alloys & Superconductors', module: 'Module 1', difficulty: 'Medium' as const }] },
+  { code: 'PH10013', name: 'Introduction to Quantum Technologies', textbook: 'Elements of Quantum Computation by A. Pathak', chapters: [{ id: 'ph10013_1', title: 'Qubits, Quantum Gates & Entanglement', module: 'Module 1', difficulty: 'Hard' as const }] },
+];
+
+export const GER_ELECTIVES = [
+  { code: 'SY18001', name: 'Sports and Yoga', chapters: [{ id: 'sy18001_1', title: 'Yogic Postures, Pranayama & Physical Fitness', module: 'Sessional', difficulty: 'Easy' as const }] },
+  { code: 'ID18001', name: 'National Service Scheme (NSS)', chapters: [{ id: 'id18001_1', title: 'Community Outreach & Social Service Activities', module: 'Sessional', difficulty: 'Easy' as const }] },
+  { code: 'ID18002', name: 'National Cadet Corps (NCC)', chapters: [{ id: 'id18002_1', title: 'Leadership, Military Drill & Disaster Management', module: 'Sessional', difficulty: 'Easy' as const }] },
+  { code: 'SA38021', name: 'Debate and Public Speaking', chapters: [{ id: 'sa38021_1', title: 'Public Speaking, Storytelling & Parliamentary Debate', module: 'Sessional', difficulty: 'Easy' as const }] },
+  { code: 'SA38011', name: 'Hindustani Classical Music', chapters: [{ id: 'sa38011_1', title: 'Swara, Raga & Tala Performance Practices', module: 'Sessional', difficulty: 'Easy' as const }] },
+  { code: 'SA38031', name: 'Quiz and Knowledge Excellence', chapters: [{ id: 'sa38031_1', title: 'Analytical Reasoning, Quizzing & Current Affairs', module: 'Sessional', difficulty: 'Easy' as const }] },
+];
+
+export const BASE_SEM1_COURSES = SCHEME_A_SEM1_COURSES;
+export const BASE_SEM2_COURSES = SCHEME_A_SEM2_COURSES;

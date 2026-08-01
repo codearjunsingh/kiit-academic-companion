@@ -20,6 +20,12 @@ interface AppContextType {
   
   checkedSkills: Record<string, boolean>;
   toggleSkillTopic: (id: string) => void;
+
+  checkedGate: Record<string, boolean>;
+  toggleGateTopic: (id: string) => void;
+
+  checkedCds: Record<string, boolean>;
+  toggleCdsTopic: (id: string) => void;
   
   mySubscriptions: string[];
   setMySubscriptions: (channels: string[]) => void;
@@ -67,6 +73,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const [checkedSkills, setCheckedSkills] = useState<Record<string, boolean>>(() => {
     const saved = localStorage.getItem('kiit_checked_skills');
+    return saved ? JSON.parse(saved) : {};
+  });
+
+  const [checkedGate, setCheckedGate] = useState<Record<string, boolean>>(() => {
+    const saved = localStorage.getItem('kiit_checked_gate');
+    return saved ? JSON.parse(saved) : {};
+  });
+
+  const [checkedCds, setCheckedCds] = useState<Record<string, boolean>>(() => {
+    const saved = localStorage.getItem('kiit_checked_cds');
     return saved ? JSON.parse(saved) : {};
   });
 
@@ -118,6 +134,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, [checkedSkills]);
 
   useEffect(() => {
+    localStorage.setItem('kiit_checked_gate', JSON.stringify(checkedGate));
+  }, [checkedGate]);
+
+  useEffect(() => {
+    localStorage.setItem('kiit_checked_cds', JSON.stringify(checkedCds));
+  }, [checkedCds]);
+
+  useEffect(() => {
     localStorage.setItem('kiit_subscriptions', JSON.stringify(mySubscriptions));
   }, [mySubscriptions]);
 
@@ -154,13 +178,25 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setCheckedSkills(prev => ({ ...prev, [id]: !prev[id] }));
   };
 
+  const toggleGateTopic = (id: string) => {
+    setCheckedGate(prev => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const toggleCdsTopic = (id: string) => {
+    setCheckedCds(prev => ({ ...prev, [id]: !prev[id] }));
+  };
+
   const resetProgress = () => {
     setCheckedSyllabus({});
     setCheckedFoundation({});
     setCheckedSkills({});
+    setCheckedGate({});
+    setCheckedCds({});
     localStorage.removeItem('kiit_checked_syllabus');
     localStorage.removeItem('kiit_checked_foundation');
     localStorage.removeItem('kiit_checked_skills');
+    localStorage.removeItem('kiit_checked_gate');
+    localStorage.removeItem('kiit_checked_cds');
   };
 
   return (
@@ -180,6 +216,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         toggleFoundationTopic,
         checkedSkills,
         toggleSkillTopic,
+        checkedGate,
+        toggleGateTopic,
+        checkedCds,
+        toggleCdsTopic,
         mySubscriptions,
         setMySubscriptions,
         darkMode,

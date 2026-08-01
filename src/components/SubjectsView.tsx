@@ -1,46 +1,61 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
-import { BASE_SEM1_COURSES, BASE_SEM2_COURSES, ENGINEERING_ELECTIVES, SCIENCE_ELECTIVES, GER_ELECTIVES, Subject } from '../data/subjects';
-import { THEORY_MARK_DISTRIBUTION, PRACTICAL_MARK_DISTRIBUTION } from '../data/grading';
-import { FOUNDATION_TOPICS, FoundationTopic } from '../data/foundation';
+import {
+  SCHEME_A_SEM1_COURSES,
+  SCHEME_A_SEM2_COURSES,
+  SCHEME_B_SEM1_COURSES,
+  SCHEME_B_SEM2_COURSES,
+  ENGINEERING_ELECTIVES,
+  SCIENCE_ELECTIVES,
+  GER_ELECTIVES,
+  Subject
+} from '../data/subjects';
+import { OFFICIAL_FIRST_YEAR_TEXTBOOKS, PhysicalBook } from '../data/books';
 import {
   BookOpen,
+  Award,
   CheckSquare,
   Square,
-  AlertTriangle,
-  Youtube,
   ChevronDown,
   ChevronUp,
-  Award,
-  Layers,
+  GraduationCap,
+  Search,
   ExternalLink,
-  BookMarked
+  Download,
+  Book,
+  Sparkles,
+  Layers,
+  FileText
 } from 'lucide-react';
 
 export const SubjectsView: React.FC = () => {
   const {
     scheme,
+    setScheme,
     engineeringElective,
+    setEngineeringElective,
     scienceElective,
+    setScienceElective,
     gerElective,
+    setGerElective,
     checkedSyllabus,
-    toggleSyllabusTopic,
-    checkedFoundation,
-    setActiveView
+    toggleSyllabusTopic
   } = useApp();
 
-  const [activeSem, setActiveSem] = useState<1 | 2>(1);
-  const [expandedSubject, setExpandedSubject] = useState<string | null>(null);
+  const [activeSemester, setActiveSemester] = useState<1 | 2>(1);
+  const [expandedCourseCode, setExpandedCourseCode] = useState<string | null>('CS13003');
+  const [expandedBookId, setExpandedBookId] = useState<string | null>('book_c_balagurusamy');
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [activeTab, setActiveTab] = useState<'curriculum' | 'textbooks'>('curriculum');
 
-  // Scheme A: Sem 1 = Base Sem 1, Sem 2 = Base Sem 2
-  // Scheme B: Sem 1 = Base Sem 2, Sem 2 = Base Sem 1
-  const sem1Base = scheme === 'Scheme A' ? BASE_SEM1_COURSES : BASE_SEM2_COURSES;
-  const sem2Base = scheme === 'Scheme A' ? BASE_SEM2_COURSES : BASE_SEM1_COURSES;
+  let rawCourses: Subject[] = [];
+  if (scheme === 'Scheme A') {
+    rawCourses = activeSemester === 1 ? SCHEME_A_SEM1_COURSES : SCHEME_A_SEM2_COURSES;
+  } else {
+    rawCourses = activeSemester === 1 ? SCHEME_B_SEM1_COURSES : SCHEME_B_SEM2_COURSES;
+  }
 
-  const currentBase = activeSem === 1 ? sem1Base : sem2Base;
-
-  // Substitute chosen electives into subject list
-  const courses: Subject[] = currentBase.map(course => {
+  const courses: Subject[] = rawCourses.map(course => {
     if (course.isElective) {
       if (course.electiveCategory === 'Engineering') {
         const found = ENGINEERING_ELECTIVES.find(e => e.code === engineeringElective);
@@ -58,198 +73,463 @@ export const SubjectsView: React.FC = () => {
     return course;
   });
 
-  const toggleExpand = (code: string) => {
-    setExpandedSubject(expandedSubject === code ? null : code);
-  };
+  const filteredCourses = courses.filter(c =>
+    c.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    c.code.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const filteredBooks = OFFICIAL_FIRST_YEAR_TEXTBOOKS.filter(b =>
+    b.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    b.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    b.courseCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    b.index.some(ch => ch.chapterTitle.toLowerCase().includes(searchTerm.toLowerCase()) || ch.subtopics.some(s => s.toLowerCase().includes(searchTerm.toLowerCase())))
+  );
+
+  const totalSemCredits = courses.reduce((acc, c) => acc + c.ltpc.credits, 0);
+  const totalSemContactHours = courses.reduce((acc, c) => acc + c.ltpc.total, 0);
+
+  const kiitPyqUrl = 'https://kiitkatalog.gfgkiit.in/dashboard?school=SCE&branch=CSE';
 
   return (
     <div className="space-y-6 pb-20">
-      {/* Top Banner */}
-      <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center space-x-2">
-            <BookOpen className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
-            <h1 className="text-xl font-black text-slate-900 dark:text-white">Engineering Syllabus Checklists</h1>
+      {/* Top Header Banner */}
+      <div className="bg-gradient-to-r from-indigo-900 via-blue-900 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+          <div>
+            <div className="inline-flex items-center space-x-2 bg-indigo-500/30 backdrop-blur-md border border-indigo-400/30 px-3 py-1 rounded-full text-xs font-semibold text-indigo-200 mb-3">
+              <GraduationCap className="w-3.5 h-3.5 text-amber-300" />
+              <span>KIIT School of Computer Engineering • Curricula & Textbook Library</span>
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-black tracking-tight">
+              1st Year B.Tech Syllabus, Schemes & Official Textbooks
+            </h1>
+            <p className="text-indigo-200 text-sm mt-1 max-w-xl font-medium">
+              Toggle between Scheme A & Scheme B, explore L-T-P-C credit points, download PYQs, and inspect chapter indices of all 9 official textbooks!
+            </p>
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Track official course chapters for {scheme}. Filtered by your active electives.
-          </p>
-        </div>
 
-        {/* Semester Tabs */}
-        <div className="flex items-center space-x-2 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl self-start sm:self-auto">
-          <button
-            onClick={() => setActiveSem(1)}
-            className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
-              activeSem === 1
-                ? 'bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm'
-                : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
-            }`}
-          >
-            Semester 1
-          </button>
-          <button
-            onClick={() => setActiveSem(2)}
-            className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
-              activeSem === 2
-                ? 'bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm'
-                : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
-            }`}
-          >
-            Semester 2
-          </button>
+          {/* Action Tabs & PYQ Link */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
+            <a
+              href={kiitPyqUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="px-4 py-2.5 rounded-2xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs shadow-lg transition-transform active:scale-95 flex items-center justify-center space-x-2"
+            >
+              <Download className="w-4 h-4" />
+              <span>KIIT CSE PYQs Katalog</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+
+            <div className="flex items-center space-x-1.5 bg-white/10 backdrop-blur-md p-1.5 rounded-2xl border border-white/10">
+              <button
+                onClick={() => setActiveTab('curriculum')}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition-all ${
+                  activeTab === 'curriculum' ? 'bg-white text-indigo-950 shadow-md' : 'text-indigo-200 hover:text-white'
+                }`}
+              >
+                Curriculum & Credits
+              </button>
+              <button
+                onClick={() => setActiveTab('textbooks')}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition-all ${
+                  activeTab === 'textbooks' ? 'bg-white text-indigo-950 shadow-md' : 'text-indigo-200 hover:text-white'
+                }`}
+              >
+                Physical Textbooks ({OFFICIAL_FIRST_YEAR_TEXTBOOKS.length})
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Courses Accordion List */}
-      <div className="space-y-4">
-        {courses.map(course => {
-          const isExpanded = expandedSubject === course.code || expandedSubject === null; // expand all or filtered
-          const totalCh = course.chapters.length;
-          const doneCh = course.chapters.filter(ch => checkedSyllabus[ch.id]).length;
-          const pct = totalCh > 0 ? Math.round((doneCh / totalCh) * 100) : 0;
-
-          // Find unchecked prerequisite foundation topics for this course
-          const uncheckedPrereqs = FOUNDATION_TOPICS.filter(
-            f => f.feedsInto.includes(course.code) && !checkedFoundation[f.id]
-          );
-
-          return (
-            <div
-              key={course.code}
-              className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden transition-all"
-            >
-              {/* Subject Header */}
-              <div
-                onClick={() => toggleExpand(course.code)}
-                className="p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 cursor-pointer hover:bg-slate-50/50 dark:hover:bg-slate-800/40 transition-colors"
-              >
-                <div className="space-y-1">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-200/60 dark:border-indigo-800/60">
-                      {course.code}
-                    </span>
-                    <span className="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
-                      {course.type} ({course.ltpc})
-                    </span>
-                    <span className="text-xs font-semibold px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300">
-                      {course.credits} Credits
-                    </span>
-                  </div>
-                  <h2 className="text-base font-extrabold text-slate-900 dark:text-white">
-                    {course.name}
-                  </h2>
-                  {course.textbook && (
-                    <p className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1.5 pt-0.5">
-                      <BookMarked className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
-                      <span><strong>Recommended Textbook:</strong> {course.textbook}</span>
-                    </p>
-                  )}
-                </div>
-
-                <div className="flex items-center space-x-4 shrink-0">
-                  {/* Mark distribution badge */}
-                  <div className="text-right hidden sm:block">
-                    <p className="text-[10px] text-slate-400 font-extrabold uppercase">Mark Scheme</p>
-                    <p className="text-xs font-bold text-slate-700 dark:text-slate-300">
-                      {course.type === 'Theory' ? '50 End + 20 Mid + 30 Int' : '40 End Lab + 60 Sess'}
-                    </p>
-                  </div>
-
-                  {/* Progress Ring / Bar */}
-                  <div className="flex items-center space-x-3">
-                    <div className="text-right">
-                      <p className="text-xs font-black text-slate-900 dark:text-white">{pct}%</p>
-                      <p className="text-[10px] text-slate-500">{doneCh}/{totalCh} Done</p>
-                    </div>
-                    <div className="w-16 bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden hidden xs:block">
-                      <div
-                        className="bg-indigo-600 h-full rounded-full transition-all duration-300"
-                        style={{ width: `${pct}%` }}
-                      />
-                    </div>
-                    {isExpanded ? (
-                      <ChevronUp className="w-5 h-5 text-slate-400" />
-                    ) : (
-                      <ChevronDown className="w-5 h-5 text-slate-400" />
-                    )}
-                  </div>
-                </div>
+      {activeTab === 'curriculum' && (
+        <>
+          {/* Controls: Scheme A / Scheme B Switcher + Semester Tabs */}
+          <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+              
+              {/* Scheme Switcher */}
+              <div className="flex items-center space-x-2 bg-slate-100 dark:bg-slate-800 p-1.5 rounded-2xl">
+                <span className="text-xs font-extrabold text-slate-500 uppercase px-2">Scheme:</span>
+                <button
+                  onClick={() => setScheme('Scheme A')}
+                  className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all ${
+                    scheme === 'Scheme A'
+                      ? 'bg-indigo-600 text-white shadow-md'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
+                  }`}
+                >
+                  Scheme A (Sem 1 Physics, Sem 2 Chem)
+                </button>
+                <button
+                  onClick={() => setScheme('Scheme B')}
+                  className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all ${
+                    scheme === 'Scheme B'
+                      ? 'bg-indigo-600 text-white shadow-md'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
+                  }`}
+                >
+                  Scheme B (Sem 1 Chem, Sem 2 Physics)
+                </button>
               </div>
 
-              {/* Collapsible Content */}
-              {isExpanded && (
-                <div className="px-5 pb-5 pt-2 border-t border-slate-100 dark:border-slate-800 space-y-3">
-                  
-                  {/* Prerequisite Warnings Chip Header if any */}
-                  {uncheckedPrereqs.length > 0 && (
-                    <div className="p-3.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900 space-y-2">
-                      <div className="flex items-center space-x-2 text-amber-800 dark:text-amber-300 text-xs font-bold">
-                        <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
-                        <span>Prerequisite Warning for {course.code}:</span>
+              {/* Semester Tabs */}
+              <div className="flex items-center space-x-2 bg-slate-100 dark:bg-slate-800 p-1.5 rounded-2xl">
+                <button
+                  onClick={() => setActiveSemester(1)}
+                  className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all ${
+                    activeSemester === 1
+                      ? 'bg-indigo-600 text-white shadow-md'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
+                  }`}
+                >
+                  Sem-I (22 Credits)
+                </button>
+                <button
+                  onClick={() => setActiveSemester(2)}
+                  className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all ${
+                    activeSemester === 2
+                      ? 'bg-indigo-600 text-white shadow-md'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
+                  }`}
+                >
+                  Sem-II (21 Credits)
+                </button>
+              </div>
+
+              {/* Search Box */}
+              <div className="relative">
+                <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  placeholder="Search course code or title..."
+                  value={searchTerm}
+                  onChange={e => setSearchTerm(e.target.value)}
+                  className="w-full sm:w-64 pl-9 pr-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
+            </div>
+
+            {/* Elective Selection Dropdowns */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs pt-2 border-t border-slate-100 dark:border-slate-800">
+              <div>
+                <label className="block text-[11px] font-bold text-slate-500 mb-1">Engineering Elective</label>
+                <select
+                  value={engineeringElective}
+                  onChange={e => setEngineeringElective(e.target.value)}
+                  className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-bold text-slate-900 dark:text-white text-xs"
+                >
+                  {ENGINEERING_ELECTIVES.map(e => (
+                    <option key={e.code} value={e.code}>{e.code} - {e.name}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-bold text-slate-500 mb-1">Science Elective</label>
+                <select
+                  value={scienceElective}
+                  onChange={e => setScienceElective(e.target.value)}
+                  className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-bold text-slate-900 dark:text-white text-xs"
+                >
+                  {SCIENCE_ELECTIVES.map(e => (
+                    <option key={e.code} value={e.code}>{e.code} - {e.name}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-bold text-slate-500 mb-1">GER Elective</label>
+                <select
+                  value={gerElective}
+                  onChange={e => setGerElective(e.target.value)}
+                  className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-bold text-slate-900 dark:text-white text-xs"
+                >
+                  {GER_ELECTIVES.map(e => (
+                    <option key={e.code} value={e.code}>{e.code} - {e.name}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
+
+          {/* OFFICIAL CREDIT BREAKDOWN TABLE (L-T-P-C) */}
+          <div className="bg-white dark:bg-slate-900 rounded-3xl p-5 sm:p-6 border border-slate-200 dark:border-slate-800 shadow-md space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <Award className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                <h2 className="text-base font-black text-slate-900 dark:text-white">
+                  Official KIIT Credit Breakdown Table ({scheme} • Semester-{activeSemester})
+                </h2>
+              </div>
+              <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400">
+                Total: {totalSemContactHours} Hrs • {totalSemCredits} Credits
+              </span>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs border-collapse">
+                <thead>
+                  <tr className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold border-b border-slate-200 dark:border-slate-700">
+                    <th className="p-3 rounded-l-xl">Course Code</th>
+                    <th className="p-3">Course Title</th>
+                    <th className="p-3">Type</th>
+                    <th className="p-3 text-center">L</th>
+                    <th className="p-3 text-center">T</th>
+                    <th className="p-3 text-center">P</th>
+                    <th className="p-3 text-center">Total Hrs</th>
+                    <th className="p-3 text-center rounded-r-xl font-extrabold text-indigo-600 dark:text-indigo-400">Credits</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100 dark:divide-slate-800 font-medium">
+                  {filteredCourses.map((c, i) => (
+                    <tr key={i} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                      <td className="p-3 font-mono font-bold text-indigo-600 dark:text-indigo-400">{c.code}</td>
+                      <td className="p-3 font-bold text-slate-900 dark:text-white">{c.name}</td>
+                      <td className="p-3">
+                        <span className={`px-2 py-0.5 rounded text-[10px] font-extrabold ${
+                          c.type === 'Theory' ? 'bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300' :
+                          c.type === 'Practical' ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300' :
+                          'bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300'
+                        }`}>
+                          {c.type}
+                        </span>
+                      </td>
+                      <td className="p-3 text-center font-mono">{c.ltpc.l}</td>
+                      <td className="p-3 text-center font-mono">{c.ltpc.t}</td>
+                      <td className="p-3 text-center font-mono">{c.ltpc.p}</td>
+                      <td className="p-3 text-center font-mono font-semibold">{c.ltpc.total}</td>
+                      <td className="p-3 text-center font-mono font-black text-indigo-600 dark:text-indigo-400 text-sm bg-indigo-50/50 dark:bg-indigo-950/30">
+                        {c.ltpc.credits}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* DETAILED SYLLABUS & CHAPTER CHECKLISTS */}
+          <div className="space-y-4">
+            <h2 className="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+              <BookOpen className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+              <span>Detailed Chapter Syllabi & Textbooks</span>
+            </h2>
+
+            {filteredCourses.map(course => {
+              const isExpanded = expandedCourseCode === course.code;
+              const courseDone = course.chapters.filter(ch => checkedSyllabus[ch.id]).length;
+              const courseTotal = course.chapters.length;
+              const coursePct = courseTotal > 0 ? Math.round((courseDone / courseTotal) * 100) : 0;
+
+              return (
+                <div
+                  key={course.code}
+                  className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden"
+                >
+                  <div
+                    onClick={() => setExpandedCourseCode(isExpanded ? null : course.code)}
+                    className="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 cursor-pointer hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <span className="font-mono font-extrabold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 px-2.5 py-1 rounded-lg text-xs">
+                        {course.code}
+                      </span>
+                      <div>
+                        <h3 className="text-base font-bold text-slate-900 dark:text-white">{course.name}</h3>
+                        <p className="text-xs text-slate-500 mt-0.5">
+                          {course.ltpc.credits} Credits • L:{course.ltpc.l} T:{course.ltpc.t} P:{course.ltpc.p}
+                        </p>
                       </div>
-                      <div className="flex flex-wrap gap-2 pt-1">
-                        {uncheckedPrereqs.map(p => {
-                          const queryUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(p.youtubeSearchQuery)}`;
+                    </div>
+
+                    <div className="flex items-center space-x-4 self-end sm:self-center">
+                      <div className="text-right">
+                        <span className="text-xs font-extrabold text-slate-700 dark:text-slate-300">{coursePct}% Done</span>
+                        <div className="w-20 bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden mt-1">
+                          <div className="bg-indigo-600 h-full rounded-full transition-all" style={{ width: `${coursePct}%` }} />
+                        </div>
+                      </div>
+                      {isExpanded ? <ChevronUp className="w-5 h-5 text-slate-400" /> : <ChevronDown className="w-5 h-5 text-slate-400" />}
+                    </div>
+                  </div>
+
+                  {isExpanded && (
+                    <div className="p-5 border-t border-slate-100 dark:border-slate-800 space-y-4 bg-slate-50/30 dark:bg-slate-900/30">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl bg-indigo-50/50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/60 text-xs">
+                        <div className="space-y-0.5">
+                          <p className="font-extrabold text-indigo-900 dark:text-indigo-200">Official Textbook:</p>
+                          <p className="text-slate-700 dark:text-slate-300 font-medium">{course.textbook}</p>
+                          {course.referenceBook && (
+                            <p className="text-slate-500 text-[11px]">Ref: {course.referenceBook}</p>
+                          )}
+                        </div>
+                        <a
+                          href={kiitPyqUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="px-3 py-1.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs transition-colors shrink-0 flex items-center space-x-1.5 self-start sm:self-center"
+                        >
+                          <Download className="w-3.5 h-3.5" />
+                          <span>{course.code} PYQs & Notes</span>
+                        </a>
+                      </div>
+
+                      <div className="space-y-2">
+                        <p className="text-xs font-extrabold text-slate-500 uppercase tracking-wider">Chapter Syllabus Checklist</p>
+                        {course.chapters.map(ch => {
+                          const isChecked = !!checkedSyllabus[ch.id];
                           return (
                             <div
-                              key={p.id}
-                              className="inline-flex items-center space-x-2 bg-white dark:bg-slate-900 px-2.5 py-1 rounded-lg border border-amber-200 dark:border-amber-800 text-[11px]"
+                              key={ch.id}
+                              onClick={() => toggleSyllabusTopic(ch.id)}
+                              className={`p-3 rounded-xl border text-xs font-medium cursor-pointer transition-all flex items-start space-x-3 ${
+                                isChecked
+                                  ? 'bg-indigo-50/60 dark:bg-indigo-950/40 border-indigo-200 dark:border-indigo-900 text-slate-800 dark:text-slate-200'
+                                  : 'bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-slate-300'
+                              }`}
                             >
-                              <span className="font-semibold text-slate-700 dark:text-slate-300">
-                                ⚠️ Prerequisite not confirmed: <strong>{p.topic}</strong>
-                              </span>
-                              <a
-                                href={queryUrl}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="text-red-600 hover:text-red-700 font-bold flex items-center space-x-0.5 ml-1"
-                              >
-                                <Youtube className="w-3 h-3" />
-                                <span>Search</span>
-                              </a>
-                              <button
-                                onClick={() => setActiveView('foundation')}
-                                className="text-indigo-600 hover:underline font-bold flex items-center space-x-0.5"
-                              >
-                                <span>Jump</span>
-                                <ExternalLink className="w-3 h-3" />
-                              </button>
+                              <div className="mt-0.5 shrink-0 text-indigo-600 dark:text-indigo-400">
+                                {isChecked ? <CheckSquare className="w-4 h-4" /> : <Square className="w-4 h-4 text-slate-400" />}
+                              </div>
+                              <div>
+                                <span className={isChecked ? 'line-through opacity-75 font-semibold' : 'font-semibold'}>
+                                  {ch.title}
+                                </span>
+                                <span className="text-[10px] text-slate-400 block font-normal mt-0.5">{ch.module}</span>
+                              </div>
                             </div>
                           );
                         })}
                       </div>
                     </div>
                   )}
-
-                  {/* Chapter Checkboxes */}
-                  <div className="space-y-2">
-                    {course.chapters.map(ch => {
-                      const isChecked = !!checkedSyllabus[ch.id];
-                      return (
-                        <div
-                          key={ch.id}
-                          onClick={() => toggleSyllabusTopic(ch.id)}
-                          className={`p-3 rounded-xl border text-xs font-medium cursor-pointer transition-all flex items-start space-x-3 ${
-                            isChecked
-                              ? 'bg-indigo-50/60 dark:bg-indigo-950/40 border-indigo-200 dark:border-indigo-900 text-slate-800 dark:text-slate-200'
-                              : 'bg-slate-50/50 dark:bg-slate-800/30 border-slate-100 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-slate-300'
-                          }`}
-                        >
-                          <div className="mt-0.5 shrink-0 text-indigo-600 dark:text-indigo-400">
-                            {isChecked ? <CheckSquare className="w-4 h-4" /> : <Square className="w-4 h-4 text-slate-400" />}
-                          </div>
-                          <span className={isChecked ? 'line-through opacity-75' : ''}>{ch.title}</span>
-                        </div>
-                      );
-                    })}
-                  </div>
                 </div>
-              )}
+              );
+            })}
+          </div>
+        </>
+      )}
+
+      {/* TAB 2: PHYSICAL TEXTBOOKS SHOWCASE WITH EXTRACTED CHAPTER INDEX (FROM 114-PAGE PDF) */}
+      {activeTab === 'textbooks' && (
+        <div className="space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h2 className="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
+                <Book className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                <span>Official 1st Year B.Tech Textbooks Stack & Full Chapter Index Browser</span>
+              </h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                Exact chapter indices, subtopics, and page numbers extracted from all 9 official 1st year textbooks!
+              </p>
             </div>
-          );
-        })}
-      </div>
+
+            <div className="relative">
+              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                placeholder="Search book index topics..."
+                value={searchTerm}
+                onChange={e => setSearchTerm(e.target.value)}
+                className="w-full sm:w-64 pl-9 pr-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            {filteredBooks.map((book) => {
+              const isExpanded = expandedBookId === book.id;
+
+              return (
+                <div
+                  key={book.id}
+                  className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden"
+                >
+                  <div
+                    onClick={() => setExpandedBookId(isExpanded ? null : book.id)}
+                    className="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 cursor-pointer hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors"
+                  >
+                    <div className="flex items-start space-x-4">
+                      <div className={`w-12 h-16 rounded-xl bg-gradient-to-br ${book.coverColor} text-white shrink-0 flex items-center justify-center font-black text-xs shadow-md`}>
+                        <FileText className="w-6 h-6 text-white/80" />
+                      </div>
+                      <div>
+                        <div className="flex items-center space-x-2">
+                          <span className="font-mono font-extrabold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 px-2 py-0.5 rounded text-[10px]">
+                            {book.courseCode}
+                          </span>
+                          <span className="text-[10px] text-slate-400 font-semibold">{book.schemeApplies}</span>
+                        </div>
+                        <h3 className="text-base font-black text-slate-900 dark:text-white mt-1 leading-snug">
+                          {book.title}
+                        </h3>
+                        <p className="text-xs text-slate-500 mt-0.5">
+                          Author: <strong>{book.author}</strong> • {book.publisher} ({book.edition})
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center space-x-3 self-end sm:self-center">
+                      <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 px-3 py-1 rounded-xl">
+                        {book.index.length} Index Chapters
+                      </span>
+                      {isExpanded ? <ChevronUp className="w-5 h-5 text-slate-400" /> : <ChevronDown className="w-5 h-5 text-slate-400" />}
+                    </div>
+                  </div>
+
+                  {isExpanded && (
+                    <div className="p-5 sm:p-6 border-t border-slate-100 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-900/30 space-y-4">
+                      <div className="p-3.5 rounded-xl bg-indigo-50/50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/60 text-xs">
+                        <p className="font-bold text-indigo-900 dark:text-indigo-200">Recommended for KIIT Modules:</p>
+                        <p className="text-slate-700 dark:text-slate-300 mt-0.5">{book.recommendedFor}</p>
+                      </div>
+
+                      <div className="space-y-3">
+                        <p className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">
+                          Full Table of Contents & Chapter Index:
+                        </p>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                          {book.index.map((ch, idx) => (
+                            <div
+                              key={idx}
+                              className="p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs space-y-1.5 shadow-2xs"
+                            >
+                              <div className="flex items-center justify-between font-extrabold border-b border-slate-100 dark:border-slate-800 pb-2">
+                                <span className="text-indigo-600 dark:text-indigo-400">
+                                  {typeof ch.chapterNumber === 'number' ? `Chapter ${ch.chapterNumber}` : ch.chapterNumber}
+                                </span>
+                                {ch.pageRange && (
+                                  <span className="text-[10px] font-mono text-slate-400">{ch.pageRange}</span>
+                                )}
+                              </div>
+
+                              <p className="font-bold text-slate-900 dark:text-white text-xs pt-1">{ch.chapterTitle}</p>
+
+                              <div className="flex flex-wrap gap-1 pt-1">
+                                {ch.subtopics.map((sub, sIdx) => (
+                                  <span
+                                    key={sIdx}
+                                    className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-[10px] text-slate-600 dark:text-slate-400 font-medium"
+                                  >
+                                    {sub}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

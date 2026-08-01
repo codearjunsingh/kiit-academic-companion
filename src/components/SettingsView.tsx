@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { ENGINEERING_ELECTIVES, SCIENCE_ELECTIVES, GER_ELECTIVES } from '../data/subjects';
-import { Settings, Moon, Sun, Sparkles, Tv, RotateCcw, Check, BookOpen } from 'lucide-react';
+import { Settings, Moon, Sun, Sparkles, Tv, RotateCcw, Check, BookOpen, Download, Upload, Shield } from 'lucide-react';
 
 export const SettingsView: React.FC = () => {
   const {
@@ -24,6 +24,7 @@ export const SettingsView: React.FC = () => {
 
   const [channelsInput, setChannelsInput] = useState<string>(mySubscriptions.join('\n'));
   const [savedSuccess, setSavedSuccess] = useState<boolean>(false);
+  const [backupNotice, setBackupNotice] = useState<string | null>(null);
 
   const handleSaveChannels = () => {
     const list = channelsInput
@@ -35,16 +36,102 @@ export const SettingsView: React.FC = () => {
     setTimeout(() => setSavedSuccess(false), 2000);
   };
 
+  // Export JSON Backup
+  const handleExportBackup = () => {
+    const backupData: Record<string, any> = {};
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && (key.startsWith('kiit_') || key.startsWith('pw_') || key.startsWith('cds_'))) {
+        try {
+          backupData[key] = JSON.parse(localStorage.getItem(key) || '""');
+        } catch {
+          backupData[key] = localStorage.getItem(key);
+        }
+      }
+    }
+    const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `kiit_academic_backup_${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    setBackupNotice('Backup downloaded successfully!');
+    setTimeout(() => setBackupNotice(null), 3000);
+  };
+
+  // Import JSON Backup
+  const handleImportBackup = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = event => {
+      try {
+        const data = JSON.parse(event.target?.result as string);
+        Object.keys(data).forEach(key => {
+          if (typeof data[key] === 'object') {
+            localStorage.setItem(key, JSON.stringify(data[key]));
+          } else {
+            localStorage.setItem(key, data[key].toString());
+          }
+        });
+        setBackupNotice('Progress restored successfully! Reloading...');
+        setTimeout(() => window.location.reload(), 1500);
+      } catch (err) {
+        alert('Failed to parse backup JSON file.');
+      }
+    };
+    reader.readAsText(file);
+  };
+
   return (
     <div className="space-y-6 pb-20 max-w-4xl mx-auto">
       <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
         <div className="flex items-center space-x-2">
           <Settings className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
-          <h1 className="text-xl font-black text-slate-900 dark:text-white">App Settings & Preferences</h1>
+          <h1 className="text-xl font-black text-slate-900 dark:text-white">App Settings & Backup Preferences</h1>
         </div>
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-          Customize your academic scheme, electives, learning preferences, and YouTube channel subscriptions.
+          Customize your academic scheme, electives, learning preferences, and backup/restore progress data.
         </p>
+      </div>
+
+      {/* JSON BACKUP & RESTORE TOOL */}
+      <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-indigo-200 dark:border-indigo-900/60 shadow-sm space-y-3">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+              <Shield className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+              <span>Backup & Restore Progress (JSON Export/Import)</span>
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+              Export your college, GATE, and CDS checklist progress so you never lose your data across devices or cache clears!
+            </p>
+          </div>
+        </div>
+
+        {backupNotice && (
+          <div className="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 text-xs font-bold">
+            {backupNotice}
+          </div>
+        )}
+
+        <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
+          <button
+            onClick={handleExportBackup}
+            className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs transition-transform active:scale-95 shadow-md flex items-center justify-center space-x-2"
+          >
+            <Download className="w-4 h-4" />
+            <span>Download Progress Backup (.json)</span>
+          </button>
+
+          <label className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-900 dark:text-white font-extrabold text-xs transition-colors cursor-pointer flex items-center justify-center space-x-2 border border-slate-200 dark:border-slate-700">
+            <Upload className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <span>Restore Progress from Backup</span>
+            <input type="file" accept=".json" onChange={handleImportBackup} className="hidden" />
+          </label>
+        </div>
       </div>
 
       {/* Scheme A vs Scheme B Toggle */}
@@ -188,7 +275,7 @@ export const SettingsView: React.FC = () => {
         <div>
           <h2 className="text-base font-extrabold text-slate-900 dark:text-white">Reset All Progress</h2>
           <p className="text-xs text-slate-500 dark:text-slate-400">
-            Clear all saved checkboxes across syllabus, foundation PCM, and skill track.
+            Clear all saved checkboxes across syllabus, foundation PCM, skill track, GATE & CDS.
           </p>
         </div>
         <button

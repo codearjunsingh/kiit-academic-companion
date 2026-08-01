@@ -12,7 +12,8 @@ import {
   Moon,
   Sun,
   Tv,
-  HelpCircleIcon
+  Target,
+  Shield
 } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
@@ -21,8 +22,10 @@ export const Navbar: React.FC = () => {
   const navItems = [
     { id: 'dashboard', label: 'Today', icon: LayoutDashboard },
     { id: 'subjects', label: 'Subjects', icon: BookOpen },
-    { id: 'foundation', label: 'PCM Prerequisites', icon: GraduationCap },
-    { id: 'skills', label: 'Skill Track', icon: Sparkles },
+    { id: 'cds', label: 'CDS Prep', icon: Shield },
+    { id: 'gate', label: 'GATE Prep', icon: Target },
+    { id: 'foundation', label: 'PCM Prep', icon: GraduationCap },
+    { id: 'skills', label: 'Skills', icon: Sparkles },
     { id: 'calendar', label: 'Calendar', icon: CalendarIcon },
     { id: 'countdown', label: 'Countdowns', icon: Clock },
     { id: 'channels', label: 'Creators', icon: Tv },
@@ -55,8 +58,8 @@ export const Navbar: React.FC = () => {
           </div>
 
           {/* Desktop Nav Controls */}
-          <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
-            {navItems.slice(0, 7).map(item => {
+          <div className="hidden lg:flex items-center space-x-1">
+            {navItems.slice(0, 9).map(item => {
               const Icon = item.icon;
               const isActive = activeView === item.id;
               return (
@@ -102,7 +105,7 @@ export const Navbar: React.FC = () => {
 
             <button
               onClick={() => setActiveView('settings')}
-              className={`p-2 rounded-xl transition-colors md:hidden ${
+              className={`p-2 rounded-xl transition-colors lg:hidden ${
                 activeView === 'settings'
                   ? 'bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400'
                   : 'text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800'
@@ -115,14 +118,14 @@ export const Navbar: React.FC = () => {
       </header>
 
       {/* Mobile Bottom Navigation Bar */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 px-2 py-1">
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 px-2 py-1">
         <div className="grid grid-cols-5 gap-1">
           {[
             { id: 'dashboard', label: 'Today', icon: LayoutDashboard },
             { id: 'subjects', label: 'Subjects', icon: BookOpen },
-            { id: 'foundation', label: 'PCM Prep', icon: GraduationCap },
+            { id: 'cds', label: 'CDS Prep', icon: Shield },
+            { id: 'gate', label: 'GATE Prep', icon: Target },
             { id: 'skills', label: 'Skills', icon: Sparkles },
-            { id: 'calendar', label: 'Calendar', icon: CalendarIcon },
           ].map(item => {
             const Icon = item.icon;
             const isActive = activeView === item.id;

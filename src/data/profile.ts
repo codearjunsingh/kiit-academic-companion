@@ -1,116 +1,129 @@
-export interface InductionEvent {
-  date: string; // YYYY-MM-DD
-  dayLabel: string;
-  activity: string;
-  timeSlot?: string;
-  room?: string;
+export interface StudentProfile {
+  studentName: string;
+  rollNo: string;
+  section: string;
+  group: string;
+  subGroup: string;
+  hostel: string;
+  room: string;
+  classRoom: string;
+  mentor1: {
+    name: string;
+    dept: string;
+    phone: string;
+    email: string;
+  };
+  mentor2: {
+    name: string;
+    dept: string;
+    phone: string;
+    email: string;
+  };
 }
 
-export interface TimetableSlot {
+export const STUDENT_PROFILE: StudentProfile = {
+  studentName: 'Arjun Singh',
+  rollNo: '26155784',
+  section: 'A26',
+  group: 'Group 2',
+  subGroup: 'Gr-2.1',
+  hostel: 'KP-7AB',
+  room: '1A-65',
+  classRoom: 'Room 201, Campus-8',
+  mentor1: {
+    name: 'Dr. Manas Ranjan Mohapatra',
+    dept: 'Department of Mathematics',
+    phone: '8989833623',
+    email: 'manas.mohapatrafma@kiit.ac.in'
+  },
+  mentor2: {
+    name: 'Dr. D. Nisrutha',
+    dept: 'Department of Humanities',
+    phone: '6370100529',
+    email: 'd.nisruthafhu@kiit.ac.in'
+  }
+};
+
+export interface ClassSlot {
   day: 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday';
   time: string;
   subject: string;
-  code: string;
   room: string;
   type: 'Theory' | 'Lab';
 }
 
-export const STUDENT_PROFILE = {
-  section: 'A26',
-  group: 'Group 2 (Sections A23–A33 & B1–B11)',
-  subGroup: 'Gr-2.1 (Sections A23–A33)',
-  hostel: 'KP-7AB',
-  room: '1A-65',
-  mentorSessionRoom: 'C-10, Campus-3',
-  classRoom: 'Room 201, Campus-8',
-  mentor1: {
-    name: 'Dr. Manas Ranjan Mohapatra',
-    dept: 'Dept. of Mathematics',
-    phone: '8989833623',
-    email: 'manas.mohapatrafma@kiit.ac.in',
-  },
-  mentor2: {
-    name: 'Dr. D. Nisrutha',
-    dept: 'Dept. of Humanities / KSLS',
-    phone: '6370100529',
-    email: 'd.nisruthafhu@kiit.ac.in',
-  },
-  mentorSlot: '23 July 2026, 3:00 PM – 5:00 PM (Slot-II), Room C-10 Campus-3',
-};
+// Official Class Timetable for Section A26 (Scheme A - Autumn 2026)
+export const SECTION_A26_TIMETABLE: ClassSlot[] = [
+  // MONDAY
+  { day: 'Monday', time: '10:10 - 11:10', subject: 'Engineering Elective (Classes as per Elective Section)', room: 'Room 104 / 105 Campus-8', type: 'Theory' },
+  { day: 'Monday', time: '11:20 - 12:20', subject: 'Science of Living Systems (ScLS)', room: 'Room 201, Campus-8', type: 'Theory' },
+  { day: 'Monday', time: '12:20 - 13:20', subject: 'Basics of Electrical Engineering (BEE)', room: 'Room 201, Campus-8', type: 'Theory' },
+  { day: 'Monday', time: '15:00 - 18:00', subject: 'Introduction to Computer Programming (CS13003 Lab)', room: 'Room C15-B-WL-101, Campus-15', type: 'Lab' },
 
-// Official Weekly Class Timetable for Section A26 (Scheme A - Autumn 2026)
-export const SECTION_A26_TIMETABLE: TimetableSlot[] = [
-  // Monday
-  { day: 'Monday', time: '10:10 - 11:10', subject: 'Engineering Elective', code: 'Elective', room: 'As per Elective Section', type: 'Theory' },
-  { day: 'Monday', time: '11:20 - 12:20', subject: 'Science of Living Systems', code: 'ScLS', room: 'Campus-8, Room 201', type: 'Theory' },
-  { day: 'Monday', time: '12:20 - 13:20', subject: 'Basics of Electrical Engineering', code: 'BEE', room: 'Campus-8, Room 201', type: 'Theory' },
-  { day: 'Monday', time: '15:00 - 18:00', subject: 'Intro to Computer Programming (Lab)', code: 'CS13003', room: 'Campus-15(B), C15-B-WL-101', type: 'Lab' },
+  // TUESDAY
+  { day: 'Tuesday', time: '09:00 - 10:00', subject: 'Calculus and Differential Equations (C&DE)', room: 'Room 201, Campus-8', type: 'Theory' },
+  { day: 'Tuesday', time: '10:10 - 11:10', subject: 'Engineering Elective (Classes as per Elective Section)', room: 'Room 104 / 105 Campus-8', type: 'Theory' },
+  { day: 'Tuesday', time: '11:20 - 12:20', subject: 'Calculus and Differential Equations (C&DE)', room: 'Room 201, Campus-8', type: 'Theory' },
+  { day: 'Tuesday', time: '12:20 - 13:20', subject: 'Universal Human Values (UHV)', room: 'Room 201, Campus-8', type: 'Theory' },
 
-  // Tuesday
-  { day: 'Tuesday', time: '09:00 - 10:00', subject: 'Calculus & Differential Equations', code: 'C&DE', room: 'Campus-8, Room 201', type: 'Theory' },
-  { day: 'Tuesday', time: '10:10 - 11:10', subject: 'Engineering Elective', code: 'Elective', room: 'As per Elective Section', type: 'Theory' },
-  { day: 'Tuesday', time: '11:20 - 12:20', subject: 'Calculus & Differential Equations', code: 'C&DE', room: 'Campus-8, Room 201', type: 'Theory' },
-  { day: 'Tuesday', time: '12:20 - 13:20', subject: 'Universal Human Values', code: 'UHV', room: 'Campus-8, Room 201', type: 'Theory' },
+  // WEDNESDAY
+  { day: 'Wednesday', time: '10:00 - 11:00', subject: 'Calculus and Differential Equations (C&DE)', room: 'Room 201, Campus-8', type: 'Theory' },
+  { day: 'Wednesday', time: '11:20 - 12:20', subject: 'Calculus and Differential Equations (C&DE)', room: 'Room 201, Campus-8', type: 'Theory' },
+  { day: 'Wednesday', time: '12:20 - 13:20', subject: 'Physics (PHY)', room: 'Room 201, Campus-8', type: 'Theory' },
+  { day: 'Wednesday', time: '15:00 - 18:00', subject: 'Introduction to Computer Programming (CS13003 Lab)', room: 'Room C15-B-WL-101, Campus-15', type: 'Lab' },
 
-  // Wednesday
-  { day: 'Wednesday', time: '10:00 - 11:00', subject: 'Calculus & Differential Equations', code: 'C&DE', room: 'Campus-8, Room 201', type: 'Theory' },
-  { day: 'Wednesday', time: '11:20 - 12:20', subject: 'Calculus & Differential Equations', code: 'C&DE', room: 'Campus-8, Room 201', type: 'Theory' },
-  { day: 'Wednesday', time: '12:20 - 13:20', subject: 'Physics (Theory)', code: 'PHY', room: 'Campus-8, Room 201', type: 'Theory' },
-  { day: 'Wednesday', time: '15:00 - 18:00', subject: 'Intro to Computer Programming (Lab)', code: 'CS13003', room: 'Campus-15(B), C15-B-WL-101', type: 'Lab' },
+  // THURSDAY
+  { day: 'Thursday', time: '09:00 - 10:00', subject: 'Universal Human Values (UHV)', room: 'Room 201, Campus-8', type: 'Theory' },
+  { day: 'Thursday', time: '10:00 - 11:00', subject: 'Science of Living Systems (ScLS)', room: 'Room 201, Campus-8', type: 'Theory' },
+  { day: 'Thursday', time: '11:20 - 12:20', subject: 'Physics (PHY)', room: 'Room 201, Campus-8', type: 'Theory' },
+  { day: 'Thursday', time: '14:00 - 16:00', subject: 'Workshop (ME18001 Lab)', room: 'Workshop Hall, Campus-8', type: 'Lab' },
 
-  // Thursday
-  { day: 'Thursday', time: '09:00 - 10:00', subject: 'Universal Human Values', code: 'UHV', room: 'Campus-8, Room 201', type: 'Theory' },
-  { day: 'Thursday', time: '10:00 - 11:00', subject: 'Science of Living Systems', code: 'ScLS', room: 'Campus-8, Room 201', type: 'Theory' },
-  { day: 'Thursday', time: '11:20 - 12:20', subject: 'Physics (Theory)', code: 'PHY', room: 'Campus-8, Room 201', type: 'Theory' },
-  { day: 'Thursday', time: '14:00 - 16:00', subject: 'Workshop (Lab)', code: 'ME18001', room: 'Campus-8, Room 201 / Workshop Hall', type: 'Lab' },
-
-  // Friday
-  { day: 'Friday', time: '08:50 - 09:50', subject: 'Universal Human Values', code: 'UHV', room: 'Campus-8, Room 201', type: 'Theory' },
-  { day: 'Friday', time: '09:50 - 10:50', subject: 'Basics of Electrical Engineering', code: 'BEE', room: 'Campus-8, Room 201', type: 'Theory' },
-  { day: 'Friday', time: '11:00 - 12:00', subject: 'Physics (Theory)', code: 'PHY', room: 'Campus-8, Room 201', type: 'Theory' },
-  { day: 'Friday', time: '14:00 - 16:00', subject: 'Physics Laboratory (Lab)', code: 'PH19001', room: 'Campus-8, Room 201 / Lab Complex', type: 'Lab' },
+  // FRIDAY
+  { day: 'Friday', time: '08:50 - 09:50', subject: 'Universal Human Values (UHV)', room: 'Room 201, Campus-8', type: 'Theory' },
+  { day: 'Friday', time: '09:50 - 10:50', subject: 'Basics of Electrical Engineering (BEE)', room: 'Room 201, Campus-8', type: 'Theory' },
+  { day: 'Friday', time: '11:00 - 12:00', subject: 'Physics (PHY)', room: 'Room 201, Campus-8', type: 'Theory' },
+  { day: 'Friday', time: '14:00 - 16:00', subject: 'Physics Laboratory (PH19001 Lab)', room: 'Lab Complex, Campus-3', type: 'Lab' }
 ];
 
-export const INDUCTION_WEEK_SCHEDULE: InductionEvent[] = [
-  {
-    date: '2026-07-21',
-    dayLabel: '21 Jul 2026 (Tue)',
-    activity: 'Campus Visit'
-  },
-  {
-    date: '2026-07-22',
-    dayLabel: '22 Jul 2026 (Wed)',
-    activity: 'Cultural, Sports & Society Expo (9:00 AM–12:00 PM at Campus-13); Movie Screening (2:30–5:30 PM at Campus-11 Auditorium)',
-  },
-  {
-    date: '2026-07-23',
-    dayLabel: '23 Jul 2026 (Thu)',
-    activity: 'Academic Induction-1 (9:00–11:50 AM at Campus-6 Auditorium); Mentor-Mentee Interaction (3:00–5:00 PM)',
-    room: 'Room C-10, Campus-3'
-  },
-  {
-    date: '2026-07-24',
-    dayLabel: '24 Jul 2026 (Fri)',
-    activity: 'Mentor-Mentee Interaction (9:00–11:00 AM); Academic Induction-4 (3:00–5:00 PM at Campus-6 Auditorium)'
-  },
-  {
-    date: '2026-07-25',
-    dayLabel: '25 Jul 2026 (Sat)',
-    activity: 'Gr-2 Anti-Ragging ONLINE Affidavit Filling (with help from tutor mentors)'
-  },
-  {
-    date: '2026-07-27',
-    dayLabel: '27 Jul 2026 (Mon)',
-    activity: 'Academic Induction-2 (9:00 AM–12:00 PM at Campus-6 Auditorium)'
-  },
-  {
-    date: '2026-07-28',
-    dayLabel: '28 Jul 2026 (Tue)',
-    activity: 'Yoga & Fitness (7:00–8:00 AM at Indoor Stadium, Campus-13); Academic Induction-3 (3:00–5:00 PM at Campus-6 Auditorium)'
-  },
-  {
-    date: '2026-07-29',
-    dayLabel: '29 Jul 2026 (Wed)',
-    activity: 'Ice Breaking Session (Classroom Activity) + "My 4-year KIIT Journey" (Classroom Activity)'
-  }
+// Official Class Timetable for Section B1 (Scheme B - Autumn 2026)
+export const SECTION_B1_TIMETABLE: ClassSlot[] = [
+  // MONDAY
+  { day: 'Monday', time: '08:00 - 10:00', subject: 'Chemistry Laboratory (CH19001 Lab)', room: 'Campus-3 Lab', type: 'Lab' },
+  { day: 'Monday', time: '10:20 - 11:20', subject: 'Chemistry (CHEM)', room: 'Room C7, Campus-3', type: 'Theory' },
+  { day: 'Monday', time: '11:20 - 12:20', subject: 'Linear Algebra and Fourier Analysis (LAFA)', room: 'Room C7, Campus-3', type: 'Theory' },
+  { day: 'Monday', time: '12:30 - 13:30', subject: 'Science Elective (Classes as per Elective Section)', room: 'Campus-3 Elective Rooms', type: 'Theory' },
+
+  // TUESDAY
+  { day: 'Tuesday', time: '08:00 - 10:00', subject: 'Sports and Yoga (Lab)', room: 'Campus-13', type: 'Lab' },
+  { day: 'Tuesday', time: '10:20 - 11:20', subject: 'Chemistry (CHEM)', room: 'Room C7, Campus-3', type: 'Theory' },
+  { day: 'Tuesday', time: '11:20 - 12:20', subject: 'Linear Algebra and Fourier Analysis (LAFA)', room: 'Room C7, Campus-3', type: 'Theory' },
+  { day: 'Tuesday', time: '12:30 - 13:30', subject: 'Science Elective (Classes as per Elective Section)', room: 'Campus-3 Elective Rooms', type: 'Theory' },
+
+  // WEDNESDAY
+  { day: 'Wednesday', time: '08:00 - 10:00', subject: 'English Communication Laboratory (Lab)', room: 'Room C7, Campus-3', type: 'Lab' },
+  { day: 'Wednesday', time: '10:20 - 11:20', subject: 'Chemistry (CHEM)', room: 'Room C7, Campus-3', type: 'Theory' },
+  { day: 'Wednesday', time: '11:20 - 12:20', subject: 'Linear Algebra and Fourier Analysis (LAFA)', room: 'Room C7, Campus-3', type: 'Theory' },
+  { day: 'Wednesday', time: '12:20 - 13:20', subject: 'Electronic Circuits and Logic Design (ECLD)', room: 'Room C7, Campus-3', type: 'Theory' },
+
+  // THURSDAY
+  { day: 'Thursday', time: '08:00 - 10:00', subject: 'Engineering Drawing & Graphics Lab (CE18003)', room: 'Campus-3 Drawing Hall', type: 'Lab' },
+  { day: 'Thursday', time: '10:20 - 11:20', subject: 'Linear Algebra and Fourier Analysis (LAFA)', room: 'Room C7, Campus-3', type: 'Theory' },
+  { day: 'Thursday', time: '11:20 - 12:20', subject: 'English Communication Skills (ECS)', room: 'Room C7, Campus-3', type: 'Theory' },
+  { day: 'Thursday', time: '12:20 - 13:20', subject: 'Electronic Circuits and Logic Design (ECLD)', room: 'Room C7, Campus-3', type: 'Theory' },
+  { day: 'Thursday', time: '13:30 - 14:30', subject: 'Engineering Drawing & Graphics (Theory)', room: 'Room E-105, Campus-3', type: 'Theory' },
+
+  // FRIDAY
+  { day: 'Friday', time: '08:00 - 10:00', subject: 'Electronic Circuits & Logic Design Lab (EC19001)', room: 'Campus-3 Electronics Lab', type: 'Lab' },
+  { day: 'Friday', time: '10:20 - 11:20', subject: 'Electronic Circuits and Logic Design (ECLD)', room: 'Room C7, Campus-3', type: 'Theory' },
+  { day: 'Friday', time: '11:20 - 12:20', subject: 'English Communication Skills (ECS)', room: 'Room C7, Campus-3', type: 'Theory' },
+  { day: 'Friday', time: '12:30 - 13:30', subject: 'Science Elective (Classes as per Elective Section)', room: 'Campus-3 Elective Rooms', type: 'Theory' }
+];
+
+export const INDUCTION_WEEK_SCHEDULE = [
+  { date: '2026-07-20', dayLabel: 'Day 1 (20 July)', activity: 'Physical Reporting & Verification', room: 'Campus-15 Auditorium' },
+  { date: '2026-07-21', dayLabel: 'Day 2 (21 July)', activity: 'Registration & Portal Login Set-up', room: 'Campus-15 Computer Labs' },
+  { date: '2026-07-22', dayLabel: 'Day 3 (22 July)', activity: 'Academic Vision & Leadership Address', room: 'Campus-15 Auditorium' },
+  { date: '2026-07-23', dayLabel: 'Day 4 (23 July)', activity: 'Tutor Mentor Allocation & Group Session', room: 'Room C-10, Campus-3' },
+  { date: '2026-07-24', dayLabel: 'Day 5 (24 July)', activity: 'School Orientation & Campus Tour', room: 'Campus-8 & Campus-15' },
+  { date: '2026-07-25', dayLabel: 'Day 6 (25 July)', activity: 'Curriculum Briefing & Society Presentations', room: 'Campus-15 Auditorium' },
 ];

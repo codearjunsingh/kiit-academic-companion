@@ -1,15 +1,16 @@
 import React from 'react';
 import { HOLIDAYS_2026 } from '../data/calendar';
-import { Clock, Calendar, AlertCircle, ArrowRight } from 'lucide-react';
+import { MonthlyCalendar } from './MonthlyCalendar';
+import { Clock, Sun } from 'lucide-react';
 
 export const CountdownView: React.FC = () => {
-  const todayStr = '2026-07-23';
-  const todayDate = new Date(todayStr);
+  // Real-time dynamic date calculation
+  const todayDate = new Date();
 
   const getDaysRemaining = (targetDateStr: string) => {
     const target = new Date(targetDateStr);
     const diff = target.getTime() - todayDate.getTime();
-    return Math.ceil(diff / (1000 * 3600 * 24));
+    return Math.max(0, Math.ceil(diff / (1000 * 3600 * 24)));
   };
 
   const countdowns = [
@@ -18,7 +19,7 @@ export const CountdownView: React.FC = () => {
       date: '2026-10-07',
       category: 'Exam Window',
       days: getDaysRemaining('2026-10-07'),
-      notes: '20 Marks Theory Papers',
+      notes: '20 Marks Theory Papers (Oct 07 - Oct 13)',
       gradient: 'from-indigo-600 to-blue-700'
     },
     {
@@ -26,7 +27,7 @@ export const CountdownView: React.FC = () => {
       date: '2026-12-01',
       category: 'Exam Window',
       days: getDaysRemaining('2026-12-01'),
-      notes: '50 Marks Theory + 40 Marks Practical Exam',
+      notes: '50 Marks Theory + Practical Exams (Dec 01 - Dec 10)',
       gradient: 'from-purple-600 to-indigo-800'
     },
     {
@@ -34,32 +35,33 @@ export const CountdownView: React.FC = () => {
       date: '2026-12-14',
       category: 'Academic',
       days: getDaysRemaining('2026-12-14'),
-      notes: 'Registration and start of Spring 2026-27 session',
+      notes: 'Registration & start of Semester-II',
       gradient: 'from-blue-600 to-teal-700'
     },
     {
-      title: 'Spring Mid-Semester Examination',
-      date: '2027-02-01',
-      category: 'Exam Window',
-      days: getDaysRemaining('2027-02-01'),
-      notes: 'Spring semester 20-mark mid-sem papers',
-      gradient: 'from-slate-700 to-slate-900'
+      title: 'Summer Vacation 2027 (Post 1st-Year Break)',
+      date: '2027-04-22',
+      category: 'Vacation',
+      days: getDaysRemaining('2027-04-22'),
+      notes: '2.5 Months Vacation (April 22 – July 04, 2027)',
+      gradient: 'from-amber-500 to-orange-600'
     },
   ];
 
-  // Upcoming holidays sorted
   const upcomingHolidays = HOLIDAYS_2026.filter(h => new Date(h.startDate) >= todayDate);
 
   return (
     <div className="space-y-6 pb-20">
-      <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
-        <div className="flex items-center space-x-2">
-          <Clock className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
-          <h1 className="text-xl font-black text-slate-900 dark:text-white">Live Milestone Countdowns</h1>
+      <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-between">
+        <div>
+          <div className="flex items-center space-x-2">
+            <Clock className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+            <h1 className="text-xl font-black text-slate-900 dark:text-white">Live Milestone Countdowns & Calendar</h1>
+          </div>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            Real-time countdowns for Exams, Semester Registrations, and 2.5-month Summer Vacation!
+          </p>
         </div>
-        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-          Real-time countdowns calculated dynamically for exam windows and upcoming holidays.
-        </p>
       </div>
 
       {/* Main Countdown Cards */}
@@ -71,7 +73,10 @@ export const CountdownView: React.FC = () => {
           >
             <div>
               <div className="flex justify-between items-center text-xs font-bold text-white/80">
-                <span className="uppercase tracking-wider">{cd.category}</span>
+                <span className="uppercase tracking-wider flex items-center gap-1">
+                  {cd.category === 'Vacation' && <Sun className="w-3.5 h-3.5 text-amber-300" />}
+                  <span>{cd.category}</span>
+                </span>
                 <span>{cd.date}</span>
               </div>
               <h2 className="text-xl font-extrabold mt-2 leading-tight">{cd.title}</h2>
@@ -85,6 +90,9 @@ export const CountdownView: React.FC = () => {
           </div>
         ))}
       </div>
+
+      {/* WORKING INTERACTIVE MONTHLY CALENDAR */}
+      <MonthlyCalendar />
 
       {/* Upcoming Holidays Countdowns */}
       <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">

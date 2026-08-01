@@ -3,6 +3,8 @@ import { AppProvider, useApp } from './context/AppContext';
 import { Navbar } from './components/Navbar';
 import { DashboardView } from './components/DashboardView';
 import { SubjectsView } from './components/SubjectsView';
+import { CdsView } from './components/CdsView';
+import { GateView } from './components/GateView';
 import { FoundationView } from './components/FoundationView';
 import { SkillsView } from './components/SkillsView';
 import { ChannelDirectoryView } from './components/ChannelDirectoryView';
@@ -18,6 +20,8 @@ const MainContent: React.FC = () => {
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       {activeView === 'dashboard' && <DashboardView />}
       {activeView === 'subjects' && <SubjectsView />}
+      {activeView === 'cds' && <CdsView />}
+      {activeView === 'gate' && <GateView />}
       {activeView === 'foundation' && <FoundationView />}
       {activeView === 'skills' && <SkillsView />}
       {activeView === 'channels' && <ChannelDirectoryView />}

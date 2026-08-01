@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { ACADEMIC_MILESTONES, HOLIDAYS_2026, SUNDAY_FESTIVALS, CalendarEvent } from '../data/calendar';
-import { Calendar as CalendarIcon, Clock, AlertCircle, Info, Bookmark } from 'lucide-react';
+import { ACADEMIC_MILESTONES, HOLIDAYS_2026, CalendarEvent } from '../data/calendar';
+import { MonthlyCalendar } from './MonthlyCalendar';
+import { Calendar as CalendarIcon, Info } from 'lucide-react';
 
 export const CalendarView: React.FC = () => {
   const [filterType, setFilterType] = useState<string>('All');
-  const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
 
   const allEvents: CalendarEvent[] = [
     ...ACADEMIC_MILESTONES,
@@ -21,6 +21,7 @@ export const CalendarView: React.FC = () => {
 
   return (
     <div className="space-y-6 pb-20">
+      {/* Top Banner */}
       <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center space-x-2">
@@ -28,7 +29,7 @@ export const CalendarView: React.FC = () => {
             <h1 className="text-xl font-black text-slate-900 dark:text-white">Academic Calendar & Holidays 2026–27</h1>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Official semester dates, exam windows, registration schedules, and public holiday list.
+            Interactive monthly calendar, official semester dates, exam windows, and public holiday list.
           </p>
         </div>
 
@@ -50,6 +51,9 @@ export const CalendarView: React.FC = () => {
         </div>
       </div>
 
+      {/* WORKING MONTHLY CALENDAR COMPONENT */}
+      <MonthlyCalendar />
+
       {/* Note Callout */}
       <div className="p-4 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/40 border border-indigo-200/60 dark:border-indigo-900/60 text-xs text-indigo-900 dark:text-indigo-200 space-y-1">
         <p className="font-bold flex items-center gap-1.5">
@@ -63,15 +67,14 @@ export const CalendarView: React.FC = () => {
 
       {/* Events Timeline List */}
       <div className="space-y-3">
+        <h2 className="text-base font-extrabold text-slate-900 dark:text-white">All Academic Milestones & Holidays List</h2>
         {filteredEvents.map((evt, idx) => {
           const isExam = evt.type === 'exam';
           const isHoliday = evt.type === 'holiday';
-          const isInduction = evt.type === 'induction';
 
           return (
             <div
               key={idx}
-              onClick={() => setSelectedEvent(evt)}
               className={`p-4 rounded-2xl border transition-all cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
                 isExam
                   ? 'bg-red-50/50 dark:bg-red-950/20 border-red-200 dark:border-red-900/60 hover:border-red-300'
