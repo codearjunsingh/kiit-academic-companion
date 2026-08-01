@@ -33,5 +33,5 @@ Instead of managing scattered PDFs, timetable photos, and notebook trackers, **S
 
 ## 🌐 Live URLs
 
-- **Production URL**: [https://kiit-academic-companion.vercel.app](https://kiit-academic-companion.vercel.app)
-- **GitHub Repository**: [https://github.com/codearjunsingh/kiit-academic-companion](https://github.com/codearjunsingh/kiit-academic-companion)
+- **Production URL**: [https://okarjunsingh.vercel.app](https://okarjunsingh.vercel.app)
+- **GitHub Repository**: [https://github.com/codearjunsingh/study-os](https://github.com/codearjunsingh/study-os)
