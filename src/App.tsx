@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppProvider, useApp } from './context/AppContext';
 import { Navbar } from './components/Navbar';
-import { DashboardView } from './components/DashboardView';
+import { SinglePageMissionControl } from './components/SinglePageMissionControl';
 import { KnowledgeGraphView } from './components/KnowledgeGraphView';
 import { FoundationZeroView } from './components/FoundationZeroView';
 import { GoalEngineView } from './components/GoalEngineView';
@@ -28,7 +28,7 @@ const MainContent: React.FC = () => {
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-      {activeView === 'dashboard' && <DashboardView />}
+      {activeView === 'dashboard' && <SinglePageMissionControl />}
       {activeView === 'knowledgeGraph' && <KnowledgeGraphView />}
       {activeView === 'foundationZero' && <FoundationZeroView />}
       {activeView === 'goals' && <GoalEngineView />}
