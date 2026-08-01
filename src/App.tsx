@@ -4,8 +4,10 @@ import { Navbar } from './components/Navbar';
 import { DashboardView } from './components/DashboardView';
 import { FoundationZeroView } from './components/FoundationZeroView';
 import { SubjectsView } from './components/SubjectsView';
+import { CodingHqView } from './components/CodingHqView';
 import { CdsView } from './components/CdsView';
 import { GateView } from './components/GateView';
+import { LifeHealthView } from './components/LifeHealthView';
 import { FoundationView } from './components/FoundationView';
 import { SkillsView } from './components/SkillsView';
 import { ChannelDirectoryView } from './components/ChannelDirectoryView';
@@ -22,8 +24,10 @@ const MainContent: React.FC = () => {
       {activeView === 'dashboard' && <DashboardView />}
       {activeView === 'foundationZero' && <FoundationZeroView />}
       {activeView === 'subjects' && <SubjectsView />}
+      {activeView === 'coding' && <CodingHqView />}
       {activeView === 'cds' && <CdsView />}
       {activeView === 'gate' && <GateView />}
+      {activeView === 'lifeHealth' && <LifeHealthView />}
       {activeView === 'foundation' && <FoundationView />}
       {activeView === 'skills' && <SkillsView />}
       {activeView === 'channels' && <ChannelDirectoryView />}

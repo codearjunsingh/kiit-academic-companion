@@ -14,18 +14,22 @@ import {
   Tv,
   Target,
   Shield,
-  Layers
+  Layers,
+  Code,
+  Heart
 } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const { activeView, setActiveView, scheme, darkMode, setDarkMode, explainSimply, setExplainSimply } = useApp();
 
   const navItems = [
-    { id: 'dashboard', label: 'Today', icon: LayoutDashboard },
+    { id: 'dashboard', label: 'Mission Control', icon: LayoutDashboard },
     { id: 'foundationZero', label: 'Zero-to-Hero', icon: Layers },
     { id: 'subjects', label: 'Subjects', icon: BookOpen },
+    { id: 'coding', label: 'Coding HQ', icon: Code },
     { id: 'cds', label: 'CDS Prep', icon: Shield },
     { id: 'gate', label: 'GATE Prep', icon: Target },
+    { id: 'lifeHealth', label: 'Life & Health', icon: Heart },
     { id: 'foundation', label: 'PCM Prep', icon: GraduationCap },
     { id: 'skills', label: 'Skills', icon: Sparkles },
     { id: 'calendar', label: 'Calendar', icon: CalendarIcon },
@@ -42,19 +46,19 @@ export const Navbar: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center space-x-3 cursor-pointer" onClick={() => setActiveView('dashboard')}>
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-blue-600 to-teal-500 flex items-center justify-center text-white font-black text-lg shadow-md shadow-indigo-500/20">
-              K
+              S
             </div>
             <div>
               <div className="flex items-center space-x-2">
                 <span className="font-extrabold text-slate-900 dark:text-white tracking-tight text-base sm:text-lg">
-                  KIIT Academic Companion
+                  StudyOS
                 </span>
                 <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
-                  {scheme}
+                  KIIT • {scheme}
                 </span>
               </div>
               <p className="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:block">
-                School of Engineering • 2026 Batch
+                Arjun's Personal AI Academic & Life Command Center
               </p>
             </div>
           </div>
@@ -123,11 +127,11 @@ export const Navbar: React.FC = () => {
       <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 px-2 py-1">
         <div className="grid grid-cols-5 gap-1">
           {[
-            { id: 'dashboard', label: 'Today', icon: LayoutDashboard },
+            { id: 'dashboard', label: 'Mission', icon: LayoutDashboard },
             { id: 'foundationZero', label: 'Zero-to-Hero', icon: Layers },
-            { id: 'subjects', label: 'Subjects', icon: BookOpen },
+            { id: 'coding', label: 'Coding HQ', icon: Code },
             { id: 'cds', label: 'CDS Prep', icon: Shield },
-            { id: 'gate', label: 'GATE Prep', icon: Target },
+            { id: 'lifeHealth', label: 'Life', icon: Heart },
           ].map(item => {
             const Icon = item.icon;
             const isActive = activeView === item.id;
