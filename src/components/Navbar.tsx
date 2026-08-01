@@ -2,48 +2,31 @@ import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { EverythingSearchModal } from './EverythingSearchModal';
 import {
-  LayoutDashboard,
-  Network,
-  Layers,
+  Home,
   BookOpen,
-  Code,
-  Shield,
+  Network,
+  Library,
   Target,
-  Sparkles,
-  Book,
-  Calendar as CalendarIcon,
-  Clock,
-  HelpCircle,
+  Code,
   Settings as SettingsIcon,
   Moon,
   Sun,
-  Tv,
-  Heart,
   Search,
-  FlaskConical,
-  Library
+  Sparkles
 } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const { activeView, setActiveView, scheme, darkMode, setDarkMode, explainSimply, setExplainSimply } = useApp();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  const navItems = [
-    { id: 'dashboard', label: 'Mission', icon: LayoutDashboard },
-    { id: 'knowledgeGraph', label: 'Knowledge Graph', icon: Network },
-    { id: 'foundationZero', label: 'Zero-to-Hero', icon: Layers },
-    { id: 'goals', label: 'AI Goals', icon: Target },
-    { id: 'subjects', label: 'Subjects', icon: BookOpen },
-    { id: 'coding', label: 'Coding HQ', icon: Code },
-    { id: 'cds', label: 'CDS Prep', icon: Shield },
-    { id: 'gate', label: 'GATE Prep', icon: Target },
-    { id: 'curiosity', label: 'Curiosity', icon: Sparkles },
-    { id: 'experiments', label: 'Experiments', icon: FlaskConical },
-    { id: 'library', label: 'Library', icon: Library },
-    { id: 'decision', label: 'Journal', icon: Book },
-    { id: 'timeline', label: 'Timeline', icon: Clock },
-    { id: 'lifeHealth', label: 'Life & Health', icon: Heart },
-    { id: 'settings', label: 'Settings', icon: SettingsIcon },
+  const coreModules = [
+    { id: 'dashboard', label: '🏠 Home', icon: Home },
+    { id: 'learn', label: '📚 Learn', icon: BookOpen },
+    { id: 'knowledgeGraph', label: '🧠 Knowledge', icon: Network },
+    { id: 'library', label: '📖 Resources', icon: Library },
+    { id: 'gate', label: '🎯 Exams', icon: Target },
+    { id: 'coding', label: '💻 Coding', icon: Code },
+    { id: 'settings', label: '⚙️ Settings', icon: SettingsIcon },
   ];
 
   return (
@@ -72,22 +55,21 @@ export const Navbar: React.FC = () => {
             </div>
           </div>
 
-          {/* Desktop Nav Controls */}
+          {/* Desktop Nav Controls - Clean 7 Core Systems */}
           <div className="hidden lg:flex items-center space-x-1">
-            {navItems.slice(0, 10).map(item => {
+            {coreModules.map(item => {
               const Icon = item.icon;
               const isActive = activeView === item.id;
               return (
                 <button
                   key={item.id}
                   onClick={() => setActiveView(item.id)}
-                  className={`flex items-center space-x-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                  className={`flex items-center space-x-1 px-3 py-1.5 rounded-xl text-xs font-black transition-all ${
                     isActive
-                      ? 'bg-indigo-50 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 shadow-sm border border-indigo-200/50 dark:border-indigo-800/50'
+                      ? 'bg-indigo-600 text-white shadow-md'
                       : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60'
                   }`}
                 >
-                  <Icon className="w-3.5 h-3.5" />
                   <span>{item.label}</span>
                 </button>
               );
@@ -130,15 +112,15 @@ export const Navbar: React.FC = () => {
         </div>
       </header>
 
-      {/* Mobile Bottom Navigation Bar */}
+      {/* Mobile Bottom Navigation Bar - Clean 5 Core Icons */}
       <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 px-2 py-1">
         <div className="grid grid-cols-5 gap-1">
           {[
-            { id: 'dashboard', label: 'Mission', icon: LayoutDashboard },
-            { id: 'knowledgeGraph', label: 'Graph', icon: Network },
-            { id: 'foundationZero', label: 'Zero-Hero', icon: Layers },
+            { id: 'dashboard', label: 'Home', icon: Home },
+            { id: 'learn', label: 'Learn', icon: BookOpen },
+            { id: 'knowledgeGraph', label: 'Knowledge', icon: Network },
             { id: 'coding', label: 'Coding', icon: Code },
-            { id: 'cds', label: 'CDS', icon: Shield },
+            { id: 'gate', label: 'Exams', icon: Target },
           ].map(item => {
             const Icon = item.icon;
             const isActive = activeView === item.id;

@@ -2,6 +2,7 @@ import React from 'react';
 import { AppProvider, useApp } from './context/AppContext';
 import { Navbar } from './components/Navbar';
 import { SinglePageMissionControl } from './components/SinglePageMissionControl';
+import { LearnUniversalView } from './components/LearnUniversalView';
 import { KnowledgeGraphView } from './components/KnowledgeGraphView';
 import { FoundationZeroView } from './components/FoundationZeroView';
 import { GoalEngineView } from './components/GoalEngineView';
@@ -29,6 +30,7 @@ const MainContent: React.FC = () => {
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       {activeView === 'dashboard' && <SinglePageMissionControl />}
+      {activeView === 'learn' && <LearnUniversalView />}
       {activeView === 'knowledgeGraph' && <KnowledgeGraphView />}
       {activeView === 'foundationZero' && <FoundationZeroView />}
       {activeView === 'goals' && <GoalEngineView />}
