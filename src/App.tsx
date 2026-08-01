@@ -2,6 +2,7 @@ import React from 'react';
 import { AppProvider, useApp } from './context/AppContext';
 import { Navbar } from './components/Navbar';
 import { DashboardView } from './components/DashboardView';
+import { FoundationZeroView } from './components/FoundationZeroView';
 import { SubjectsView } from './components/SubjectsView';
 import { CdsView } from './components/CdsView';
 import { GateView } from './components/GateView';
@@ -19,6 +20,7 @@ const MainContent: React.FC = () => {
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       {activeView === 'dashboard' && <DashboardView />}
+      {activeView === 'foundationZero' && <FoundationZeroView />}
       {activeView === 'subjects' && <SubjectsView />}
       {activeView === 'cds' && <CdsView />}
       {activeView === 'gate' && <GateView />}

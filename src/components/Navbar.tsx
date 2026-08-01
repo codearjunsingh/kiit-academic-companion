@@ -13,7 +13,8 @@ import {
   Sun,
   Tv,
   Target,
-  Shield
+  Shield,
+  Layers
 } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
@@ -21,6 +22,7 @@ export const Navbar: React.FC = () => {
 
   const navItems = [
     { id: 'dashboard', label: 'Today', icon: LayoutDashboard },
+    { id: 'foundationZero', label: 'Zero-to-Hero', icon: Layers },
     { id: 'subjects', label: 'Subjects', icon: BookOpen },
     { id: 'cds', label: 'CDS Prep', icon: Shield },
     { id: 'gate', label: 'GATE Prep', icon: Target },
@@ -122,10 +124,10 @@ export const Navbar: React.FC = () => {
         <div className="grid grid-cols-5 gap-1">
           {[
             { id: 'dashboard', label: 'Today', icon: LayoutDashboard },
+            { id: 'foundationZero', label: 'Zero-to-Hero', icon: Layers },
             { id: 'subjects', label: 'Subjects', icon: BookOpen },
             { id: 'cds', label: 'CDS Prep', icon: Shield },
             { id: 'gate', label: 'GATE Prep', icon: Target },
-            { id: 'skills', label: 'Skills', icon: Sparkles },
           ].map(item => {
             const Icon = item.icon;
             const isActive = activeView === item.id;

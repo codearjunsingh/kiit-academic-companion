@@ -17,6 +17,15 @@ interface AppContextType {
   
   checkedFoundation: Record<string, boolean>;
   toggleFoundationTopic: (id: string) => void;
+
+  checkedFoundationZero: Record<string, boolean>;
+  toggleFoundationZeroTopic: (id: string) => void;
+
+  confidenceRatings: Record<string, number>;
+  setConfidenceRating: (id: string, stars: number) => void;
+
+  foundationStreak: number;
+  incrementFoundationStreak: () => void;
   
   checkedSkills: Record<string, boolean>;
   toggleSkillTopic: (id: string) => void;
@@ -69,6 +78,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [checkedFoundation, setCheckedFoundation] = useState<Record<string, boolean>>(() => {
     const saved = localStorage.getItem('kiit_checked_foundation');
     return saved ? JSON.parse(saved) : {};
+  });
+
+  const [checkedFoundationZero, setCheckedFoundationZero] = useState<Record<string, boolean>>(() => {
+    const saved = localStorage.getItem('kiit_checked_foundation_zero');
+    return saved ? JSON.parse(saved) : {};
+  });
+
+  const [confidenceRatings, setConfidenceRatings] = useState<Record<string, number>>(() => {
+    const saved = localStorage.getItem('kiit_confidence_ratings');
+    return saved ? JSON.parse(saved) : {};
+  });
+
+  const [foundationStreak, setFoundationStreak] = useState<number>(() => {
+    const saved = localStorage.getItem('kiit_foundation_streak');
+    return saved ? parseInt(saved, 10) : 0;
   });
 
   const [checkedSkills, setCheckedSkills] = useState<Record<string, boolean>>(() => {
@@ -130,6 +154,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, [checkedFoundation]);
 
   useEffect(() => {
+    localStorage.setItem('kiit_checked_foundation_zero', JSON.stringify(checkedFoundationZero));
+  }, [checkedFoundationZero]);
+
+  useEffect(() => {
+    localStorage.setItem('kiit_confidence_ratings', JSON.stringify(confidenceRatings));
+  }, [confidenceRatings]);
+
+  useEffect(() => {
+    localStorage.setItem('kiit_foundation_streak', foundationStreak.toString());
+  }, [foundationStreak]);
+
+  useEffect(() => {
     localStorage.setItem('kiit_checked_skills', JSON.stringify(checkedSkills));
   }, [checkedSkills]);
 
@@ -174,6 +210,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setCheckedFoundation(prev => ({ ...prev, [id]: !prev[id] }));
   };
 
+  const toggleFoundationZeroTopic = (id: string) => {
+    setCheckedFoundationZero(prev => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const setConfidenceRating = (id: string, stars: number) => {
+    setConfidenceRatings(prev => ({ ...prev, [id]: stars }));
+  };
+
+  const incrementFoundationStreak = () => {
+    setFoundationStreak(prev => prev + 1);
+  };
+
   const toggleSkillTopic = (id: string) => {
     setCheckedSkills(prev => ({ ...prev, [id]: !prev[id] }));
   };
@@ -189,11 +237,17 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const resetProgress = () => {
     setCheckedSyllabus({});
     setCheckedFoundation({});
+    setCheckedFoundationZero({});
+    setConfidenceRatings({});
+    setFoundationStreak(0);
     setCheckedSkills({});
     setCheckedGate({});
     setCheckedCds({});
     localStorage.removeItem('kiit_checked_syllabus');
     localStorage.removeItem('kiit_checked_foundation');
+    localStorage.removeItem('kiit_checked_foundation_zero');
+    localStorage.removeItem('kiit_confidence_ratings');
+    localStorage.removeItem('kiit_foundation_streak');
     localStorage.removeItem('kiit_checked_skills');
     localStorage.removeItem('kiit_checked_gate');
     localStorage.removeItem('kiit_checked_cds');
@@ -214,6 +268,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         toggleSyllabusTopic,
         checkedFoundation,
         toggleFoundationTopic,
+        checkedFoundationZero,
+        toggleFoundationZeroTopic,
+        confidenceRatings,
+        setConfidenceRating,
+        foundationStreak,
+        incrementFoundationStreak,
         checkedSkills,
         toggleSkillTopic,
         checkedGate,
