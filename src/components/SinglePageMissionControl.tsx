@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
-import { MASTER_TEACHER_TOPICS, TeacherTopic } from '../data/masterTeacher';
+import { MASTER_TEACHER_TOPICS, ALL_DOMAINS, TeacherTopic } from '../data/masterTeacher';
 import {
   SECTION_A26_TIMETABLE,
   SECTION_B1_TIMETABLE,
@@ -25,15 +25,18 @@ import {
   Book,
   ExternalLink,
   Layers,
-  ChevronDown,
-  ChevronUp
+  HelpCircle,
+  Star,
+  CornerDownRight
 } from 'lucide-react';
 
 export const SinglePageMissionControl: React.FC = () => {
   const { scheme, foundationStreak } = useApp();
   const [selectedTopicId, setSelectedTopicId] = useState<string>('tp_calculus_1');
+  const [selectedDomain, setSelectedDomain] = useState<string>('Mathematics');
   const [teachLevel, setTeachLevel] = useState<'knowNothing' | 'class10' | 'class12' | 'college' | 'examRevision'>('knowNothing');
   const [isMissionStarted, setIsMissionStarted] = useState(false);
+  const [showDontKnowRepair, setShowDontKnowRepair] = useState(false);
 
   const selectedTopic = MASTER_TEACHER_TOPICS.find(t => t.id === selectedTopicId) || MASTER_TEACHER_TOPICS[0];
 
@@ -44,30 +47,37 @@ export const SinglePageMissionControl: React.FC = () => {
   const activeTimetable: ClassSlot[] = scheme === 'Scheme A' ? SECTION_A26_TIMETABLE : SECTION_B1_TIMETABLE;
   const todayClasses = activeTimetable.filter(slot => slot.day === dayName);
 
+  const domainTopics = MASTER_TEACHER_TOPICS.filter(t => t.domain === selectedDomain);
+
   return (
     <div className="space-y-8 pb-24">
-      {/* SECTION 1: TODAY LIVE COUNTDOWNS & SEMESTER PROGRESS */}
+      {/* SECTION 1: HEADER BANNER WITH OFFICIAL MOTTO "FROM ZERO TO ENGINEER" */}
       <div className="bg-slate-900 text-white rounded-3xl p-6 border border-slate-800 shadow-xl space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-teal-500 flex items-center justify-center font-black text-lg">
+            <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-indigo-600 via-teal-500 to-emerald-400 flex items-center justify-center font-black text-xl shadow-lg shadow-indigo-500/20">
               S
             </div>
             <div>
-              <h1 className="text-xl font-black tracking-tight">StudyOS • Executive Mission Control</h1>
-              <p className="text-xs text-slate-400 font-semibold">
-                Arjun Singh (KIIT B.Tech CSE-AIML • Section {scheme === 'Scheme A' ? 'A26' : 'B1'})
+              <div className="flex items-center space-x-2">
+                <h1 className="text-xl sm:text-2xl font-black tracking-tight">StudyOS</h1>
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[11px] font-extrabold">
+                  "From Zero to Engineer."
+                </span>
+              </div>
+              <p className="text-xs text-slate-400 font-semibold mt-0.5">
+                Arjun Singh • KIIT B.Tech CSE-AIML • Section {scheme === 'Scheme A' ? 'A26' : 'B1'}
               </p>
             </div>
           </div>
 
-          <div className="flex items-center space-x-2 bg-indigo-950/60 p-2.5 rounded-2xl border border-indigo-800/60">
+          <div className="flex items-center space-x-2 bg-indigo-950/60 p-2.5 rounded-2xl border border-indigo-800/60 shrink-0">
             <Flame className="w-5 h-5 text-amber-400 fill-amber-400" />
             <span className="text-xs font-black text-amber-300">{foundationStreak} Day Active Streak</span>
           </div>
         </div>
 
-        {/* Live Countdowns Grid */}
+        {/* Live Countdowns Strip */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
           <div className="p-3.5 rounded-2xl bg-slate-800/60 border border-slate-700/60 text-center">
             <p className="text-[10px] text-indigo-300 font-extrabold uppercase">📅 Mid Sem Exam</p>
@@ -99,7 +109,7 @@ export const SinglePageMissionControl: React.FC = () => {
         </div>
       </div>
 
-      {/* SECTION 2: TODAY'S MISSION (THE BIGGEST HERO SECTION - ZERO THINKING!) */}
+      {/* SECTION 2: TODAY'S EXECUTION MISSION (ZERO THINKING!) */}
       <div className="bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 text-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-indigo-800/60 space-y-6 relative overflow-hidden">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-indigo-800/80 pb-4">
           <div>
@@ -130,7 +140,6 @@ export const SinglePageMissionControl: React.FC = () => {
 
         {/* 6 PRIORITIZED DAILY EXECUTION ITEMS */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
-          {/* Item 1 */}
           <div className="p-4 rounded-2xl bg-white/10 border border-white/10 space-y-2">
             <div className="flex items-center justify-between">
               <span className="font-extrabold text-amber-300">1️⃣ Engineering Mathematics</span>
@@ -144,7 +153,6 @@ export const SinglePageMissionControl: React.FC = () => {
             </div>
           </div>
 
-          {/* Item 2 */}
           <div className="p-4 rounded-2xl bg-white/10 border border-white/10 space-y-2">
             <div className="flex items-center justify-between">
               <span className="font-extrabold text-cyan-300">2️⃣ C Programming</span>
@@ -158,7 +166,6 @@ export const SinglePageMissionControl: React.FC = () => {
             </div>
           </div>
 
-          {/* Item 3 */}
           <div className="p-4 rounded-2xl bg-white/10 border border-white/10 space-y-2">
             <div className="flex items-center justify-between">
               <span className="font-extrabold text-purple-300">3️⃣ PW Nirmaan GATE 2029</span>
@@ -172,7 +179,6 @@ export const SinglePageMissionControl: React.FC = () => {
             </div>
           </div>
 
-          {/* Item 4 */}
           <div className="p-4 rounded-2xl bg-white/10 border border-white/10 space-y-2">
             <div className="flex items-center justify-between">
               <span className="font-extrabold text-emerald-300">4️⃣ UPSC CDS II 2029</span>
@@ -186,7 +192,6 @@ export const SinglePageMissionControl: React.FC = () => {
             </div>
           </div>
 
-          {/* Item 5 */}
           <div className="p-4 rounded-2xl bg-white/10 border border-white/10 space-y-2">
             <div className="flex items-center justify-between">
               <span className="font-extrabold text-rose-300">5️⃣ Daily Curiosity Discovery</span>
@@ -200,7 +205,6 @@ export const SinglePageMissionControl: React.FC = () => {
             </div>
           </div>
 
-          {/* Item 6 */}
           <div className="p-4 rounded-2xl bg-white/10 border border-white/10 space-y-2">
             <div className="flex items-center justify-between">
               <span className="font-extrabold text-teal-300">6️⃣ Revise Yesterday</span>
@@ -216,109 +220,127 @@ export const SinglePageMissionControl: React.FC = () => {
         </div>
       </div>
 
-      {/* SECTION 3 & 4: CONTINUE LEARNING & WEAK TOPIC WARNINGS */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Continue Learning */}
-        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-md space-y-3">
-          <h3 className="text-base font-black text-slate-900 dark:text-white flex items-center gap-2">
-            <Play className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-            <span>Continue Learning (One-Click Resume)</span>
-          </h3>
-
-          <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 flex items-center justify-between">
-            <div>
-              <span className="text-[10px] font-black uppercase text-indigo-600 dark:text-indigo-400">Yesterday's Track</span>
-              <h4 className="font-black text-slate-900 dark:text-white text-sm mt-0.5">Differential Calculus & Derivatives</h4>
-              <p className="text-xs text-slate-500">Progress: 56% Completed</p>
-            </div>
-
+      {/* DOMAIN KNOWLEDGE SELECTOR STRIP */}
+      <div className="space-y-3">
+        <h3 className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          🌐 Master Knowledge Tree Domains (From Zero to Everything):
+        </h3>
+        <div className="flex items-center space-x-2 overflow-x-auto pb-2 scrollbar-none">
+          {ALL_DOMAINS.map(d => (
             <button
-              onClick={() => setSelectedTopicId('tp_calculus_1')}
-              className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs transition-colors shrink-0 flex items-center space-x-1"
+              key={d}
+              onClick={() => {
+                setSelectedDomain(d);
+                const first = MASTER_TEACHER_TOPICS.find(t => t.domain === d);
+                if (first) setSelectedTopicId(first.id);
+              }}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-black whitespace-nowrap transition-all ${
+                selectedDomain === d
+                  ? 'bg-indigo-600 text-white shadow-md'
+                  : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900'
+              }`}
             >
-              <span>Continue →</span>
+              {d}
             </button>
-          </div>
-        </div>
-
-        {/* Weak Topics & Prerequisite Warnings (NO Hard Locks!) */}
-        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-md space-y-3">
-          <h3 className="text-base font-black text-slate-900 dark:text-white flex items-center gap-2">
-            <AlertTriangle className="w-5 h-5 text-amber-500" />
-            <span>Weak Topics & Prerequisite Warnings</span>
-          </h3>
-
-          <div className="space-y-2 text-xs">
-            <div className="p-3 rounded-xl bg-amber-50/60 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/60 flex items-center justify-between">
-              <div>
-                <span className="font-extrabold text-slate-900 dark:text-white">Calculus Derivatives</span>
-                <p className="text-amber-700 dark:text-amber-300 text-[11px]">⚠️ Prerequisite Algebra needs review</p>
-              </div>
-              <button
-                onClick={() => setTeachLevel('knowNothing')}
-                className="px-3 py-1 rounded-lg bg-amber-400 text-slate-950 font-black text-[11px]"
-              >
-                Fix Prerequisite
-              </button>
-            </div>
-
-            <div className="p-3 rounded-xl bg-amber-50/60 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/60 flex items-center justify-between">
-              <div>
-                <span className="font-extrabold text-slate-900 dark:text-white">Matrices & Determinants</span>
-                <p className="text-amber-700 dark:text-amber-300 text-[11px]">⚠️ Prerequisite Linear Equations shaky</p>
-              </div>
-              <button
-                onClick={() => setTeachLevel('knowNothing')}
-                className="px-3 py-1 rounded-lg bg-amber-400 text-slate-950 font-black text-[11px]"
-              >
-                Fix Prerequisite
-              </button>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 
-      {/* SECTION 5: UNIVERSAL KNOWLEDGE TEACHER CARD ("TEACH ME FROM ZERO") */}
+      {/* SECTION 5: UNIVERSAL KNOWLEDGE TEACHER CARD WITH "I DON'T KNOW THIS" BUTTON */}
       <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-md space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-4">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-4">
           <div>
             <div className="flex items-center space-x-2">
               <span className="font-mono text-xs font-black px-2.5 py-0.5 rounded bg-indigo-100 dark:bg-indigo-950 text-indigo-800 dark:text-indigo-300">
                 {selectedTopic.domain}
               </span>
               <span className="text-xs font-bold text-amber-600 dark:text-amber-400">
-                Official Textbook: {selectedTopic.bestBook.bookTitle}
+                Book: {selectedTopic.bestBook.bookTitle} ({selectedTopic.bestBook.pageRange})
               </span>
             </div>
             <h2 className="text-2xl font-black text-slate-900 dark:text-white mt-1">
               {selectedTopic.title}
             </h2>
+
+            {/* DIFFICULTY VS YOUR LEVEL METRICS */}
+            <div className="flex items-center space-x-4 mt-2 text-xs">
+              <div className="flex items-center space-x-1">
+                <span className="font-bold text-slate-500">Difficulty:</span>
+                <span className="text-amber-500 font-black">{'★'.repeat(selectedTopic.difficulty)}{'☆'.repeat(5 - selectedTopic.difficulty)}</span>
+              </div>
+              <div className="flex items-center space-x-1">
+                <span className="font-bold text-slate-500">Your Level:</span>
+                <span className="text-emerald-500 font-black">{'★'.repeat(selectedTopic.yourLevel)}{'☆'.repeat(5 - selectedTopic.yourLevel)}</span>
+              </div>
+              <div className="flex items-center space-x-1">
+                <span className="font-bold text-slate-500">Time Required:</span>
+                <span className="text-indigo-600 dark:text-indigo-400 font-black">{selectedTopic.timeRequired}</span>
+              </div>
+            </div>
           </div>
 
-          {/* TEACH ME FROM ZERO LEVEL TOGGLE */}
-          <div className="bg-slate-100 dark:bg-slate-800 p-1.5 rounded-2xl flex flex-wrap items-center gap-1 shrink-0">
-            <span className="text-[10px] font-black uppercase text-slate-500 px-2">Teach Me Like:</span>
-            {[
-              { id: 'knowNothing', label: '○ I know nothing' },
-              { id: 'class10', label: 'Class 10' },
-              { id: 'class12', label: 'Class 12' },
-              { id: 'college', label: 'College' },
-              { id: 'examRevision', label: 'Exam Revision' },
-            ].map(lvl => (
-              <button
-                key={lvl.id}
-                onClick={() => setTeachLevel(lvl.id as any)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-extrabold transition-all ${
-                  teachLevel === lvl.id
-                    ? 'bg-indigo-600 text-white shadow-md'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
-                }`}
-              >
-                {lvl.label}
-              </button>
-            ))}
+          <div className="flex flex-wrap items-center gap-2 shrink-0">
+            {/* "I DON'T KNOW THIS" BUTTON */}
+            <button
+              onClick={() => setShowDontKnowRepair(!showDontKnowRepair)}
+              className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-black text-xs transition-colors flex items-center space-x-1.5 shadow-md"
+            >
+              <HelpCircle className="w-4 h-4" />
+              <span>I DON'T KNOW THIS</span>
+            </button>
+
+            {/* TEACH ME FROM ZERO LEVEL TOGGLE */}
+            <div className="bg-slate-100 dark:bg-slate-800 p-1.5 rounded-2xl flex items-center gap-1">
+              {[
+                { id: 'knowNothing', label: '○ I know nothing' },
+                { id: 'class10', label: 'Class 10' },
+                { id: 'class12', label: 'Class 12' },
+                { id: 'college', label: 'College' },
+                { id: 'examRevision', label: 'Exam Revision' },
+              ].map(lvl => (
+                <button
+                  key={lvl.id}
+                  onClick={() => setTeachLevel(lvl.id as any)}
+                  className={`px-3 py-1 rounded-xl text-xs font-extrabold transition-all ${
+                    teachLevel === lvl.id
+                      ? 'bg-indigo-600 text-white shadow-md'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
+                  }`}
+                >
+                  {lvl.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
+
+        {/* "I DON'T KNOW THIS" BACKTRACKING FOUNDATION REPAIR PATH */}
+        {showDontKnowRepair && (
+          <div className="p-5 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-xs space-y-3">
+            <div className="flex items-center space-x-2 text-rose-600 dark:text-rose-400 font-black uppercase">
+              <AlertTriangle className="w-4 h-4" />
+              <span>Foundation Backtracking Repair Path for {selectedTopic.title}:</span>
+            </div>
+            <p className="text-slate-800 dark:text-slate-200 font-semibold">
+              Don't panic! If you know nothing about this, master these prerequisites first, then return here:
+            </p>
+            <div className="flex flex-wrap items-center gap-2 pt-1">
+              {selectedTopic.repairPath.map((step, sIdx) => (
+                <React.Fragment key={sIdx}>
+                  <span className="px-3 py-1 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 font-black">
+                    {sIdx + 1}. {step}
+                  </span>
+                  {sIdx < selectedTopic.repairPath.length - 1 && (
+                    <CornerDownRight className="w-3.5 h-3.5 text-rose-500 shrink-0" />
+                  )}
+                </React.Fragment>
+              ))}
+              <span className="px-3 py-1 rounded-xl bg-emerald-500 text-slate-950 font-black">
+                5. Ready for {selectedTopic.title}! 🎉
+              </span>
+            </div>
+          </div>
+        )}
 
         {/* TEACH ME EXPLANATION BANNER */}
         <div className="p-5 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-900/60 text-xs space-y-2">
@@ -333,7 +355,6 @@ export const SinglePageMissionControl: React.FC = () => {
 
         {/* THE 7 GOLDEN ANSWERS GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-          {/* Question 1 & 2 */}
           <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
             <h4 className="font-black text-indigo-600 dark:text-indigo-400 uppercase">1. What Is It?</h4>
             <p className="text-slate-800 dark:text-slate-200 font-medium leading-relaxed">{selectedTopic.whatIsIt}</p>
@@ -344,11 +365,10 @@ export const SinglePageMissionControl: React.FC = () => {
             <p className="text-slate-800 dark:text-slate-200 font-medium leading-relaxed">{selectedTopic.whyDoINeedIt}</p>
           </div>
 
-          {/* Question 3: Prerequisites (Warnings NOT Locks) */}
           <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
             <h4 className="font-black text-amber-600 dark:text-amber-400 uppercase">3. What Should I Know First? (Prerequisites)</h4>
             <div className="space-y-1">
-              {selectedTopic.prerequisites.map((req, idx) => (
+              {selectedTopic.prerequisites.length > 0 ? selectedTopic.prerequisites.map((req, idx) => (
                 <div key={idx} className="flex items-center justify-between text-slate-800 dark:text-slate-200 font-medium">
                   <span>{req.title}</span>
                   <span className={`px-2 py-0.5 rounded text-[10px] font-black ${
@@ -357,11 +377,12 @@ export const SinglePageMissionControl: React.FC = () => {
                     {req.met ? '✓ Ready' : '⚠️ Warning: Review'}
                   </span>
                 </div>
-              ))}
+              )) : (
+                <p className="text-slate-500">No prior prerequisites needed. Start from scratch!</p>
+              )}
             </div>
           </div>
 
-          {/* Question 4: Best YouTube Teachers */}
           <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
             <h4 className="font-black text-red-600 dark:text-red-400 uppercase">4. Best YouTube Teachers Ranked</h4>
             <div className="space-y-1">
@@ -380,14 +401,12 @@ export const SinglePageMissionControl: React.FC = () => {
             </div>
           </div>
 
-          {/* Question 5: Which Book? */}
           <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
             <h4 className="font-black text-blue-600 dark:text-blue-400 uppercase">5. Which Book & Exact Pages?</h4>
             <p className="font-bold text-slate-900 dark:text-white">{selectedTopic.bestBook.bookTitle}</p>
             <p className="text-slate-600 dark:text-slate-400 font-medium">Author: {selectedTopic.bestBook.author} • {selectedTopic.bestBook.pageRange}</p>
           </div>
 
-          {/* Question 6: Practice & PYQs */}
           <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
             <h4 className="font-black text-purple-600 dark:text-purple-400 uppercase">6. Practice Questions & PYQs</h4>
             <p className="text-slate-800 dark:text-slate-200 font-medium">

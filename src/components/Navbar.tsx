@@ -62,8 +62,8 @@ export const Navbar: React.FC = () => {
                 <span className="font-extrabold text-slate-900 dark:text-white tracking-tight text-base sm:text-lg">
                   StudyOS
                 </span>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
-                  KIIT • {scheme}
+                <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                  From Zero to Engineer
                 </span>
               </div>
               <p className="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:block">
@@ -96,7 +96,6 @@ export const Navbar: React.FC = () => {
 
           {/* Right Action Icons */}
           <div className="flex items-center space-x-2">
-            {/* Universal Search Button */}
             <button
               onClick={() => setIsSearchOpen(true)}
               className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-600 dark:text-slate-300 text-xs font-bold transition-colors flex items-center space-x-1.5"

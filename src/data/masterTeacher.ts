@@ -7,7 +7,7 @@ export interface TeachMeLevel {
 }
 
 export interface YouTubeTeacher {
-  level: 'Beginner' | 'Exam Focus' | 'Animation / Visual';
+  level: 'Beginner' | 'Exam Focus' | 'Animation / Visual' | 'Quick Revision';
   teacherName: string;
   url: string;
 }
@@ -22,11 +22,15 @@ export interface BookRecommendation {
 
 export interface TeacherTopic {
   id: string;
-  domain: string; // Mathematics, Physics, Chemistry, Computer Science, AI, Defence, etc.
+  domain: string; // Mathematics, Physics, Chemistry, Computer Science, AI, Defence, Constitution, etc.
   title: string;
+  difficulty: number; // 1-5 Stars
+  yourLevel: number; // 1-5 Stars
+  timeRequired: string;
   whatIsIt: string;
   whyDoINeedIt: string;
   whereUsed: string;
+  repairPath: string[]; // e.g. ['Basic Arithmetic', 'Fractions', 'Algebra', 'Functions']
   prerequisites: { topicId: string; title: string; met: boolean }[];
   bestYouTube: YouTubeTeacher[];
   bestBook: BookRecommendation;
@@ -34,14 +38,51 @@ export interface TeacherTopic {
   teachMe: TeachMeLevel;
 }
 
+export const ALL_DOMAINS = [
+  'Mathematics',
+  'Physics',
+  'Chemistry',
+  'Biology',
+  'English',
+  'C Programming',
+  'Python',
+  'Java',
+  'JavaScript',
+  'Linux & Git',
+  'SQL & Databases',
+  'DSA (Data Structures)',
+  'AI & Machine Learning',
+  'Deep Learning',
+  'Defence & CDS',
+  'AFCAT',
+  'GATE CSE',
+  'Economics',
+  'Indian Constitution',
+  'Geography',
+  'History',
+  'Current Affairs',
+  'Electronics',
+  'Mechanical',
+  'Civil',
+  'Communication & Soft Skills',
+  'Aptitude & Reasoning',
+  'Interview Prep',
+  'Projects & Code',
+  'Research & Papers'
+];
+
 export const MASTER_TEACHER_TOPICS: TeacherTopic[] = [
   {
     id: 'tp_calculus_1',
     domain: 'Mathematics',
     title: 'Differential Calculus & Derivatives',
+    difficulty: 4,
+    yourLevel: 1,
+    timeRequired: '3 Hours',
     whatIsIt: 'Calculus technique that measures instantaneous speed and rate of change at a specific millisecond.',
     whyDoINeedIt: 'Essential for KIIT Math (MA11009), GATE CSE Engineering Math, and Gradient Descent in AI/Machine Learning.',
     whereUsed: 'AI loss function optimization (PyTorch), physics velocity/acceleration derivations, self-driving cars.',
+    repairPath: ['Basic Arithmetic', 'Fractions & Decimals', 'Basic Algebra', 'Functions & Limits'],
     prerequisites: [
       { topicId: 'tp_algebra_1', title: 'Basic Algebra & Equations', met: true },
       { topicId: 'tp_functions_1', title: 'Functions & Limits', met: false }
@@ -74,11 +115,15 @@ export const MASTER_TEACHER_TOPICS: TeacherTopic[] = [
   },
   {
     id: 'tp_c_pointers',
-    domain: 'Computer Science',
+    domain: 'C Programming',
     title: 'C Pointers & Memory Allocation',
+    difficulty: 4,
+    yourLevel: 2,
+    timeRequired: '2.5 Hours',
     whatIsIt: 'Pointers are special variables that store RAM memory addresses of other variables.',
     whyDoINeedIt: 'Core of C/C++ programming (CS13003), data structures (Linked Lists/Trees), operating systems, and memory management.',
     whereUsed: 'Dynamic memory allocation (malloc/free), passing big data by reference, kernel drivers.',
+    repairPath: ['RAM & Binary Basics', 'Variables & Datatypes', 'Functions & Parameters'],
     prerequisites: [
       { topicId: 'tp_c_variables', title: 'C Variables & Datatypes', met: true },
       { topicId: 'tp_c_functions', title: 'C Functions & Parameters', met: true }
@@ -112,9 +157,13 @@ export const MASTER_TEACHER_TOPICS: TeacherTopic[] = [
     id: 'tp_matrices_1',
     domain: 'Mathematics',
     title: 'Matrices & Linear Systems',
+    difficulty: 3,
+    yourLevel: 2,
+    timeRequired: '2 Hours',
     whatIsIt: 'Rectangular grid arrays of numbers used to solve complex multi-variable equations simultaneously.',
     whyDoINeedIt: 'Essential for KIIT Math, GATE CSE Linear Algebra, 3D Game Graphics, and Deep Learning Neural Networks.',
     whereUsed: 'Google PageRank search algorithm, 3D character rotation in gaming, PyTorch tensor multiplications.',
+    repairPath: ['Linear Equations', 'Basic Algebra', 'Matrix Addition'],
     prerequisites: [
       { topicId: 'tp_algebra_1', title: 'Basic Algebra & Equations', met: true }
     ],
@@ -141,6 +190,43 @@ export const MASTER_TEACHER_TOPICS: TeacherTopic[] = [
       class12: 'Determinant det(A) measures scaling factor of area; if det(A) = 0, inverse A^-1 does not exist.',
       college: 'Find Matrix Rank, Echelon Form, Eigenvalues (det(A - lambda*I) = 0) and Eigenvectors.',
       examRevision: '⚡ Properties: det(AB) = det(A)*det(B), (AB)^T = B^T * A^T, Trace(A) = sum of eigenvalues.'
+    }
+  },
+  {
+    id: 'tp_cds_eng_1',
+    domain: 'Defence & CDS',
+    title: 'UPSC CDS English Vocabulary & Cloze Test',
+    difficulty: 3,
+    yourLevel: 3,
+    timeRequired: '1.5 Hours',
+    whatIsIt: 'High-frequency English word roots, synonyms, antonyms, and sentence completion techniques for UPSC CDS written exam.',
+    whyDoINeedIt: 'Scores 100 marks in CDS English paper to qualify for IMA/OTA officer selection cutoffs.',
+    whereUsed: 'UPSC Defence Officer written exams, SSB Officer Interview communication, SSB Group Discussion.',
+    repairPath: ['Basic Grammar Rules', 'Parts of Speech', 'Root Words'],
+    prerequisites: [],
+    bestYouTube: [
+      { level: 'Beginner', teacherName: 'CDS Journey / Defence Wallah', url: 'https://www.youtube.com/results?search_query=cds+english+vocabulary+cloze+test' },
+      { level: 'Exam Focus', teacherName: 'SSB Crack Exams', url: 'https://www.youtube.com/results?search_query=cds+english+pyqs' }
+    ],
+    bestBook: {
+      bookTitle: 'Pathfinder for CDS Examination',
+      author: 'Arihant Experts',
+      pageRange: 'Pages 50 - 120 (English Section)',
+      rating: 5,
+      badge: 'Exam Focus'
+    },
+    practiceAndPyqs: {
+      easy: 20,
+      medium: 30,
+      hard: 15,
+      pyqSummary: '10 Questions directly repeated in CDS 2023 & 2024 papers'
+    },
+    teachMe: {
+      knowNothing: '💡 Vocabulary is just building a mental dictionary! Learn word roots like "bene" (good -> benefit, benevolent).',
+      class10: 'Identify subject-verb agreement and eliminate choices that break grammatical tense.',
+      class12: 'Practice spotting errors in prepositions (e.g. "discuss about" is WRONG, use "discuss").',
+      college: 'Master idiom & phrase contextual usage and 20 cloze test paragraphs.',
+      examRevision: '⚡ Quick Tip: Read editorial paragraphs daily; context clues solve 80% of Cloze test gaps.'
     }
   }
 ];
