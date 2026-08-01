@@ -20,7 +20,8 @@ import {
   Tv,
   Heart,
   Search,
-  Zap
+  FlaskConical,
+  Library
 } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
@@ -31,11 +32,14 @@ export const Navbar: React.FC = () => {
     { id: 'dashboard', label: 'Mission', icon: LayoutDashboard },
     { id: 'knowledgeGraph', label: 'Knowledge Graph', icon: Network },
     { id: 'foundationZero', label: 'Zero-to-Hero', icon: Layers },
+    { id: 'goals', label: 'AI Goals', icon: Target },
     { id: 'subjects', label: 'Subjects', icon: BookOpen },
     { id: 'coding', label: 'Coding HQ', icon: Code },
     { id: 'cds', label: 'CDS Prep', icon: Shield },
     { id: 'gate', label: 'GATE Prep', icon: Target },
-    { id: 'curiosity', label: 'Curiosity Feed', icon: Sparkles },
+    { id: 'curiosity', label: 'Curiosity', icon: Sparkles },
+    { id: 'experiments', label: 'Experiments', icon: FlaskConical },
+    { id: 'library', label: 'Library', icon: Library },
     { id: 'decision', label: 'Journal', icon: Book },
     { id: 'timeline', label: 'Timeline', icon: Clock },
     { id: 'lifeHealth', label: 'Life & Health', icon: Heart },
@@ -70,7 +74,7 @@ export const Navbar: React.FC = () => {
 
           {/* Desktop Nav Controls */}
           <div className="hidden lg:flex items-center space-x-1">
-            {navItems.slice(0, 9).map(item => {
+            {navItems.slice(0, 10).map(item => {
               const Icon = item.icon;
               const isActive = activeView === item.id;
               return (

@@ -28,7 +28,8 @@ import {
   Zap,
   ArrowRight,
   TrendingUp,
-  Heart
+  Heart,
+  AlertTriangle
 } from 'lucide-react';
 
 export const DashboardView: React.FC = () => {
@@ -101,6 +102,28 @@ export const DashboardView: React.FC = () => {
                 <p className="text-xl font-black text-cyan-300">6 IMA/OTA</p>
               </div>
             </div>
+          </div>
+
+          {/* AI DAILY COMMANDER FORECAST */}
+          <div className="p-4 rounded-2xl bg-amber-400/10 border border-amber-400/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+            <div className="space-y-0.5">
+              <span className="font-extrabold text-amber-300 flex items-center gap-1.5 uppercase tracking-wider">
+                <AlertTriangle className="w-4 h-4 text-amber-400" /> AI Daily Commander Forecast:
+              </span>
+              <p className="text-white font-bold">
+                Goal Completion Probability: <span className="text-emerald-400 text-sm font-black">82%</span> • Biggest Risk: <span className="text-amber-300">Mathematics Backlog</span>
+              </p>
+              <p className="text-indigo-200 text-[11px]">
+                ⚠️ <strong>Downstream Risk:</strong> If Mathematics is ignored today, Machine Learning in Semester 3 becomes difficult.
+              </p>
+            </div>
+
+            <button
+              onClick={() => setActiveView('knowledgeGraph')}
+              className="px-3.5 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs transition-transform active:scale-95 shrink-0 self-start sm:self-center"
+            >
+              Resolve Math Risk →
+            </button>
           </div>
 
           {/* TODAY'S IQ MISSION EXECUTIVE CARD */}

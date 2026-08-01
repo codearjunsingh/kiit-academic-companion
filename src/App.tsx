@@ -4,11 +4,14 @@ import { Navbar } from './components/Navbar';
 import { DashboardView } from './components/DashboardView';
 import { KnowledgeGraphView } from './components/KnowledgeGraphView';
 import { FoundationZeroView } from './components/FoundationZeroView';
+import { GoalEngineView } from './components/GoalEngineView';
 import { SubjectsView } from './components/SubjectsView';
 import { CodingHqView } from './components/CodingHqView';
 import { CdsView } from './components/CdsView';
 import { GateView } from './components/GateView';
 import { CuriosityEngineView } from './components/CuriosityEngineView';
+import { ExperimentsView } from './components/ExperimentsView';
+import { UniversalLibraryView } from './components/UniversalLibraryView';
 import { DecisionJournalView } from './components/DecisionJournalView';
 import { TimelineView } from './components/TimelineView';
 import { LifeHealthView } from './components/LifeHealthView';
@@ -28,11 +31,14 @@ const MainContent: React.FC = () => {
       {activeView === 'dashboard' && <DashboardView />}
       {activeView === 'knowledgeGraph' && <KnowledgeGraphView />}
       {activeView === 'foundationZero' && <FoundationZeroView />}
+      {activeView === 'goals' && <GoalEngineView />}
       {activeView === 'subjects' && <SubjectsView />}
       {activeView === 'coding' && <CodingHqView />}
       {activeView === 'cds' && <CdsView />}
       {activeView === 'gate' && <GateView />}
       {activeView === 'curiosity' && <CuriosityEngineView />}
+      {activeView === 'experiments' && <ExperimentsView />}
+      {activeView === 'library' && <UniversalLibraryView />}
       {activeView === 'decision' && <DecisionJournalView />}
       {activeView === 'timeline' && <TimelineView />}
       {activeView === 'lifeHealth' && <LifeHealthView />}
