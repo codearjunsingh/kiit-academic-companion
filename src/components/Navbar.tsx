@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
+import { EverythingSearchModal } from './EverythingSearchModal';
 import {
   LayoutDashboard,
+  Network,
+  Layers,
   BookOpen,
-  GraduationCap,
+  Code,
+  Shield,
+  Target,
   Sparkles,
+  Book,
   Calendar as CalendarIcon,
   Clock,
   HelpCircle,
@@ -12,35 +18,34 @@ import {
   Moon,
   Sun,
   Tv,
-  Target,
-  Shield,
-  Layers,
-  Code,
-  Heart
+  Heart,
+  Search,
+  Zap
 } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const { activeView, setActiveView, scheme, darkMode, setDarkMode, explainSimply, setExplainSimply } = useApp();
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const navItems = [
-    { id: 'dashboard', label: 'Mission Control', icon: LayoutDashboard },
+    { id: 'dashboard', label: 'Mission', icon: LayoutDashboard },
+    { id: 'knowledgeGraph', label: 'Knowledge Graph', icon: Network },
     { id: 'foundationZero', label: 'Zero-to-Hero', icon: Layers },
     { id: 'subjects', label: 'Subjects', icon: BookOpen },
     { id: 'coding', label: 'Coding HQ', icon: Code },
     { id: 'cds', label: 'CDS Prep', icon: Shield },
     { id: 'gate', label: 'GATE Prep', icon: Target },
+    { id: 'curiosity', label: 'Curiosity Feed', icon: Sparkles },
+    { id: 'decision', label: 'Journal', icon: Book },
+    { id: 'timeline', label: 'Timeline', icon: Clock },
     { id: 'lifeHealth', label: 'Life & Health', icon: Heart },
-    { id: 'foundation', label: 'PCM Prep', icon: GraduationCap },
-    { id: 'skills', label: 'Skills', icon: Sparkles },
-    { id: 'calendar', label: 'Calendar', icon: CalendarIcon },
-    { id: 'countdown', label: 'Countdowns', icon: Clock },
-    { id: 'channels', label: 'Creators', icon: Tv },
-    { id: 'faq', label: 'FAQ', icon: HelpCircle },
     { id: 'settings', label: 'Settings', icon: SettingsIcon },
   ];
 
   return (
     <>
+      <EverythingSearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+
       {/* Top Header Bar */}
       <header className="sticky top-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -72,13 +77,13 @@ export const Navbar: React.FC = () => {
                 <button
                   key={item.id}
                   onClick={() => setActiveView(item.id)}
-                  className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                  className={`flex items-center space-x-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                     isActive
                       ? 'bg-indigo-50 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 shadow-sm border border-indigo-200/50 dark:border-indigo-800/50'
                       : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60'
                   }`}
                 >
-                  <Icon className="w-4 h-4" />
+                  <Icon className="w-3.5 h-3.5" />
                   <span>{item.label}</span>
                 </button>
               );
@@ -87,17 +92,27 @@ export const Navbar: React.FC = () => {
 
           {/* Right Action Icons */}
           <div className="flex items-center space-x-2">
+            {/* Universal Search Button */}
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-600 dark:text-slate-300 text-xs font-bold transition-colors flex items-center space-x-1.5"
+            >
+              <Search className="w-3.5 h-3.5 text-indigo-500" />
+              <span className="hidden sm:inline">Search...</span>
+              <kbd className="hidden sm:inline px-1.5 py-0.5 text-[9px] font-mono bg-white dark:bg-slate-900 rounded border border-slate-200 dark:border-slate-700 text-slate-400">Ctrl+K</kbd>
+            </button>
+
             <button
               onClick={() => setExplainSimply(!explainSimply)}
               title="Toggle Explain Simply Mode"
-              className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all border flex items-center space-x-1 ${
+              className={`px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all border flex items-center space-x-1 ${
                 explainSimply
                   ? 'bg-emerald-50 dark:bg-emerald-950/70 border-emerald-300 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300'
                   : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500'
               }`}
             >
               <Sparkles className="w-3.5 h-3.5 text-emerald-500" />
-              <span className="hidden sm:inline">Simple Mode:</span>
+              <span className="hidden sm:inline">Simple:</span>
               <span>{explainSimply ? 'ON' : 'OFF'}</span>
             </button>
 
@@ -108,17 +123,6 @@ export const Navbar: React.FC = () => {
             >
               {darkMode ? <Sun className="w-5 h-5 text-amber-400" /> : <Moon className="w-5 h-5 text-slate-700" />}
             </button>
-
-            <button
-              onClick={() => setActiveView('settings')}
-              className={`p-2 rounded-xl transition-colors lg:hidden ${
-                activeView === 'settings'
-                  ? 'bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400'
-                  : 'text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800'
-              }`}
-            >
-              <SettingsIcon className="w-5 h-5" />
-            </button>
           </div>
         </div>
       </header>
@@ -128,10 +132,10 @@ export const Navbar: React.FC = () => {
         <div className="grid grid-cols-5 gap-1">
           {[
             { id: 'dashboard', label: 'Mission', icon: LayoutDashboard },
-            { id: 'foundationZero', label: 'Zero-to-Hero', icon: Layers },
-            { id: 'coding', label: 'Coding HQ', icon: Code },
-            { id: 'cds', label: 'CDS Prep', icon: Shield },
-            { id: 'lifeHealth', label: 'Life', icon: Heart },
+            { id: 'knowledgeGraph', label: 'Graph', icon: Network },
+            { id: 'foundationZero', label: 'Zero-Hero', icon: Layers },
+            { id: 'coding', label: 'Coding', icon: Code },
+            { id: 'cds', label: 'CDS', icon: Shield },
           ].map(item => {
             const Icon = item.icon;
             const isActive = activeView === item.id;
