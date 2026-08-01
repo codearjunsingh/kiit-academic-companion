@@ -20,12 +20,11 @@ import {
   ChevronUp,
   GraduationCap,
   Search,
-  ExternalLink,
-  Download,
   Book,
   Sparkles,
   Layers,
-  FileText
+  FileText,
+  BrainCircuit
 } from 'lucide-react';
 
 export const SubjectsView: React.FC = () => {
@@ -88,8 +87,6 @@ export const SubjectsView: React.FC = () => {
   const totalSemCredits = courses.reduce((acc, c) => acc + c.ltpc.credits, 0);
   const totalSemContactHours = courses.reduce((acc, c) => acc + c.ltpc.total, 0);
 
-  const kiitPyqUrl = 'https://kiitkatalog.gfgkiit.in/dashboard?school=SCE&branch=CSE';
-
   return (
     <div className="space-y-6 pb-20">
       {/* Top Header Banner */}
@@ -104,22 +101,16 @@ export const SubjectsView: React.FC = () => {
               1st Year B.Tech Syllabus, Schemes & Official Textbooks
             </h1>
             <p className="text-indigo-200 text-sm mt-1 max-w-xl font-medium">
-              Toggle between Scheme A & Scheme B, explore L-T-P-C credit points, download PYQs, and inspect chapter indices of all 9 official textbooks!
+              Toggle between Scheme A & Scheme B, explore L-T-P-C credit points, and inspect chapter indices of all 9 official textbooks!
             </p>
           </div>
 
-          {/* Action Tabs & PYQ Link */}
+          {/* Action Tabs & NotebookLM PYQ Teaser Badge */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
-            <a
-              href={kiitPyqUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="px-4 py-2.5 rounded-2xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs shadow-lg transition-transform active:scale-95 flex items-center justify-center space-x-2"
-            >
-              <Download className="w-4 h-4" />
-              <span>KIIT CSE PYQs Katalog</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
+            <div className="px-3.5 py-2 rounded-2xl bg-amber-400/20 backdrop-blur-md border border-amber-400/30 text-amber-200 font-extrabold text-xs flex items-center justify-center space-x-2">
+              <BrainCircuit className="w-4 h-4 text-amber-300" />
+              <span>NotebookLM PYQs (Year/Sem Wise) Coming Soon</span>
+            </div>
 
             <div className="flex items-center space-x-1.5 bg-white/10 backdrop-blur-md p-1.5 rounded-2xl border border-white/10">
               <button
@@ -357,23 +348,12 @@ export const SubjectsView: React.FC = () => {
 
                   {isExpanded && (
                     <div className="p-5 border-t border-slate-100 dark:border-slate-800 space-y-4 bg-slate-50/30 dark:bg-slate-900/30">
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl bg-indigo-50/50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/60 text-xs">
-                        <div className="space-y-0.5">
-                          <p className="font-extrabold text-indigo-900 dark:text-indigo-200">Official Textbook:</p>
-                          <p className="text-slate-700 dark:text-slate-300 font-medium">{course.textbook}</p>
-                          {course.referenceBook && (
-                            <p className="text-slate-500 text-[11px]">Ref: {course.referenceBook}</p>
-                          )}
-                        </div>
-                        <a
-                          href={kiitPyqUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="px-3 py-1.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs transition-colors shrink-0 flex items-center space-x-1.5 self-start sm:self-center"
-                        >
-                          <Download className="w-3.5 h-3.5" />
-                          <span>{course.code} PYQs & Notes</span>
-                        </a>
+                      <div className="p-3.5 rounded-xl bg-indigo-50/50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/60 text-xs space-y-0.5">
+                        <p className="font-extrabold text-indigo-900 dark:text-indigo-200">Official Textbook:</p>
+                        <p className="text-slate-700 dark:text-slate-300 font-medium">{course.textbook}</p>
+                        {course.referenceBook && (
+                          <p className="text-slate-500 text-[11px]">Ref: {course.referenceBook}</p>
+                        )}
                       </div>
 
                       <div className="space-y-2">

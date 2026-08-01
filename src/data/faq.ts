@@ -12,13 +12,9 @@ export interface FaqItem {
 export const KIIT_FAQS: FaqItem[] = [
   {
     id: 'faq_pyq',
-    question: 'Where can I download KIIT Previous Year Question Papers (PYQs) and notes for CSE?',
-    answer: 'You can access the official GFG KIIT Katalog repository for School of Computer Engineering (SCE) B.Tech CSE PYQs, mid-sem question banks, and notes directly at kiitkatalog.gfgkiit.in!',
-    category: 'Academics',
-    actionButton: {
-      text: 'Open GFG KIIT Katalog PYQs',
-      url: 'https://kiitkatalog.gfgkiit.in/dashboard?school=SCE&branch=CSE'
-    }
+    question: 'Where can I access KIIT Previous Year Question Papers (PYQs) and notes?',
+    answer: 'Complete year-wise and semester-wise PYQs are currently being curated and will soon be connected with NotebookLM AI for deep analysis and smart question solving!',
+    category: 'Academics'
   },
   {
     id: 'faq_attendance',
