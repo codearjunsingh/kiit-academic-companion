@@ -42,7 +42,7 @@ export const SCHEME_A_SEM1_COURSES: Subject[] = [
     prerequisites: 'Class 11-12 Calculus, Differentiation, Integration',
     textbook: 'Advanced Engineering Mathematics by Erwin Kreyszig (10th Ed, Wiley)',
     referenceBook: 'Higher Engineering Mathematics by B.S. Grewal (44th Ed)',
-    youtubeSearchQuery: 'Calculus and Differential Equations MA11009 KIIT',
+    youtubeSearchQuery: 'Calculus and Differential Equations MA11009 BTech',
     chapters: [
       { id: 'ma1_ch1', title: 'Review of Calculus & Functions of Several Variables', module: 'Module 1', difficulty: 'Medium' },
       { id: 'ma1_ch2', title: 'Taylors Series, Maxima/Minima & Lagrange Multipliers', module: 'Module 1', difficulty: 'Hard' },
@@ -63,7 +63,7 @@ export const SCHEME_A_SEM1_COURSES: Subject[] = [
     prerequisites: 'Class 11-12 Wave Optics, Electrostatics, Quantum Theory',
     textbook: 'Engineering Physics by B.K. Pandey & S. Chaturvedi (Cengage) / Avadhanulu (S. Chand)',
     referenceBook: 'Concepts of Modern Physics by Arthur Beiser',
-    youtubeSearchQuery: 'Engineering Physics PH10005 KIIT',
+    youtubeSearchQuery: 'Engineering Physics PH10005',
     chapters: [
       { id: 'ph1_ch1', title: 'Wave Optics: Interference, Newtons Rings & Michelson Interferometer', module: 'Module 1', difficulty: 'Medium' },
       { id: 'ph1_ch2', title: 'Fraunhofer Diffraction & Plane Diffraction Grating', module: 'Module 1', difficulty: 'Medium' },
@@ -84,7 +84,7 @@ export const SCHEME_A_SEM1_COURSES: Subject[] = [
     prerequisites: 'Class 12 Current Electricity, Ohm Law, Magnetic Field',
     textbook: 'Principles of Electrical Engineering and Electronics by V.K. Mehta & Rohit Mehta (S. Chand)',
     referenceBook: 'Basic Electrical Engineering by D.C. Kulshreshtha',
-    youtubeSearchQuery: 'Basic Electrical Engineering EE10002 KIIT',
+    youtubeSearchQuery: 'Basic Electrical Engineering EE10002',
     chapters: [
       { id: 'ee1_ch1', title: 'DC Circuits: KVL, KCL, Nodal/Mesh & Thevenin-Norton Theorems', module: 'Module 1', difficulty: 'Medium' },
       { id: 'ee1_ch2', title: 'AC Circuits: RMS Values, Phasors & 3-Phase Star/Delta', module: 'Module 2', difficulty: 'Medium' },
@@ -102,7 +102,7 @@ export const SCHEME_A_SEM1_COURSES: Subject[] = [
     ltpc: { l: 2, t: 0, p: 0, total: 2, credits: 2 },
     prerequisites: 'Basic Physics & Measurement units',
     textbook: 'Electrical & Electronic Measurements and Instruments by R.K. Rajput',
-    youtubeSearchQuery: 'Instrumentation and Automation EE10005 KIIT',
+    youtubeSearchQuery: 'Instrumentation and Automation EE10005',
     isElective: true,
     electiveCategory: 'Engineering',
     chapters: [
@@ -121,7 +121,7 @@ export const SCHEME_A_SEM1_COURSES: Subject[] = [
     ltpc: { l: 2, t: 0, p: 0, total: 2, credits: 2 },
     prerequisites: 'Class 10 Biology Basics',
     textbook: 'Biology for Engineers by Vidya Rajesh (1st Ed, Cengage)',
-    youtubeSearchQuery: 'Science of Living Systems LS10005 KIIT',
+    youtubeSearchQuery: 'Science of Living Systems LS10005',
     chapters: [
       { id: 'ls1_ch1', title: 'Molecular Organization: Cell as Thermodynamic System, ATP/NADPH', module: 'Module 1', difficulty: 'Easy' },
       { id: 'ls1_ch2', title: 'Central Dogma & Genetic Code Mapping to Binary', module: 'Module 2', difficulty: 'Medium' },
@@ -139,10 +139,10 @@ export const SCHEME_A_SEM1_COURSES: Subject[] = [
     ltpc: { l: 3, t: 0, p: 0, total: 3, credits: 3 },
     prerequisites: 'None',
     textbook: 'Human Values and Professional Ethics by R.R. Gaur',
-    youtubeSearchQuery: 'Universal Human Values ID10003 KIIT',
+    youtubeSearchQuery: 'Universal Human Values ID10003',
     chapters: [
       { id: 'uhv_ch1', title: 'Self-Exploration, Natural Acceptance & Continuous Happiness', module: 'Module 1', difficulty: 'Easy' },
-      { id: 'uhv_ch2', title: 'Harmony in Myself: Sentient I vs Physical Body', module: 'Module 2', difficulty: 'Easy' },
+      { id: 'uhv_ch2', title: 'Harmony in Myself: Sentient I vs Physical Body', module: 'Module 1', difficulty: 'Easy' },
       { id: 'uhv_ch3', title: 'Harmony in Family & Society: Trust, Respect & Justice', module: 'Module 3', difficulty: 'Easy' },
       { id: 'uhv_ch4', title: 'Harmony in Nature & Professional Ethics', module: 'Module 4', difficulty: 'Easy' },
     ]
@@ -156,8 +156,8 @@ export const SCHEME_A_SEM1_COURSES: Subject[] = [
     type: 'Practical',
     ltpc: { l: 0, t: 0, p: 2, total: 2, credits: 1 },
     prerequisites: 'Physics PH10005',
-    textbook: 'KIIT Physics Laboratory Manual',
-    youtubeSearchQuery: 'KIIT Physics Lab PH19001',
+    textbook: 'Physics Laboratory Manual',
+    youtubeSearchQuery: 'Engineering Physics Lab PH19001',
     chapters: [
       { id: 'phlab_1', title: 'Newton Ring Wavelength & Michelson Interferometer', module: 'Lab Experiments', difficulty: 'Medium' },
       { id: 'phlab_2', title: 'Diffraction Grating & Photocell Planck Constant', module: 'Lab Experiments', difficulty: 'Medium' },
@@ -173,7 +173,7 @@ export const SCHEME_A_SEM1_COURSES: Subject[] = [
     ltpc: { l: 0, t: 2, p: 4, total: 6, credits: 4 },
     prerequisites: 'Basic Logic & Computers',
     textbook: 'Programming in ANSI C by E. Balagurusamy (9th Ed, McGraw Hill)',
-    youtubeSearchQuery: 'Introduction to Computer Programming CS13003 KIIT C language',
+    youtubeSearchQuery: 'Introduction to Computer Programming CS13003 C language',
     chapters: [
       { id: 'cs1_ch1', title: 'Linux Commands & C Compilation Process', module: 'Module 1', difficulty: 'Easy' },
       { id: 'cs1_ch2', title: 'Variables, Data Types, Control Constructs & Loops', module: 'Module 2', difficulty: 'Easy' },
@@ -193,7 +193,7 @@ export const SCHEME_A_SEM1_COURSES: Subject[] = [
     ltpc: { l: 0, t: 0, p: 2, total: 2, credits: 1 },
     prerequisites: 'Workshop Safety Rules',
     textbook: 'Mechanical Workshop Practice by K.C. John',
-    youtubeSearchQuery: 'KIIT Workshop ME18001 fitting welding turning',
+    youtubeSearchQuery: 'Engineering Workshop ME18001 fitting welding turning',
     chapters: [
       { id: 'ws_ch1', title: 'Fitting & Welding Shop Practice', module: 'Sessional', difficulty: 'Easy' },
       { id: 'ws_ch2', title: 'Turning & Sheet Metal Work', module: 'Sessional', difficulty: 'Easy' },
@@ -213,7 +213,7 @@ export const SCHEME_A_SEM2_COURSES: Subject[] = [
     ltpc: { l: 2, t: 0, p: 0, total: 2, credits: 2 },
     prerequisites: 'Basic English Grammar',
     textbook: 'Effective Technical Communication by M. Ashraf Rizvi & Priyadarshi Patnaik (3rd Ed, McGraw Hill)',
-    youtubeSearchQuery: 'English Communication Skills HS10003 KIIT',
+    youtubeSearchQuery: 'English Communication Skills HS10003',
     chapters: [
       { id: 'eng_ch1', title: 'Technical Communication & Non-Verbal Signals', module: 'Module 1', difficulty: 'Easy' },
       { id: 'eng_ch2', title: 'Listening, Pronunciation & Literature Analysis', module: 'Module 2', difficulty: 'Easy' },
@@ -230,7 +230,7 @@ export const SCHEME_A_SEM2_COURSES: Subject[] = [
     ltpc: { l: 3, t: 1, p: 0, total: 4, credits: 4 },
     prerequisites: 'MA11009 Calculus',
     textbook: 'Numerical Methods by M.K. Jain, S.R.K. Iyengar & R.K. Jain (9th Ed, New Age)',
-    youtubeSearchQuery: 'Linear Algebra and Fourier Analysis MA11011 KIIT',
+    youtubeSearchQuery: 'Linear Algebra and Fourier Analysis MA11011',
     chapters: [
       { id: 'ma2_ch1', title: 'Vector Spaces & Systems of Linear Equations (Gauss-Jordan)', module: 'Module 1', difficulty: 'Medium' },
       { id: 'ma2_ch2', title: 'Eigenvalues, Eigenvectors & Matrix Diagonalization', module: 'Module 2', difficulty: 'Hard' },
@@ -248,7 +248,7 @@ export const SCHEME_A_SEM2_COURSES: Subject[] = [
     ltpc: { l: 3, t: 0, p: 0, total: 3, credits: 3 },
     prerequisites: 'Class 11-12 Chemistry',
     textbook: 'Textbook of Engineering Chemistry by Shashi Chawla / P. Rath (Cengage)',
-    youtubeSearchQuery: 'Engineering Chemistry CH10009 KIIT',
+    youtubeSearchQuery: 'Engineering Chemistry CH10009',
     chapters: [
       { id: 'ch1_ch1', title: 'Chemical Thermodynamics: Gibbs Free Energy & Phase Equilibria', module: 'Module 1', difficulty: 'Medium' },
       { id: 'ch1_ch2', title: 'Chemical Kinetics & Enzyme Catalysis', module: 'Module 2', difficulty: 'Medium' },
@@ -266,7 +266,7 @@ export const SCHEME_A_SEM2_COURSES: Subject[] = [
     ltpc: { l: 3, t: 0, p: 0, total: 3, credits: 3 },
     prerequisites: 'Physics Semiconductor Concepts',
     textbook: 'Principles of Electronic Devices and Circuits by B.L. Theraja & R.S. Sedha (S. Chand)',
-    youtubeSearchQuery: 'Basic Electronics Circuits and Logic Design EC10005 KIIT',
+    youtubeSearchQuery: 'Basic Electronics Circuits and Logic Design EC10005',
     chapters: [
       { id: 'ec1_ch1', title: 'Analog Circuits: Diodes, BJTs, JFETs & Op-Amps', module: 'Module 1', difficulty: 'Medium' },
       { id: 'ec1_ch2', title: 'Boolean Algebra, K-Maps & Min-term/Max-term SOP', module: 'Module 2', difficulty: 'Medium' },
@@ -284,7 +284,7 @@ export const SCHEME_A_SEM2_COURSES: Subject[] = [
     ltpc: { l: 3, t: 0, p: 0, total: 3, credits: 3 },
     prerequisites: 'Basic Physics & Chemistry',
     textbook: 'Textbook of Nanoscience and Nanotechnology by B.S. Murty',
-    youtubeSearchQuery: 'Nanoscience CH10015 KIIT',
+    youtubeSearchQuery: 'Nanoscience CH10015',
     isElective: true,
     electiveCategory: 'Science',
     chapters: [
@@ -302,8 +302,8 @@ export const SCHEME_A_SEM2_COURSES: Subject[] = [
     type: 'Practical',
     ltpc: { l: 0, t: 0, p: 2, total: 2, credits: 1 },
     prerequisites: 'Chemistry CH10009',
-    textbook: 'KIIT Chemistry Lab Manual',
-    youtubeSearchQuery: 'KIIT Chemistry Lab CH19001',
+    textbook: 'Chemistry Lab Manual',
+    youtubeSearchQuery: 'Engineering Chemistry Lab CH19001',
     chapters: [
       { id: 'chlab_1', title: 'Water Hardness EDTA & Dissolved Oxygen Winkler Method', module: 'Lab Experiments', difficulty: 'Easy' },
       { id: 'chlab_2', title: 'Potentiometric & Conductometric Titrations', module: 'Lab Experiments', difficulty: 'Medium' },
@@ -318,8 +318,8 @@ export const SCHEME_A_SEM2_COURSES: Subject[] = [
     type: 'Practical',
     ltpc: { l: 0, t: 0, p: 2, total: 2, credits: 1 },
     prerequisites: 'Electronics EC10005',
-    textbook: 'KIIT Basic Electronics Lab Manual',
-    youtubeSearchQuery: 'KIIT Electronics Lab EC19001',
+    textbook: 'Basic Electronics Lab Manual',
+    youtubeSearchQuery: 'Electronics Lab EC19001',
     chapters: [
       { id: 'eclab_1', title: 'Rectifier & Op-Amp Circuit Verification', module: 'Lab Experiments', difficulty: 'Medium' },
       { id: 'eclab_2', title: 'Logic Gates, Multiplexers & Flip-Flop Counters', module: 'Lab Experiments', difficulty: 'Medium' },
@@ -335,7 +335,7 @@ export const SCHEME_A_SEM2_COURSES: Subject[] = [
     ltpc: { l: 0, t: 1, p: 2, total: 3, credits: 2 },
     prerequisites: 'Geometry Concepts',
     textbook: 'Engineering Drawing + AutoCAD by K. Venugopal',
-    youtubeSearchQuery: 'Engineering Drawing CE18003 AutoCAD projections solids KIIT',
+    youtubeSearchQuery: 'Engineering Drawing CE18003 AutoCAD projections solids',
     chapters: [
       { id: 'ed_ch1', title: 'BIS Standards, Lettering & Projection of Points & Lines', module: 'Module 1', difficulty: 'Easy' },
       { id: 'ed_ch2', title: 'Projections of Planes & Solids (Prisms, Pyramids, Cones)', module: 'Module 2', difficulty: 'Medium' },
@@ -351,8 +351,8 @@ export const SCHEME_A_SEM2_COURSES: Subject[] = [
     type: 'Sessional',
     ltpc: { l: 0, t: 0, p: 2, total: 2, credits: 1 },
     prerequisites: 'English HS10003',
-    textbook: 'KIIT Communication Lab Manual',
-    youtubeSearchQuery: 'English Communication Lab HS18003 KIIT',
+    textbook: 'Communication Lab Manual',
+    youtubeSearchQuery: 'English Communication Lab HS18003',
     chapters: [
       { id: 'englab_1', title: 'Group Discussions, Resume Writing & Mock Interviews', module: 'Sessional', difficulty: 'Easy' },
     ]
@@ -367,7 +367,7 @@ export const SCHEME_A_SEM2_COURSES: Subject[] = [
     ltpc: { l: 0, t: 0, p: 2, total: 2, credits: 1 },
     prerequisites: 'None',
     textbook: 'Yogic Education by K. Arya',
-    youtubeSearchQuery: 'Sports and Yoga SY18001 KIIT',
+    youtubeSearchQuery: 'Sports and Yoga SY18001',
     isElective: true,
     electiveCategory: 'GER',
     chapters: [
@@ -380,7 +380,7 @@ export const SCHEME_A_SEM2_COURSES: Subject[] = [
 export const SCHEME_B_SEM1_COURSES: Subject[] = SCHEME_A_SEM2_COURSES.map(c => ({ ...c, scheme: 'Scheme B', semester: 1 }));
 export const SCHEME_B_SEM2_COURSES: Subject[] = SCHEME_A_SEM1_COURSES.map(c => ({ ...c, scheme: 'Scheme B', semester: 2 }));
 
-// ==================== 2nd, 3rd, 4th YEAR KIIT B.TECH CSE / CSE-AIML ====================
+// ==================== 2nd, 3rd, 4th YEAR B.TECH CSE / CSE-AIML ====================
 export const UPPER_SEMESTER_COURSES: Subject[] = [
   // SEMESTER 3
   {
@@ -394,7 +394,7 @@ export const UPPER_SEMESTER_COURSES: Subject[] = [
     prerequisites: 'Calculus MA11009',
     textbook: 'Probability and Statistics for Engineers and Sciences by J.L. Devore (9th Ed, Cengage)',
     referenceBook: 'Advanced Engineering Mathematics by Erwin Kreyszig',
-    youtubeSearchQuery: 'Probability and Statistics MA21001 KIIT',
+    youtubeSearchQuery: 'Probability and Statistics MA21001',
     chapters: [
       { id: 'sem3_ma_1', title: 'Probability Distributions (Binomial, Poisson, Normal, Exponential)', module: 'Module 1', difficulty: 'Medium' },
       { id: 'sem3_ma_2', title: 'Joint Probability & Marginal Mass Functions', module: 'Module 2', difficulty: 'Hard' },
@@ -413,7 +413,7 @@ export const UPPER_SEMESTER_COURSES: Subject[] = [
     prerequisites: 'C Programming CS13003',
     textbook: 'Fundamentals of Data Structures in C by E. Horowitz, S. Sahani & Anderson-Freed',
     referenceBook: 'Data Structures using C by Tenenbaum',
-    youtubeSearchQuery: 'Data Structures CS21001 KIIT Abdul Bari',
+    youtubeSearchQuery: 'Data Structures CS21001 Abdul Bari',
     chapters: [
       { id: 'sem3_ds_1', title: 'Algorithm Analysis, Time/Space Complexity & Sparse Matrices', module: 'Module 1', difficulty: 'Easy' },
       { id: 'sem3_ds_2', title: 'Stacks, Queues, Linked Lists (Singly, Doubly, Circular)', module: 'Module 2', difficulty: 'Medium' },
@@ -432,7 +432,7 @@ export const UPPER_SEMESTER_COURSES: Subject[] = [
     ltpc: { l: 3, t: 1, p: 0, total: 4, credits: 4 },
     prerequisites: 'Basic Logic & Discrete Math',
     textbook: 'Introduction to Automata Theory, Languages and Computation by Hopcroft, Motwani & Ullman (3rd Ed)',
-    youtubeSearchQuery: 'Automata Theory CS21003 Gate Smashers KIIT',
+    youtubeSearchQuery: 'Automata Theory CS21003 Gate Smashers',
     chapters: [
       { id: 'sem3_at_1', title: 'Finite Automata: DFA, NFA, Minimization & NFA to DFA', module: 'Module 1', difficulty: 'Medium' },
       { id: 'sem3_at_2', title: 'Regular Expressions & Pumping Lemma', module: 'Module 2', difficulty: 'Hard' },
@@ -450,7 +450,7 @@ export const UPPER_SEMESTER_COURSES: Subject[] = [
     ltpc: { l: 3, t: 0, p: 0, total: 3, credits: 3 },
     prerequisites: 'Basic Electronics EC10005',
     textbook: 'Digital Design by M. Morris Mano & Michael D. Ciletti (5th Ed, PHI)',
-    youtubeSearchQuery: 'Digital Systems Design EC20005 Neso Academy KIIT',
+    youtubeSearchQuery: 'Digital Systems Design EC20005 Neso Academy',
     chapters: [
       { id: 'sem3_dsd_1', title: 'VLSI Design Flow & Verilog HDL Operators', module: 'Module 1', difficulty: 'Easy' },
       { id: 'sem3_dsd_2', title: 'K-Maps & Combinational Circuits (Adders, Decoders, MUX)', module: 'Module 2', difficulty: 'Medium' },
@@ -468,7 +468,7 @@ export const UPPER_SEMESTER_COURSES: Subject[] = [
     ltpc: { l: 2, t: 0, p: 0, total: 2, credits: 2 },
     prerequisites: 'None',
     textbook: 'Tech Trends of the 4th Industrial Revolution by D. Pyo',
-    youtubeSearchQuery: 'Industry 4.0 Technologies EX20001 KIIT',
+    youtubeSearchQuery: 'Industry 4.0 Technologies EX20001',
     chapters: [
       { id: 'sem3_ind_1', title: 'IIoT, Cloud Computing & Digital Twins', module: 'Module 1', difficulty: 'Easy' },
       { id: 'sem3_ind_2', title: 'Cyber Physical Systems & Robotics Automation', module: 'Module 2', difficulty: 'Medium' }
@@ -486,7 +486,7 @@ export const UPPER_SEMESTER_COURSES: Subject[] = [
     ltpc: { l: 3, t: 1, p: 0, total: 4, credits: 4 },
     prerequisites: 'Basic Mathematics',
     textbook: 'Discrete Mathematics and its Applications by Kenneth H. Rosen (7th Ed, McGraw Hill)',
-    youtubeSearchQuery: 'Discrete Structures MA21002 KIIT',
+    youtubeSearchQuery: 'Discrete Structures MA21002',
     chapters: [
       { id: 'sem4_ds_1', title: 'Propositional Logic, Predicates & Induction', module: 'Module 1', difficulty: 'Medium' },
       { id: 'sem4_ds_2', title: 'Sets, Relations, Equivalence & Hasse Diagrams', module: 'Module 2', difficulty: 'Medium' },
@@ -505,7 +505,7 @@ export const UPPER_SEMESTER_COURSES: Subject[] = [
     ltpc: { l: 3, t: 0, p: 0, total: 3, credits: 3 },
     prerequisites: 'Data Structures & Computer Architecture',
     textbook: 'Operating System Concepts by Silberschatz, Galvin & Gagne (10th Ed, Wiley)',
-    youtubeSearchQuery: 'Operating Systems CS20002 Gate Smashers KIIT',
+    youtubeSearchQuery: 'Operating Systems CS20002 Gate Smashers',
     chapters: [
       { id: 'sem4_os_1', title: 'OS Services, System Calls & Process Management', module: 'Module 1', difficulty: 'Easy' },
       { id: 'sem4_os_2', title: 'CPU Scheduling, Semaphores & Deadlock Avoidance', module: 'Module 2', difficulty: 'Hard' },
@@ -523,7 +523,7 @@ export const UPPER_SEMESTER_COURSES: Subject[] = [
     ltpc: { l: 3, t: 0, p: 0, total: 3, credits: 3 },
     prerequisites: 'C Programming',
     textbook: 'Java - The Complete Reference by Herbert Schildt (12th Ed, McGraw Hill)',
-    youtubeSearchQuery: 'Object Oriented Programming Java CS20004 Telusko KIIT',
+    youtubeSearchQuery: 'Object Oriented Programming Java CS20004 Telusko',
     chapters: [
       { id: 'sem4_java_1', title: 'OOP Principles: Classes, Objects, Inheritance & Polymorphism', module: 'Module 1', difficulty: 'Easy' },
       { id: 'sem4_java_2', title: 'Packages, Interfaces & Exception Handling', module: 'Module 2', difficulty: 'Medium' },
@@ -541,7 +541,7 @@ export const UPPER_SEMESTER_COURSES: Subject[] = [
     ltpc: { l: 3, t: 1, p: 0, total: 4, credits: 3 },
     prerequisites: 'Data Structures',
     textbook: 'Database System Concepts by Silberschatz, Korth & Sudharshan (7th Ed, McGraw Hill)',
-    youtubeSearchQuery: 'Database Management Systems CS20006 Gate Smashers KIIT',
+    youtubeSearchQuery: 'Database Management Systems CS20006 Gate Smashers',
     chapters: [
       { id: 'sem4_db_1', title: 'ER Diagrams & Relational Data Models', module: 'Module 1', difficulty: 'Easy' },
       { id: 'sem4_db_2', title: 'Relational Algebra & Advanced SQL Queries', module: 'Module 2', difficulty: 'Medium' },
@@ -559,7 +559,7 @@ export const UPPER_SEMESTER_COURSES: Subject[] = [
     ltpc: { l: 3, t: 1, p: 0, total: 4, credits: 4 },
     prerequisites: 'Digital Systems Design',
     textbook: 'Computer Organization and Embedded Systems by Carl Hamacher (6th Ed, MGH)',
-    youtubeSearchQuery: 'Computer Organization and Architecture CS21002 KIIT',
+    youtubeSearchQuery: 'Computer Organization and Architecture CS21002',
     chapters: [
       { id: 'sem4_coa_1', title: 'Computer Structure, Addressing Modes & ISA', module: 'Module 1', difficulty: 'Medium' },
       { id: 'sem4_coa_2', title: 'ALU Design & Fast Multiplication/Division', module: 'Module 2', difficulty: 'Hard' },
@@ -579,7 +579,7 @@ export const UPPER_SEMESTER_COURSES: Subject[] = [
     ltpc: { l: 3, t: 0, p: 0, total: 3, credits: 3 },
     prerequisites: 'Data Structures CS21001',
     textbook: 'Introduction to Algorithms by Cormen, Leiserson, Rivest & Stein (CLRS 3rd Ed)',
-    youtubeSearchQuery: 'Design and Analysis of Algorithms CS30001 Abdul Bari KIIT',
+    youtubeSearchQuery: 'Design and Analysis of Algorithms CS30001 Abdul Bari',
     chapters: [
       { id: 'sem5_daa_1', title: 'Asymptotic Notations & Recurrence Solving (Master Theorem)', module: 'Module 1', difficulty: 'Medium' },
       { id: 'sem5_daa_2', title: 'Divide & Conquer, Greedy Method (Dijkstra, Huffman, Knapsack)', module: 'Module 2', difficulty: 'Hard' },
@@ -597,7 +597,7 @@ export const UPPER_SEMESTER_COURSES: Subject[] = [
     ltpc: { l: 3, t: 1, p: 0, total: 4, credits: 4 },
     prerequisites: 'Object Oriented Programming',
     textbook: 'Software Engineering: A Practitioners Approach by Roger S. Pressman (8th Ed)',
-    youtubeSearchQuery: 'Software Engineering CS31001 KIIT',
+    youtubeSearchQuery: 'Software Engineering CS31001',
     chapters: [
       { id: 'sem5_se_1', title: 'SDLC Models: Waterfall, Agile, Scrum & Spiral', module: 'Module 1', difficulty: 'Easy' },
       { id: 'sem5_se_2', title: 'Requirements Engineering & SRS Documentation', module: 'Module 2', difficulty: 'Medium' },
@@ -615,7 +615,7 @@ export const UPPER_SEMESTER_COURSES: Subject[] = [
     ltpc: { l: 3, t: 0, p: 0, total: 3, credits: 3 },
     prerequisites: 'Operating Systems',
     textbook: 'Computer Networks by Andrew S. Tanenbaum & David J. Wetherall (6th Ed)',
-    youtubeSearchQuery: 'Computer Networks CS30003 Gate Smashers KIIT',
+    youtubeSearchQuery: 'Computer Networks CS30003 Gate Smashers',
     chapters: [
       { id: 'sem5_cn_1', title: 'OSI & TCP/IP Reference Layer Models', module: 'Module 1', difficulty: 'Easy' },
       { id: 'sem5_cn_2', title: 'Data Link Layer: Error Detection (CRC) & Flow Control (Sliding Window)', module: 'Module 2', difficulty: 'Medium' },
@@ -635,7 +635,7 @@ export const UPPER_SEMESTER_COURSES: Subject[] = [
     ltpc: { l: 3, t: 1, p: 0, total: 4, credits: 4 },
     prerequisites: 'Probability MA21001 & Linear Algebra',
     textbook: 'Probabilistic Machine Learning by Kevin P. Murphy (MIT Press 2023) / Tom Mitchell',
-    youtubeSearchQuery: 'Machine Learning CS31002 Andrew Ng KIIT',
+    youtubeSearchQuery: 'Machine Learning CS31002 Andrew Ng',
     chapters: [
       { id: 'sem6_ml_1', title: 'Supervised vs Unsupervised Learning & Bias-Variance Tradeoff', module: 'Module 1', difficulty: 'Medium' },
       { id: 'sem6_ml_2', title: 'Regression, Decision Trees, SVM & KNN Classifiers', module: 'Module 2', difficulty: 'Hard' },
@@ -653,7 +653,7 @@ export const UPPER_SEMESTER_COURSES: Subject[] = [
     ltpc: { l: 3, t: 0, p: 0, total: 3, credits: 3 },
     prerequisites: 'Design and Analysis of Algorithms',
     textbook: 'Artificial Intelligence - A Modern Approach by Stuart Russell & Peter Norvig (4th Ed)',
-    youtubeSearchQuery: 'Artificial Intelligence CS30002 KIIT',
+    youtubeSearchQuery: 'Artificial Intelligence CS30002',
     chapters: [
       { id: 'sem6_ai_1', title: 'Intelligent Agents & Search Strategies (A*, Minimax, Alpha-Beta)', module: 'Module 1', difficulty: 'Medium' },
       { id: 'sem6_ai_2', title: 'First-Order Logic, Resolution & Knowledge Representation', module: 'Module 2', difficulty: 'Hard' },
@@ -672,7 +672,7 @@ export const UPPER_SEMESTER_COURSES: Subject[] = [
     ltpc: { l: 3, t: 0, p: 0, total: 3, credits: 3 },
     prerequisites: 'Machine Learning CS31002',
     textbook: 'Deep Learning by Ian Goodfellow, Yoshua Bengio & Aaron Courville (MIT Press)',
-    youtubeSearchQuery: 'Deep Learning Techniques CS40001 PyTorch TensorFlow KIIT',
+    youtubeSearchQuery: 'Deep Learning Techniques CS40001 PyTorch TensorFlow',
     chapters: [
       { id: 'sem7_dl_1', title: 'Deep Feedforward Networks & Gradient Descent Optimization', module: 'Module 1', difficulty: 'Hard' },
       { id: 'sem7_dl_2', title: 'Convolutional Neural Networks (CNN) for Computer Vision', module: 'Module 2', difficulty: 'Hard' },
@@ -689,8 +689,8 @@ export const UPPER_SEMESTER_COURSES: Subject[] = [
     type: 'Sessional',
     ltpc: { l: 0, t: 0, p: 10, total: 10, credits: 5 },
     prerequisites: 'Mini Project & AI/ML Skills',
-    textbook: 'KIIT Final Year Project Guide',
-    youtubeSearchQuery: 'KIIT Major Project BTech CSE AIML',
+    textbook: 'Final Year Project Guide',
+    youtubeSearchQuery: 'Major Project BTech CSE AIML',
     chapters: [
       { id: 'proj1_1', title: 'Literature Review, Problem Formulation & Prototype Architecture', module: 'Phase 1', difficulty: 'Hard' }
     ]
@@ -704,8 +704,8 @@ export const UPPER_SEMESTER_COURSES: Subject[] = [
     type: 'Sessional',
     ltpc: { l: 0, t: 0, p: 18, total: 18, credits: 9 },
     prerequisites: 'Major Project - I',
-    textbook: 'KIIT Final Year Project Thesis Guide',
-    youtubeSearchQuery: 'KIIT Major Project II Defence Thesis',
+    textbook: 'Final Year Project Thesis Guide',
+    youtubeSearchQuery: 'Major Project II Computer Science',
     chapters: [
       { id: 'proj2_1', title: 'System Implementation, Deployment, Testing & Thesis Submission', module: 'Phase 2', difficulty: 'Hard' }
     ]

@@ -24,7 +24,8 @@ import {
   Sparkles,
   Layers,
   FileText,
-  BrainCircuit
+  BrainCircuit,
+  Youtube
 } from 'lucide-react';
 
 export const SubjectsView: React.FC = () => {
@@ -364,20 +365,35 @@ export const SubjectsView: React.FC = () => {
                             <div
                               key={ch.id}
                               onClick={() => toggleSyllabusTopic(ch.id)}
-                              className={`p-3 rounded-xl border text-xs font-medium cursor-pointer transition-all flex items-start space-x-3 ${
+                              className={`p-3 rounded-xl border text-xs font-medium cursor-pointer transition-all flex items-center justify-between ${
                                 isChecked
                                   ? 'bg-indigo-50/60 dark:bg-indigo-950/40 border-indigo-200 dark:border-indigo-900 text-slate-800 dark:text-slate-200'
                                   : 'bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-slate-300'
                               }`}
                             >
-                              <div className="mt-0.5 shrink-0 text-indigo-600 dark:text-indigo-400">
-                                {isChecked ? <CheckSquare className="w-4 h-4" /> : <Square className="w-4 h-4 text-slate-400" />}
-                              </div>
-                              <div>
-                                <span className={isChecked ? 'line-through opacity-75 font-semibold' : 'font-semibold'}>
+                              <div className="flex items-center space-x-3 flex-1 min-w-0">
+                                <div className="shrink-0 text-indigo-600 dark:text-indigo-400">
+                                  {isChecked ? <CheckSquare className="w-4 h-4" /> : <Square className="w-4 h-4 text-slate-400" />}
+                                </div>
+                                <span className={`truncate ${isChecked ? 'line-through opacity-75 font-semibold' : 'font-semibold'}`}>
                                   {ch.title}
                                 </span>
-                                <span className="text-[10px] text-slate-400 block font-normal mt-0.5">{ch.module}</span>
+                              </div>
+
+                              <div className="flex items-center space-x-2 shrink-0">
+                                <a
+                                  href={`https://www.youtube.com/results?search_query=${encodeURIComponent(course.name + ' ' + ch.title + ' BTech')}`}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  onClick={(e) => e.stopPropagation()}
+                                  className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-lg bg-red-100 dark:bg-red-950/60 text-red-700 dark:text-red-300 text-[10px] font-black hover:bg-red-200 transition-colors"
+                                  title={`Watch YouTube video for ${ch.title}`}
+                                >
+                                  <Youtube className="w-3 h-3 text-red-500" />
+                                  <span>▶ Topic YT</span>
+                                </a>
+
+                                <span className="text-[10px] text-slate-400 font-bold px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800">{ch.module}</span>
                               </div>
                             </div>
                           );

@@ -238,7 +238,7 @@ export const SinglePageMissionControl: React.FC = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     {course.chapters.map(ch => {
                       const isDone = !!checkedSyllabus[ch.id];
-                      const topicYtUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(course.name + ' ' + ch.title + ' KIIT BTech')}`;
+                      const topicYtUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(course.name + ' ' + ch.title + ' BTech')}`;
                       return (
                         <div
                           key={ch.id}
