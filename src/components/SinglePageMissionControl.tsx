@@ -75,9 +75,11 @@ export const SinglePageMissionControl: React.FC = () => {
       <div className="bg-slate-900 text-white rounded-3xl p-6 sm:p-8 border border-slate-800 shadow-xl space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
           <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 rounded-2xl bg-emerald-500 flex items-center justify-center font-black text-xl text-slate-950 shadow-md">
-              K
-            </div>
+            <img
+              src="/logo.svg"
+              alt="StudyOS Logo"
+              className="w-12 h-12 rounded-2xl shadow-md border border-slate-700"
+            />
             <div>
               <div className="flex items-center space-x-2">
                 <h1 className="text-xl sm:text-2xl font-black tracking-tight">

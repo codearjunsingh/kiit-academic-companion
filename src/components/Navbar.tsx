@@ -36,9 +36,11 @@ export const Navbar: React.FC = () => {
       <header className="sticky top-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center space-x-3 cursor-pointer" onClick={() => setActiveView('dashboard')}>
-            <div className="w-10 h-10 rounded-2xl bg-emerald-500 flex items-center justify-center text-slate-950 font-black text-xl shadow-md">
-              K
-            </div>
+            <img
+              src="/logo.svg"
+              alt="StudyOS Logo"
+              className="w-10 h-10 rounded-2xl shadow-md hover:scale-105 transition-transform"
+            />
             <div>
               <div className="flex items-center space-x-2">
                 <span className="font-extrabold text-slate-900 dark:text-white tracking-tight text-base sm:text-lg">
