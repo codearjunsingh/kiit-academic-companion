@@ -14,26 +14,21 @@ import {
 import {
   Calendar,
   Clock,
-  BookOpen,
   CheckCircle2,
   ExternalLink,
   Flame,
-  Award,
-  Book,
   GraduationCap,
-  Layers
+  Target,
+  ArrowRight
 } from 'lucide-react';
 
 export const SinglePageMissionControl: React.FC = () => {
-  const { scheme, checkedSyllabus, toggleSyllabusTopic, foundationStreak } = useApp();
+  const { scheme, checkedSyllabus, toggleSyllabusTopic, foundationStreak, setActiveView } = useApp();
   const [selectedSem, setSelectedSem] = useState<number>(1);
-
-  const currentDate = new Date();
-  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  const dayName = days[currentDate.getDay()];
+  const [selectedDay, setSelectedDay] = useState<string>('Monday');
 
   const activeTimetable: ClassSlot[] = scheme === 'Scheme A' ? SECTION_A26_TIMETABLE : SECTION_B1_TIMETABLE;
-  const todayClasses = activeTimetable.filter(slot => slot.day === dayName);
+  const dayClasses = activeTimetable.filter(slot => slot.day === selectedDay);
 
   // Get courses for selected semester
   let currentSemCourses: Subject[] = [];
@@ -52,6 +47,7 @@ export const SinglePageMissionControl: React.FC = () => {
     0
   );
   const semProgressPct = totalChapters > 0 ? Math.round((completedChapters / totalChapters) * 100) : 0;
+  const gateProgressPct = 35; // GATE CSE readiness percentage
 
   return (
     <div className="space-y-6 pb-20">
@@ -79,41 +75,37 @@ export const SinglePageMissionControl: React.FC = () => {
 
           <div className="flex items-center space-x-2 bg-slate-800/80 px-4 py-2 rounded-2xl border border-slate-700/80 shrink-0">
             <Flame className="w-5 h-5 text-amber-400 fill-amber-400" />
-            <span className="text-xs font-black text-amber-300">{foundationStreak} Day Study Streak</span>
+            <span className="text-xs font-black text-amber-300">{foundationStreak} Day Active Streak</span>
           </div>
         </div>
 
-        {/* MID-SEM & END-SEM COUNTDOWNS */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="p-4 rounded-2xl bg-slate-800/80 border border-slate-700/80 flex items-center justify-between">
-            <div className="space-y-0.5">
-              <span className="text-[10px] font-black uppercase text-amber-400 tracking-wider flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5 text-amber-400" /> Mid-Sem Examination
-              </span>
-              <p className="text-2xl font-black text-white">18 Days Left</p>
-            </div>
-            <span className="text-xs font-bold px-3 py-1 rounded-xl bg-amber-400/20 text-amber-300 border border-amber-400/30">
-              Target: 8+ SGPA
-            </span>
+        {/* MID-SEM & END-SEM COUNTDOWNS + PERCENTAGE STRIP */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+          <div className="p-3.5 rounded-2xl bg-slate-800/80 border border-slate-700/80 text-center">
+            <p className="text-[10px] text-amber-400 font-black uppercase">📅 Mid-Sem Exam</p>
+            <p className="text-xl font-black text-white mt-0.5">18 Days Left</p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-slate-800/80 border border-slate-700/80 flex items-center justify-between">
-            <div className="space-y-0.5">
-              <span className="text-[10px] font-black uppercase text-emerald-400 tracking-wider flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5 text-emerald-400" /> End-Sem Examination
-              </span>
-              <p className="text-2xl font-black text-white">79 Days Left</p>
-            </div>
-            <span className="text-xs font-bold px-3 py-1 rounded-xl bg-emerald-400/20 text-emerald-300 border border-emerald-400/30">
-              Target: 9 CGPA
-            </span>
+          <div className="p-3.5 rounded-2xl bg-slate-800/80 border border-slate-700/80 text-center">
+            <p className="text-[10px] text-emerald-400 font-black uppercase">📅 End-Sem Exam</p>
+            <p className="text-xl font-black text-white mt-0.5">79 Days Left</p>
+          </div>
+
+          <div className="p-3.5 rounded-2xl bg-slate-800/80 border border-slate-700/80 text-center">
+            <p className="text-[10px] text-cyan-300 font-black uppercase">📊 CSE Sem {selectedSem} Progress</p>
+            <p className="text-xl font-black text-emerald-400 mt-0.5">{semProgressPct}%</p>
+          </div>
+
+          <div className="p-3.5 rounded-2xl bg-slate-800/80 border border-slate-700/80 text-center">
+            <p className="text-[10px] text-purple-300 font-black uppercase">💻 GATE Completion</p>
+            <p className="text-xl font-black text-purple-300 mt-0.5">{gateProgressPct}%</p>
           </div>
         </div>
 
         {/* SEMESTER PROGRESS BAR */}
         <div className="space-y-1.5 pt-1">
           <div className="flex justify-between text-xs font-bold">
-            <span className="text-slate-400">Semester {selectedSem} Syllabus Completion:</span>
+            <span className="text-slate-400">B.Tech CSE Semester {selectedSem} Syllabus Completion:</span>
             <span className="text-emerald-400">{semProgressPct}%</span>
           </div>
           <div className="w-full bg-slate-800 h-3 rounded-full overflow-hidden p-0.5 border border-slate-700">
@@ -122,36 +114,31 @@ export const SinglePageMissionControl: React.FC = () => {
         </div>
       </div>
 
-      {/* TODAY'S KIIT CLASS SCHEDULE */}
-      <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-md space-y-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <Clock className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-            <h2 className="text-base font-black text-slate-900 dark:text-white">
-              Today's Class Schedule ({dayName} • {scheme} Section {scheme === 'Scheme A' ? 'A26' : 'B1'})
-            </h2>
+      {/* QUICK LINK CARDS TO ZERO-TO-HERO AND PREREQUISITE INSPECTOR */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div
+          onClick={() => setActiveView('foundationZero')}
+          className="p-5 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-md cursor-pointer hover:border-emerald-500 transition-all flex items-center justify-between"
+        >
+          <div>
+            <span className="text-[10px] font-black uppercase text-emerald-600 dark:text-emerald-400">Detailed Chapter Checklist</span>
+            <h3 className="text-base font-black text-slate-900 dark:text-white mt-0.5">🎓 Zero-to-Hero (Class 6-12)</h3>
+            <p className="text-xs text-slate-500">Must-know fundamentals across Maths, Physics, Chem & English.</p>
           </div>
-          <span className="text-xs font-bold text-slate-500">Room 201 • Campus-8</span>
+          <ArrowRight className="w-5 h-5 text-emerald-500 shrink-0" />
         </div>
 
-        {todayClasses.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-            {todayClasses.map((c: ClassSlot, i: number) => (
-              <div key={i} className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs space-y-1.5">
-                <div className="flex items-center justify-between font-mono font-bold text-emerald-600 dark:text-emerald-400">
-                  <span>{c.time}</span>
-                  <span className="text-[10px] bg-emerald-100 dark:bg-emerald-950 px-2 py-0.5 rounded text-emerald-800 dark:text-emerald-300 font-bold">{c.room}</span>
-                </div>
-                <h3 className="font-extrabold text-slate-900 dark:text-white text-sm">{c.subject}</h3>
-                <p className="text-slate-500 text-[11px] font-medium">Type: {c.type}</p>
-              </div>
-            ))}
+        <div
+          onClick={() => setActiveView('prereqInspector')}
+          className="p-5 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-md cursor-pointer hover:border-indigo-500 transition-all flex items-center justify-between"
+        >
+          <div>
+            <span className="text-[10px] font-black uppercase text-indigo-600 dark:text-indigo-400">Subject-Chapter Inspector</span>
+            <h3 className="text-base font-black text-slate-900 dark:text-white mt-0.5">🔍 Prerequisite Inspector</h3>
+            <p className="text-xs text-slate-500">Check Class 6-12 prerequisites & related knowledge topics.</p>
           </div>
-        ) : (
-          <p className="text-xs text-slate-500 font-medium p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl text-center">
-            🎉 No official lectures scheduled for today! Great day to review syllabus chapters below.
-          </p>
-        )}
+          <ArrowRight className="w-5 h-5 text-indigo-500 shrink-0" />
+        </div>
       </div>
 
       {/* 4-YEAR SEMESTER SYLLABUS HUB (SEM 1 TO SEM 8) */}
@@ -253,6 +240,54 @@ export const SinglePageMissionControl: React.FC = () => {
             </p>
           )}
         </div>
+      </div>
+
+      {/* SHIFTABLE WEEKLY CLASS SCHEDULE (BOTTOM TIMETABLE) */}
+      <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-md space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-3">
+          <div className="flex items-center space-x-2">
+            <Clock className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+            <h2 className="text-base font-black text-slate-900 dark:text-white">
+              Weekly Timetable Inspector ({scheme} Section {scheme === 'Scheme A' ? 'A26' : 'B1'})
+            </h2>
+          </div>
+
+          {/* DAY SHIFTER TABS */}
+          <div className="flex items-center space-x-1 overflow-x-auto pb-1 scrollbar-none">
+            {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].map(d => (
+              <button
+                key={d}
+                onClick={() => setSelectedDay(d)}
+                className={`px-3 py-1 rounded-xl text-xs font-bold transition-all ${
+                  selectedDay === d
+                    ? 'bg-emerald-500 text-slate-950 font-black shadow-xs'
+                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900'
+                }`}
+              >
+                {d}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {dayClasses.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            {dayClasses.map((c: ClassSlot, i: number) => (
+              <div key={i} className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs space-y-1.5">
+                <div className="flex items-center justify-between font-mono font-bold text-emerald-600 dark:text-emerald-400">
+                  <span>{c.time}</span>
+                  <span className="text-[10px] bg-emerald-100 dark:bg-emerald-950 px-2 py-0.5 rounded text-emerald-800 dark:text-emerald-300 font-bold">{c.room}</span>
+                </div>
+                <h3 className="font-extrabold text-slate-900 dark:text-white text-sm">{c.subject}</h3>
+                <p className="text-slate-500 text-[11px] font-medium">Type: {c.type}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-xs text-slate-500 font-medium p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl text-center">
+            🎉 No official lectures scheduled for {selectedDay}!
+          </p>
+        )}
       </div>
     </div>
   );

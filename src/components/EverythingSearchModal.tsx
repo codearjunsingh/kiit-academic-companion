@@ -49,7 +49,7 @@ export const EverythingSearchModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const matchingZeroTopics = q ? FOUNDATION_ZERO_TOPICS.filter(t =>
     t.title.toLowerCase().includes(q) ||
     t.subject.toLowerCase().includes(q) ||
-    t.plainAnalogy.toLowerCase().includes(q)
+    (t.plainAnalogy || t.simpleAnalogy || '').toLowerCase().includes(q)
   ) : [];
 
   const matchingBooks = q ? OFFICIAL_FIRST_YEAR_TEXTBOOKS.filter(b =>

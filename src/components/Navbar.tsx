@@ -3,25 +3,27 @@ import { useApp } from '../context/AppContext';
 import { EverythingSearchModal } from './EverythingSearchModal';
 import {
   Home,
-  BookOpen,
+  GraduationCap,
+  Layers,
+  Search as SearchIcon,
   Code,
   Settings as SettingsIcon,
   Moon,
   Sun,
-  Search,
-  Sparkles,
-  GraduationCap
+  Search
 } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
-  const { activeView, setActiveView, scheme, darkMode, setDarkMode, explainSimply, setExplainSimply } = useApp();
+  const { activeView, setActiveView, scheme, darkMode, setDarkMode } = useApp();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const coreModules = [
-    { id: 'dashboard', label: '🏠 KIIT Dashboard', icon: Home },
-    { id: 'subjects', label: '📚 4-Year Curricula', icon: GraduationCap },
-    { id: 'coding', label: '💻 Coding HQ', icon: Code },
-    { id: 'settings', label: '⚙️ Settings', icon: SettingsIcon },
+    { id: 'dashboard', label: '🏠 KIIT Dashboard' },
+    { id: 'subjects', label: '📚 4-Year Curricula' },
+    { id: 'foundationZero', label: '🎓 Zero-to-Hero (6-12)' },
+    { id: 'prereqInspector', label: '🔍 Prerequisite Inspector' },
+    { id: 'coding', label: '💻 Coding HQ' },
+    { id: 'settings', label: '⚙️ Settings' },
   ];
 
   return (
@@ -50,7 +52,7 @@ export const Navbar: React.FC = () => {
             </div>
           </div>
 
-          {/* Desktop Nav Controls - Clean KIIT Systems */}
+          {/* Desktop Nav Controls */}
           <div className="hidden lg:flex items-center space-x-1.5">
             {coreModules.map(item => {
               const isActive = activeView === item.id;
@@ -58,7 +60,7 @@ export const Navbar: React.FC = () => {
                 <button
                   key={item.id}
                   onClick={() => setActiveView(item.id)}
-                  className={`flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-black transition-all ${
+                  className={`flex items-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-black transition-all ${
                     isActive
                       ? 'bg-emerald-500 text-slate-950 shadow-md'
                       : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60'
@@ -94,12 +96,13 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Bottom Navigation Bar */}
       <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 px-2 py-1">
-        <div className="grid grid-cols-4 gap-1">
+        <div className="grid grid-cols-5 gap-1">
           {[
-            { id: 'dashboard', label: 'Dashboard', icon: Home },
+            { id: 'dashboard', label: 'Home', icon: Home },
             { id: 'subjects', label: 'Curricula', icon: GraduationCap },
+            { id: 'foundationZero', label: 'Zero-Hero', icon: Layers },
+            { id: 'prereqInspector', label: 'Inspector', icon: SearchIcon },
             { id: 'coding', label: 'Coding', icon: Code },
-            { id: 'settings', label: 'Settings', icon: SettingsIcon },
           ].map(item => {
             const Icon = item.icon;
             const isActive = activeView === item.id;
