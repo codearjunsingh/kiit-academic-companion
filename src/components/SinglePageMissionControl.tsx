@@ -6,6 +6,7 @@ import {
   UPPER_SEMESTER_COURSES,
   Subject
 } from '../data/subjects';
+import { GATE_CSE_SYLLABUS } from '../data/gateSyllabus';
 import {
   SECTION_A26_TIMETABLE,
   SECTION_B1_TIMETABLE,
@@ -53,7 +54,19 @@ export const SinglePageMissionControl: React.FC = () => {
     0
   );
   const semProgressPct = totalChapters > 0 ? Math.round((completedChapters / totalChapters) * 100) : 0;
-  const gateProgressPct = 35; // GATE CSE readiness percentage
+
+  // Dynamically calculate GATE CS completion percentage from localStorage
+  const checkedGate: Record<string, boolean> = (() => {
+    const saved = localStorage.getItem('kiit_gate_checked_topics');
+    return saved ? JSON.parse(saved) : {};
+  })();
+
+  const totalGateChapters = GATE_CSE_SYLLABUS.reduce((acc, sub) => acc + sub.chapters.length, 0);
+  const completedGateChapters = GATE_CSE_SYLLABUS.reduce(
+    (acc, sub) => acc + sub.chapters.filter(ch => checkedGate[ch.id]).length,
+    0
+  );
+  const gateProgressPct = totalGateChapters > 0 ? Math.round((completedGateChapters / totalGateChapters) * 100) : 0;
 
   return (
     <div className="space-y-6 pb-20">
