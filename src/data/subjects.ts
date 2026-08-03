@@ -8,9 +8,9 @@ export interface Chapter {
 export interface Subject {
   code: string;
   name: string;
-  scheme: 'Scheme A' | 'Scheme B';
-  semester: 1 | 2;
-  category: 'BS' | 'ES' | 'GER' | 'Core';
+  scheme: 'Scheme A' | 'Scheme B' | 'All';
+  semester: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+  category: 'BS' | 'ES' | 'GER' | 'Core' | 'PE' | 'OE';
   type: 'Theory' | 'Practical' | 'Sessional';
   ltpc: {
     l: number; // Lecture hours
@@ -201,7 +201,7 @@ export const SCHEME_A_SEM1_COURSES: Subject[] = [
   }
 ];
 
-// SEMESTER 2 - SCHEME A (Chemistry, Linear Algebra, Basic Electronics, Science Elective, English, Drawing)
+// SEMESTER 2 - SCHEME A
 export const SCHEME_A_SEM2_COURSES: Subject[] = [
   {
     code: 'HS10003',
@@ -376,12 +376,341 @@ export const SCHEME_A_SEM2_COURSES: Subject[] = [
   }
 ];
 
-// ==================== SCHEME B ====================
-// SEMESTER 1 - SCHEME B (Chemistry, Linear Algebra, Basic Electronics, Science Elective, English, Drawing)
+// SEMESTER 1 & 2 SCHEME B
 export const SCHEME_B_SEM1_COURSES: Subject[] = SCHEME_A_SEM2_COURSES.map(c => ({ ...c, scheme: 'Scheme B', semester: 1 }));
-
-// SEMESTER 2 - SCHEME B (Physics, Programming, Electrical, ScLS, UHV, Workshop)
 export const SCHEME_B_SEM2_COURSES: Subject[] = SCHEME_A_SEM1_COURSES.map(c => ({ ...c, scheme: 'Scheme B', semester: 2 }));
+
+// ==================== 2nd, 3rd, 4th YEAR KIIT B.TECH CSE / CSE-AIML ====================
+export const UPPER_SEMESTER_COURSES: Subject[] = [
+  // SEMESTER 3
+  {
+    code: 'MA21001',
+    name: 'Probability and Statistics',
+    scheme: 'All',
+    semester: 3,
+    category: 'BS',
+    type: 'Theory',
+    ltpc: { l: 3, t: 1, p: 0, total: 4, credits: 4 },
+    prerequisites: 'Calculus MA11009',
+    textbook: 'Probability and Statistics for Engineers and Sciences by J.L. Devore (9th Ed, Cengage)',
+    referenceBook: 'Advanced Engineering Mathematics by Erwin Kreyszig',
+    youtubeSearchQuery: 'Probability and Statistics MA21001 KIIT',
+    chapters: [
+      { id: 'sem3_ma_1', title: 'Probability Distributions (Binomial, Poisson, Normal, Exponential)', module: 'Module 1', difficulty: 'Medium' },
+      { id: 'sem3_ma_2', title: 'Joint Probability & Marginal Mass Functions', module: 'Module 2', difficulty: 'Hard' },
+      { id: 'sem3_ma_3', title: 'Descriptive Statistics & Regression Analysis', module: 'Module 3', difficulty: 'Medium' },
+      { id: 'sem3_ma_4', title: 'Inferential Statistics, Central Limit Theorem & Hypothesis Testing', module: 'Module 4', difficulty: 'Hard' }
+    ]
+  },
+  {
+    code: 'CS21001',
+    name: 'Data Structures',
+    scheme: 'All',
+    semester: 3,
+    category: 'Core',
+    type: 'Theory',
+    ltpc: { l: 3, t: 1, p: 0, total: 4, credits: 4 },
+    prerequisites: 'C Programming CS13003',
+    textbook: 'Fundamentals of Data Structures in C by E. Horowitz, S. Sahani & Anderson-Freed',
+    referenceBook: 'Data Structures using C by Tenenbaum',
+    youtubeSearchQuery: 'Data Structures CS21001 KIIT Abdul Bari',
+    chapters: [
+      { id: 'sem3_ds_1', title: 'Algorithm Analysis, Time/Space Complexity & Sparse Matrices', module: 'Module 1', difficulty: 'Easy' },
+      { id: 'sem3_ds_2', title: 'Stacks, Queues, Linked Lists (Singly, Doubly, Circular)', module: 'Module 2', difficulty: 'Medium' },
+      { id: 'sem3_ds_3', title: 'Trees: BST, AVL Trees & Expression Trees', module: 'Module 3', difficulty: 'Hard' },
+      { id: 'sem3_ds_4', title: 'Graphs: BFS, DFS & Topological Sort', module: 'Module 4', difficulty: 'Hard' },
+      { id: 'sem3_ds_5', title: 'Sorting (Merge, Quick, Heap) & Hashing', module: 'Module 5', difficulty: 'Medium' }
+    ]
+  },
+  {
+    code: 'CS21003',
+    name: 'Automata Theory and Formal Languages',
+    scheme: 'All',
+    semester: 3,
+    category: 'Core',
+    type: 'Theory',
+    ltpc: { l: 3, t: 1, p: 0, total: 4, credits: 4 },
+    prerequisites: 'Basic Logic & Discrete Math',
+    textbook: 'Introduction to Automata Theory, Languages and Computation by Hopcroft, Motwani & Ullman (3rd Ed)',
+    youtubeSearchQuery: 'Automata Theory CS21003 Gate Smashers KIIT',
+    chapters: [
+      { id: 'sem3_at_1', title: 'Finite Automata: DFA, NFA, Minimization & NFA to DFA', module: 'Module 1', difficulty: 'Medium' },
+      { id: 'sem3_at_2', title: 'Regular Expressions & Pumping Lemma', module: 'Module 2', difficulty: 'Hard' },
+      { id: 'sem3_at_3', title: 'Context-Free Grammars (CFG) & Pushdown Automata (PDA)', module: 'Module 3', difficulty: 'Hard' },
+      { id: 'sem3_at_4', title: 'Turing Machines & Undecidability (Halting Problem)', module: 'Module 4', difficulty: 'Hard' }
+    ]
+  },
+  {
+    code: 'EC20005',
+    name: 'Digital Systems Design',
+    scheme: 'All',
+    semester: 3,
+    category: 'Core',
+    type: 'Theory',
+    ltpc: { l: 3, t: 0, p: 0, total: 3, credits: 3 },
+    prerequisites: 'Basic Electronics EC10005',
+    textbook: 'Digital Design by M. Morris Mano & Michael D. Ciletti (5th Ed, PHI)',
+    youtubeSearchQuery: 'Digital Systems Design EC20005 Neso Academy KIIT',
+    chapters: [
+      { id: 'sem3_dsd_1', title: 'VLSI Design Flow & Verilog HDL Operators', module: 'Module 1', difficulty: 'Easy' },
+      { id: 'sem3_dsd_2', title: 'K-Maps & Combinational Circuits (Adders, Decoders, MUX)', module: 'Module 2', difficulty: 'Medium' },
+      { id: 'sem3_dsd_3', title: 'Sequential Circuits: Flip-Flops, Registers & Counters', module: 'Module 3', difficulty: 'Hard' },
+      { id: 'sem3_dsd_4', title: 'CMOS Gate Level Logic Design', module: 'Module 4', difficulty: 'Hard' }
+    ]
+  },
+  {
+    code: 'EX20001',
+    name: 'Industry 4.0 Technologies',
+    scheme: 'All',
+    semester: 3,
+    category: 'Core',
+    type: 'Theory',
+    ltpc: { l: 2, t: 0, p: 0, total: 2, credits: 2 },
+    prerequisites: 'None',
+    textbook: 'Tech Trends of the 4th Industrial Revolution by D. Pyo',
+    youtubeSearchQuery: 'Industry 4.0 Technologies EX20001 KIIT',
+    chapters: [
+      { id: 'sem3_ind_1', title: 'IIoT, Cloud Computing & Digital Twins', module: 'Module 1', difficulty: 'Easy' },
+      { id: 'sem3_ind_2', title: 'Cyber Physical Systems & Robotics Automation', module: 'Module 2', difficulty: 'Medium' }
+    ]
+  },
+
+  // SEMESTER 4
+  {
+    code: 'MA21002',
+    name: 'Discrete Structures',
+    scheme: 'All',
+    semester: 4,
+    category: 'BS',
+    type: 'Theory',
+    ltpc: { l: 3, t: 1, p: 0, total: 4, credits: 4 },
+    prerequisites: 'Basic Mathematics',
+    textbook: 'Discrete Mathematics and its Applications by Kenneth H. Rosen (7th Ed, McGraw Hill)',
+    youtubeSearchQuery: 'Discrete Structures MA21002 KIIT',
+    chapters: [
+      { id: 'sem4_ds_1', title: 'Propositional Logic, Predicates & Induction', module: 'Module 1', difficulty: 'Medium' },
+      { id: 'sem4_ds_2', title: 'Sets, Relations, Equivalence & Hasse Diagrams', module: 'Module 2', difficulty: 'Medium' },
+      { id: 'sem4_ds_3', title: 'Recurrence Relations & Generating Functions', module: 'Module 3', difficulty: 'Hard' },
+      { id: 'sem4_ds_4', title: 'Group Theory, Rings & Fields', module: 'Module 4', difficulty: 'Hard' },
+      { id: 'sem4_ds_5', title: 'Graph Theory: Eulerian, Hamiltonian, Dijkstra & MST', module: 'Module 5', difficulty: 'Medium' }
+    ]
+  },
+  {
+    code: 'CS20002',
+    name: 'Operating Systems',
+    scheme: 'All',
+    semester: 4,
+    category: 'Core',
+    type: 'Theory',
+    ltpc: { l: 3, t: 0, p: 0, total: 3, credits: 3 },
+    prerequisites: 'Data Structures & Computer Architecture',
+    textbook: 'Operating System Concepts by Silberschatz, Galvin & Gagne (10th Ed, Wiley)',
+    youtubeSearchQuery: 'Operating Systems CS20002 Gate Smashers KIIT',
+    chapters: [
+      { id: 'sem4_os_1', title: 'OS Services, System Calls & Process Management', module: 'Module 1', difficulty: 'Easy' },
+      { id: 'sem4_os_2', title: 'CPU Scheduling, Semaphores & Deadlock Avoidance', module: 'Module 2', difficulty: 'Hard' },
+      { id: 'sem4_os_3', title: 'Memory Management, Paging & Virtual Memory', module: 'Module 3', difficulty: 'Hard' },
+      { id: 'sem4_os_4', title: 'File Systems, Mass Storage & Linux Case Study', module: 'Module 4', difficulty: 'Medium' }
+    ]
+  },
+  {
+    code: 'CS20004',
+    name: 'Object Oriented Programming using Java',
+    scheme: 'All',
+    semester: 4,
+    category: 'Core',
+    type: 'Theory',
+    ltpc: { l: 3, t: 0, p: 0, total: 3, credits: 3 },
+    prerequisites: 'C Programming',
+    textbook: 'Java - The Complete Reference by Herbert Schildt (12th Ed, McGraw Hill)',
+    youtubeSearchQuery: 'Object Oriented Programming Java CS20004 Telusko KIIT',
+    chapters: [
+      { id: 'sem4_java_1', title: 'OOP Principles: Classes, Objects, Inheritance & Polymorphism', module: 'Module 1', difficulty: 'Easy' },
+      { id: 'sem4_java_2', title: 'Packages, Interfaces & Exception Handling', module: 'Module 2', difficulty: 'Medium' },
+      { id: 'sem4_java_3', title: 'Multithreading & Inter-thread Communication', module: 'Module 3', difficulty: 'Hard' },
+      { id: 'sem4_java_4', title: 'Java Swing GUI & JDBC Database Connectivity', module: 'Module 4', difficulty: 'Medium' }
+    ]
+  },
+  {
+    code: 'CS20006',
+    name: 'Database Management Systems',
+    scheme: 'All',
+    semester: 4,
+    category: 'Core',
+    type: 'Theory',
+    ltpc: { l: 3, t: 1, p: 0, total: 4, credits: 3 },
+    prerequisites: 'Data Structures',
+    textbook: 'Database System Concepts by Silberschatz, Korth & Sudharshan (7th Ed, McGraw Hill)',
+    youtubeSearchQuery: 'Database Management Systems CS20006 Gate Smashers KIIT',
+    chapters: [
+      { id: 'sem4_db_1', title: 'ER Diagrams & Relational Data Models', module: 'Module 1', difficulty: 'Easy' },
+      { id: 'sem4_db_2', title: 'Relational Algebra & Advanced SQL Queries', module: 'Module 2', difficulty: 'Medium' },
+      { id: 'sem4_db_3', title: 'Normalization: 1NF, 2NF, 3NF, BCNF & 4NF', module: 'Module 3', difficulty: 'Hard' },
+      { id: 'sem4_db_4', title: 'Transaction Management, ACID Properties & Concurrency Control', module: 'Module 4', difficulty: 'Hard' }
+    ]
+  },
+  {
+    code: 'CS21002',
+    name: 'Computer Organization and Architecture',
+    scheme: 'All',
+    semester: 4,
+    category: 'Core',
+    type: 'Theory',
+    ltpc: { l: 3, t: 1, p: 0, total: 4, credits: 4 },
+    prerequisites: 'Digital Systems Design',
+    textbook: 'Computer Organization and Embedded Systems by Carl Hamacher (6th Ed, MGH)',
+    youtubeSearchQuery: 'Computer Organization and Architecture CS21002 KIIT',
+    chapters: [
+      { id: 'sem4_coa_1', title: 'Computer Structure, Addressing Modes & ISA', module: 'Module 1', difficulty: 'Medium' },
+      { id: 'sem4_coa_2', title: 'ALU Design & Fast Multiplication/Division', module: 'Module 2', difficulty: 'Hard' },
+      { id: 'sem4_coa_3', title: 'Memory Hierarchy, SRAM, DRAM & Cache Mapping', module: 'Module 3', difficulty: 'Hard' },
+      { id: 'sem4_coa_4', title: 'Pipelining, Hazards & I/O Interrupts', module: 'Module 4', difficulty: 'Hard' }
+    ]
+  },
+
+  // SEMESTER 5
+  {
+    code: 'CS30001',
+    name: 'Design and Analysis of Algorithms',
+    scheme: 'All',
+    semester: 5,
+    category: 'Core',
+    type: 'Theory',
+    ltpc: { l: 3, t: 0, p: 0, total: 3, credits: 3 },
+    prerequisites: 'Data Structures CS21001',
+    textbook: 'Introduction to Algorithms by Cormen, Leiserson, Rivest & Stein (CLRS 3rd Ed)',
+    youtubeSearchQuery: 'Design and Analysis of Algorithms CS30001 Abdul Bari KIIT',
+    chapters: [
+      { id: 'sem5_daa_1', title: 'Asymptotic Notations & Recurrence Solving (Master Theorem)', module: 'Module 1', difficulty: 'Medium' },
+      { id: 'sem5_daa_2', title: 'Divide & Conquer, Greedy Method (Dijkstra, Huffman, Knapsack)', module: 'Module 2', difficulty: 'Hard' },
+      { id: 'sem5_daa_3', title: 'Dynamic Programming (LCS, Matrix Chain, TSP)', module: 'Module 3', difficulty: 'Hard' },
+      { id: 'sem5_daa_4', title: 'NP-Hard & NP-Complete Problems (Vertex Cover, Clique)', module: 'Module 4', difficulty: 'Hard' }
+    ]
+  },
+  {
+    code: 'CS31001',
+    name: 'Software Engineering',
+    scheme: 'All',
+    semester: 5,
+    category: 'Core',
+    type: 'Theory',
+    ltpc: { l: 3, t: 1, p: 0, total: 4, credits: 4 },
+    prerequisites: 'Object Oriented Programming',
+    textbook: 'Software Engineering: A Practitioners Approach by Roger S. Pressman (8th Ed)',
+    youtubeSearchQuery: 'Software Engineering CS31001 KIIT',
+    chapters: [
+      { id: 'sem5_se_1', title: 'SDLC Models: Waterfall, Agile, Scrum & Spiral', module: 'Module 1', difficulty: 'Easy' },
+      { id: 'sem5_se_2', title: 'Requirements Engineering & SRS Documentation', module: 'Module 2', difficulty: 'Medium' },
+      { id: 'sem5_se_3', title: 'Software Architecture & Design Patterns', module: 'Module 3', difficulty: 'Medium' },
+      { id: 'sem5_se_4', title: 'Black-box & White-box Software Testing Strategies', module: 'Module 4', difficulty: 'Medium' }
+    ]
+  },
+  {
+    code: 'CS30003',
+    name: 'Computer Networks',
+    scheme: 'All',
+    semester: 5,
+    category: 'Core',
+    type: 'Theory',
+    ltpc: { l: 3, t: 0, p: 0, total: 3, credits: 3 },
+    prerequisites: 'Operating Systems',
+    textbook: 'Computer Networks by Andrew S. Tanenbaum & David J. Wetherall (6th Ed)',
+    youtubeSearchQuery: 'Computer Networks CS30003 Gate Smashers KIIT',
+    chapters: [
+      { id: 'sem5_cn_1', title: 'OSI & TCP/IP Reference Layer Models', module: 'Module 1', difficulty: 'Easy' },
+      { id: 'sem5_cn_2', title: 'Data Link Layer: Error Detection (CRC) & Flow Control (Sliding Window)', module: 'Module 2', difficulty: 'Medium' },
+      { id: 'sem5_cn_3', title: 'Network Layer: IP Addressing, Subnetting & Routing (OSPF, BGP)', module: 'Module 3', difficulty: 'Hard' },
+      { id: 'sem5_cn_4', title: 'Transport Layer: TCP, UDP, Congestion Control & QOS', module: 'Module 4', difficulty: 'Hard' }
+    ]
+  },
+
+  // SEMESTER 6 (CSE-AIML FOCUS)
+  {
+    code: 'CS31002',
+    name: 'Machine Learning',
+    scheme: 'All',
+    semester: 6,
+    category: 'Core',
+    type: 'Theory',
+    ltpc: { l: 3, t: 1, p: 0, total: 4, credits: 4 },
+    prerequisites: 'Probability MA21001 & Linear Algebra',
+    textbook: 'Probabilistic Machine Learning by Kevin P. Murphy (MIT Press 2023) / Tom Mitchell',
+    youtubeSearchQuery: 'Machine Learning CS31002 Andrew Ng KIIT',
+    chapters: [
+      { id: 'sem6_ml_1', title: 'Supervised vs Unsupervised Learning & Bias-Variance Tradeoff', module: 'Module 1', difficulty: 'Medium' },
+      { id: 'sem6_ml_2', title: 'Regression, Decision Trees, SVM & KNN Classifiers', module: 'Module 2', difficulty: 'Hard' },
+      { id: 'sem6_ml_3', title: 'Clustering: K-Means, Hierarchical & Expectation Maximization', module: 'Module 3', difficulty: 'Hard' },
+      { id: 'sem6_ml_4', title: 'Neural Networks: Perceptrons, MLP & Backpropagation', module: 'Module 4', difficulty: 'Hard' }
+    ]
+  },
+  {
+    code: 'CS30002',
+    name: 'Artificial Intelligence',
+    scheme: 'All',
+    semester: 6,
+    category: 'Core',
+    type: 'Theory',
+    ltpc: { l: 3, t: 0, p: 0, total: 3, credits: 3 },
+    prerequisites: 'Design and Analysis of Algorithms',
+    textbook: 'Artificial Intelligence - A Modern Approach by Stuart Russell & Peter Norvig (4th Ed)',
+    youtubeSearchQuery: 'Artificial Intelligence CS30002 KIIT',
+    chapters: [
+      { id: 'sem6_ai_1', title: 'Intelligent Agents & Search Strategies (A*, Minimax, Alpha-Beta)', module: 'Module 1', difficulty: 'Medium' },
+      { id: 'sem6_ai_2', title: 'First-Order Logic, Resolution & Knowledge Representation', module: 'Module 2', difficulty: 'Hard' },
+      { id: 'sem6_ai_3', title: 'State-Space Planning & Bayesian Networks', module: 'Module 3', difficulty: 'Hard' }
+    ]
+  },
+
+  // SEMESTER 7 & 8
+  {
+    code: 'CS40001',
+    name: 'Deep Learning Techniques (PE-IV)',
+    scheme: 'All',
+    semester: 7,
+    category: 'PE',
+    type: 'Theory',
+    ltpc: { l: 3, t: 0, p: 0, total: 3, credits: 3 },
+    prerequisites: 'Machine Learning CS31002',
+    textbook: 'Deep Learning by Ian Goodfellow, Yoshua Bengio & Aaron Courville (MIT Press)',
+    youtubeSearchQuery: 'Deep Learning Techniques CS40001 PyTorch TensorFlow KIIT',
+    chapters: [
+      { id: 'sem7_dl_1', title: 'Deep Feedforward Networks & Gradient Descent Optimization', module: 'Module 1', difficulty: 'Hard' },
+      { id: 'sem7_dl_2', title: 'Convolutional Neural Networks (CNN) for Computer Vision', module: 'Module 2', difficulty: 'Hard' },
+      { id: 'sem7_dl_3', title: 'Recurrent Neural Networks (RNN) & LSTM for Sequence Data', module: 'Module 3', difficulty: 'Hard' },
+      { id: 'sem7_dl_4', title: 'Generative Adversarial Networks (GAN) & Autoencoders', module: 'Module 4', difficulty: 'Hard' }
+    ]
+  },
+  {
+    code: 'CS47001',
+    name: 'Major Project - I',
+    scheme: 'All',
+    semester: 7,
+    category: 'Core',
+    type: 'Sessional',
+    ltpc: { l: 0, t: 0, p: 10, total: 10, credits: 5 },
+    prerequisites: 'Mini Project & AI/ML Skills',
+    textbook: 'KIIT Final Year Project Guide',
+    youtubeSearchQuery: 'KIIT Major Project BTech CSE AIML',
+    chapters: [
+      { id: 'proj1_1', title: 'Literature Review, Problem Formulation & Prototype Architecture', module: 'Phase 1', difficulty: 'Hard' }
+    ]
+  },
+  {
+    code: 'CS47002',
+    name: 'Major Project - II',
+    scheme: 'All',
+    semester: 8,
+    category: 'Core',
+    type: 'Sessional',
+    ltpc: { l: 0, t: 0, p: 18, total: 18, credits: 9 },
+    prerequisites: 'Major Project - I',
+    textbook: 'KIIT Final Year Project Thesis Guide',
+    youtubeSearchQuery: 'KIIT Major Project II Defence Thesis',
+    chapters: [
+      { id: 'proj2_1', title: 'System Implementation, Deployment, Testing & Thesis Submission', module: 'Phase 2', difficulty: 'Hard' }
+    ]
+  }
+];
 
 export const ENGINEERING_ELECTIVES = [
   { code: 'EE10005', name: 'Instrumentation & Automation', textbook: 'Electrical & Electronic Measurements by R.K. Rajput', chapters: [{ id: 'ee10005_1', title: 'Sensors, Transducers & PLC Automation', module: 'Module 1', difficulty: 'Medium' as const }] },
