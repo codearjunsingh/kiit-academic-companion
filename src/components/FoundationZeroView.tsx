@@ -7,7 +7,7 @@ import {
   ExternalLink,
   Flame,
   Star,
-  BookOpen
+  Youtube
 } from 'lucide-react';
 
 export const FoundationZeroView: React.FC = () => {
@@ -108,6 +108,7 @@ export const FoundationZeroView: React.FC = () => {
         {filteredTopics.map(topic => {
           const isDone = !!checkedFoundationZero[topic.id];
           const rating = confidenceRatings[topic.id] || 3;
+          const topicYtUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(topic.classLevel + ' ' + topic.subject + ' ' + topic.title + ' lecture')}`;
 
           return (
             <div
@@ -135,9 +136,25 @@ export const FoundationZeroView: React.FC = () => {
                         Feeds into: {topic.kiitSubjectLink}
                       </span>
                     </div>
-                    <h3 className="text-base font-black text-slate-900 dark:text-white mt-1">
-                      {topic.title}
-                    </h3>
+
+                    <div className="flex items-center space-x-2 mt-1">
+                      <h3 className="text-base font-black text-slate-900 dark:text-white">
+                        {topic.title}
+                      </h3>
+
+                      {/* DEDICATED TOPIC YOUTUBE BUTTON IN FRONT OF TOPIC TITLE */}
+                      <a
+                        href={topicYtUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-xl bg-red-100 dark:bg-red-950/60 text-red-700 dark:text-red-300 text-xs font-black hover:bg-red-200 transition-colors shrink-0"
+                        title={`Watch YouTube lecture for ${topic.title}`}
+                      >
+                        <Youtube className="w-3.5 h-3.5 text-red-500" />
+                        <span>▶ Topic YT</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    </div>
                   </div>
                 </div>
 

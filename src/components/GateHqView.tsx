@@ -7,7 +7,8 @@ import {
   Flame,
   Award,
   BookOpen,
-  Target
+  Target,
+  Youtube
 } from 'lucide-react';
 
 export const GateHqView: React.FC = () => {
@@ -146,38 +147,57 @@ export const GateHqView: React.FC = () => {
                   <span className="text-xs font-extrabold text-purple-600 dark:text-purple-400">
                     {subDone} / {subTotal} ({subPct}%)
                   </span>
+                  {/* PRESERVED MAIN SUBJECT PW LECTURE LINK */}
                   <a
                     href={`https://www.youtube.com/results?search_query=${encodeURIComponent(`PW GATE ${subject.name} CSE`)}`}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center space-x-1 text-xs font-bold text-slate-500 hover:text-purple-600 dark:hover:text-purple-400"
+                    className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-600 dark:text-red-400 border border-red-500/20 text-xs font-black transition-colors shrink-0"
                   >
-                    <span>PW Lectures</span>
+                    <Youtube className="w-4 h-4 text-red-500" />
+                    <span>PW Subject Playlist</span>
                     <ExternalLink className="w-3 h-3" />
                   </a>
                 </div>
               </div>
 
-              {/* CHAPTER CHECKBOXES GRID */}
+              {/* CHAPTER CHECKBOXES GRID WITH TOPIC-LEVEL YOUTUBE BUTTONS IN FRONT */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
                 {subject.chapters.map(ch => {
                   const isDone = !!checkedGate[ch.id];
+                  const topicYtUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent('PW GATE CSE ' + subject.name + ' ' + ch.title)}`;
+
                   return (
                     <div
                       key={ch.id}
-                      onClick={() => toggleGateTopic(ch.id)}
-                      className={`p-3.5 rounded-2xl border text-xs cursor-pointer transition-all flex items-center justify-between ${
+                      className={`p-3.5 rounded-2xl border text-xs transition-all flex items-center justify-between gap-2 ${
                         isDone
                           ? 'bg-purple-50 dark:bg-purple-950/40 border-purple-300 dark:border-purple-800 text-slate-900 dark:text-white'
                           : 'bg-slate-50 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 hover:border-purple-400'
                       }`}
                     >
-                      <div className="flex items-center space-x-3">
+                      <div
+                        onClick={() => toggleGateTopic(ch.id)}
+                        className="flex items-center space-x-3 cursor-pointer flex-1 min-w-0"
+                      >
                         <CheckCircle2 className={`w-4 h-4 shrink-0 ${isDone ? 'text-purple-600 fill-purple-600/20' : 'text-slate-400'}`} />
-                        <span className="font-bold">{ch.title}</span>
+                        <span className="font-bold truncate">{ch.title}</span>
                       </div>
 
                       <div className="flex items-center space-x-1.5 shrink-0">
+                        {/* DEDICATED TOPIC YOUTUBE BUTTON IN FRONT OF TOPIC */}
+                        <a
+                          href={topicYtUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-lg bg-red-100 dark:bg-red-950/60 text-red-700 dark:text-red-300 text-[10px] font-black hover:bg-red-200 transition-colors"
+                          title={`Watch PW GATE YouTube lecture for ${ch.title}`}
+                        >
+                          <Youtube className="w-3 h-3 text-red-500" />
+                          <span>▶ PW YT</span>
+                        </a>
+
                         <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
                           {ch.weightage}
                         </span>

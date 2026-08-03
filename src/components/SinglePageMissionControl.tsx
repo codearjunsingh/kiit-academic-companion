@@ -18,7 +18,8 @@ import {
   ExternalLink,
   Flame,
   GraduationCap,
-  ArrowRight
+  ArrowRight,
+  Youtube
 } from 'lucide-react';
 
 export const SinglePageMissionControl: React.FC = () => {
@@ -214,14 +215,16 @@ export const SinglePageMissionControl: React.FC = () => {
                     </h3>
                   </div>
 
+                  {/* PRESERVED MAIN COURSE ONESHOT / PLAYLIST YOUTUBE BUTTON */}
                   <a
                     href={`https://www.youtube.com/results?search_query=${encodeURIComponent(course.youtubeSearchQuery)}`}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center space-x-1.5 text-xs font-extrabold text-emerald-600 dark:text-emerald-400 hover:underline shrink-0"
+                    className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-600 dark:text-red-400 border border-red-500/20 text-xs font-black transition-colors shrink-0"
                   >
-                    <span>YouTube Lectures</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
+                    <Youtube className="w-4 h-4 text-red-500" />
+                    <span>Course One-Shot Playlist</span>
+                    <ExternalLink className="w-3 h-3" />
                   </a>
                 </div>
 
@@ -229,29 +232,48 @@ export const SinglePageMissionControl: React.FC = () => {
                   <strong>Official Textbook:</strong> {course.textbook}
                 </p>
 
-                {/* CHAPTERS CHECKLIST */}
+                {/* CHAPTERS CHECKLIST WITH TOPIC-LEVEL YOUTUBE BUTTONS IN FRONT */}
                 <div className="space-y-1.5 pt-1">
                   <p className="text-[11px] font-black uppercase text-slate-400">Modules & Chapters:</p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     {course.chapters.map(ch => {
                       const isDone = !!checkedSyllabus[ch.id];
+                      const topicYtUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(course.name + ' ' + ch.title + ' KIIT BTech')}`;
                       return (
                         <div
                           key={ch.id}
-                          onClick={() => toggleSyllabusTopic(ch.id)}
-                          className={`p-3 rounded-xl border text-xs cursor-pointer transition-all flex items-center justify-between ${
+                          className={`p-3 rounded-xl border text-xs transition-all flex items-center justify-between gap-2 ${
                             isDone
                               ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800 text-slate-900 dark:text-white'
                               : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 hover:border-emerald-400'
                           }`}
                         >
-                          <div className="flex items-center space-x-2.5">
+                          <div
+                            onClick={() => toggleSyllabusTopic(ch.id)}
+                            className="flex items-center space-x-2.5 cursor-pointer flex-1 min-w-0"
+                          >
                             <CheckCircle2 className={`w-4 h-4 shrink-0 ${isDone ? 'text-emerald-500 fill-emerald-500/20' : 'text-slate-400'}`} />
-                            <span className="font-bold">{ch.title}</span>
+                            <span className="font-bold truncate">{ch.title}</span>
                           </div>
-                          <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 shrink-0">
-                            {ch.module}
-                          </span>
+
+                          <div className="flex items-center space-x-1.5 shrink-0">
+                            {/* DEDICATED TOPIC YOUTUBE BUTTON IN FRONT OF TOPIC */}
+                            <a
+                              href={topicYtUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                              className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-lg bg-red-100 dark:bg-red-950/60 text-red-700 dark:text-red-300 text-[10px] font-black hover:bg-red-200 transition-colors"
+                              title={`Watch YouTube lecture for ${ch.title}`}
+                            >
+                              <Youtube className="w-3 h-3 text-red-500" />
+                              <span>▶ Topic YT</span>
+                            </a>
+
+                            <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500">
+                              {ch.module}
+                            </span>
+                          </div>
                         </div>
                       );
                     })}
