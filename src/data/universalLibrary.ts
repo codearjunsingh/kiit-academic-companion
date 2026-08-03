@@ -16,7 +16,7 @@ export const UNIVERSAL_RESOURCES: LibraryResource[] = [
     category: 'Mathematics',
     authorOrSource: 'Erwin Kreyszig (Wiley)',
     tags: ['Differential Equations', 'Linear Algebra', 'Complex Analysis', 'KIIT Course'],
-    url: 'https://kiit-academic-companion.vercel.app'
+    url: 'https://okarjunsingh.vercel.app'
   },
   {
     id: 'res_2',
@@ -25,7 +25,7 @@ export const UNIVERSAL_RESOURCES: LibraryResource[] = [
     category: 'Computer Science',
     authorOrSource: 'E. Balagurusamy (McGraw Hill)',
     tags: ['C Language', 'Pointers', 'Memory Allocation', 'KIIT Course'],
-    url: 'https://kiit-academic-companion.vercel.app'
+    url: 'https://okarjunsingh.vercel.app'
   },
   {
     id: 'res_3',
