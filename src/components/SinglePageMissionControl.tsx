@@ -12,13 +12,11 @@ import {
   ClassSlot
 } from '../data/profile';
 import {
-  Calendar,
   Clock,
   CheckCircle2,
   ExternalLink,
   Flame,
   GraduationCap,
-  Target,
   ArrowRight
 } from 'lucide-react';
 
@@ -26,6 +24,14 @@ export const SinglePageMissionControl: React.FC = () => {
   const { scheme, checkedSyllabus, toggleSyllabusTopic, foundationStreak, setActiveView } = useApp();
   const [selectedSem, setSelectedSem] = useState<number>(1);
   const [selectedDay, setSelectedDay] = useState<string>('Monday');
+
+  // Dynamic Exam Target Dates matching official KIIT Academic Calendar (Oct 07 & Dec 01, 2026)
+  const today = new Date();
+  const midSemTarget = new Date('2026-10-07');
+  const endSemTarget = new Date('2026-12-01');
+
+  const daysUntilMidSem = Math.max(0, Math.ceil((midSemTarget.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)));
+  const daysUntilEndSem = Math.max(0, Math.ceil((endSemTarget.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)));
 
   const activeTimetable: ClassSlot[] = scheme === 'Scheme A' ? SECTION_A26_TIMETABLE : SECTION_B1_TIMETABLE;
   const dayClasses = activeTimetable.filter(slot => slot.day === selectedDay);
@@ -79,16 +85,16 @@ export const SinglePageMissionControl: React.FC = () => {
           </div>
         </div>
 
-        {/* MID-SEM & END-SEM COUNTDOWNS + PERCENTAGE STRIP */}
+        {/* DYNAMIC MID-SEM & END-SEM COUNTDOWNS + PERCENTAGE STRIP */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
           <div className="p-3.5 rounded-2xl bg-slate-800/80 border border-slate-700/80 text-center">
-            <p className="text-[10px] text-amber-400 font-black uppercase">📅 Mid-Sem Exam</p>
-            <p className="text-xl font-black text-white mt-0.5">18 Days Left</p>
+            <p className="text-[10px] text-amber-400 font-black uppercase">📅 Mid-Sem Exam (Oct 07)</p>
+            <p className="text-xl font-black text-white mt-0.5">{daysUntilMidSem} Days Left</p>
           </div>
 
           <div className="p-3.5 rounded-2xl bg-slate-800/80 border border-slate-700/80 text-center">
-            <p className="text-[10px] text-emerald-400 font-black uppercase">📅 End-Sem Exam</p>
-            <p className="text-xl font-black text-white mt-0.5">79 Days Left</p>
+            <p className="text-[10px] text-emerald-400 font-black uppercase">📅 End-Sem Exam (Dec 01)</p>
+            <p className="text-xl font-black text-white mt-0.5">{daysUntilEndSem} Days Left</p>
           </div>
 
           <div className="p-3.5 rounded-2xl bg-slate-800/80 border border-slate-700/80 text-center">
