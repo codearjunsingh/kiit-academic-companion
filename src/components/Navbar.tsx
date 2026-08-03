@@ -10,16 +10,18 @@ import {
   Settings as SettingsIcon,
   Moon,
   Sun,
-  Search
+  Search,
+  Award
 } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
-  const { activeView, setActiveView, scheme, darkMode, setDarkMode } = useApp();
+  const { activeView, setActiveView, darkMode, setDarkMode } = useApp();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const coreModules = [
     { id: 'dashboard', label: '🏠 KIIT Dashboard' },
     { id: 'subjects', label: '📚 4-Year Curricula' },
+    { id: 'gateHq', label: '🎓 GATE CS Tracker' },
     { id: 'foundationZero', label: '🎓 Zero-to-Hero (6-12)' },
     { id: 'prereqInspector', label: '🔍 Prerequisite Inspector' },
     { id: 'coding', label: '💻 Coding HQ' },
@@ -53,14 +55,14 @@ export const Navbar: React.FC = () => {
           </div>
 
           {/* Desktop Nav Controls */}
-          <div className="hidden lg:flex items-center space-x-1.5">
+          <div className="hidden lg:flex items-center space-x-1">
             {coreModules.map(item => {
               const isActive = activeView === item.id;
               return (
                 <button
                   key={item.id}
                   onClick={() => setActiveView(item.id)}
-                  className={`flex items-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-black transition-all ${
+                  className={`flex items-center space-x-1 px-3 py-2 rounded-xl text-xs font-black transition-all ${
                     isActive
                       ? 'bg-emerald-500 text-slate-950 shadow-md'
                       : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60'
@@ -96,10 +98,11 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Bottom Navigation Bar */}
       <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 px-2 py-1">
-        <div className="grid grid-cols-5 gap-1">
+        <div className="grid grid-cols-6 gap-1">
           {[
             { id: 'dashboard', label: 'Home', icon: Home },
             { id: 'subjects', label: 'Curricula', icon: GraduationCap },
+            { id: 'gateHq', label: 'GATE', icon: Award },
             { id: 'foundationZero', label: 'Zero-Hero', icon: Layers },
             { id: 'prereqInspector', label: 'Inspector', icon: SearchIcon },
             { id: 'coding', label: 'Coding', icon: Code },
@@ -116,8 +119,8 @@ export const Navbar: React.FC = () => {
                     : 'text-slate-500 dark:text-slate-400 font-medium hover:text-slate-800 dark:hover:text-white'
                 }`}
               >
-                <Icon className={`w-5 h-5 ${isActive ? 'scale-110' : ''} transition-transform`} />
-                <span className="text-[10px] mt-0.5 truncate">{item.label}</span>
+                <Icon className={`w-4 h-4 ${isActive ? 'scale-110' : ''} transition-transform`} />
+                <span className="text-[9px] mt-0.5 truncate">{item.label}</span>
               </button>
             );
           })}

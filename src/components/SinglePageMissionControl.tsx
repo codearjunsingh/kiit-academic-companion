@@ -102,8 +102,14 @@ export const SinglePageMissionControl: React.FC = () => {
             <p className="text-xl font-black text-emerald-400 mt-0.5">{semProgressPct}%</p>
           </div>
 
-          <div className="p-3.5 rounded-2xl bg-slate-800/80 border border-slate-700/80 text-center">
-            <p className="text-[10px] text-purple-300 font-black uppercase">💻 GATE Completion</p>
+          <div
+            onClick={() => setActiveView('gateHq')}
+            className="p-3.5 rounded-2xl bg-slate-800/80 border border-slate-700/80 text-center cursor-pointer hover:border-purple-500 transition-all"
+          >
+            <p className="text-[10px] text-purple-300 font-black uppercase flex items-center justify-center gap-1">
+              <span>💻 GATE CS Tracker</span>
+              <ArrowRight className="w-3 h-3 text-purple-400" />
+            </p>
             <p className="text-xl font-black text-purple-300 mt-0.5">{gateProgressPct}%</p>
           </div>
         </div>

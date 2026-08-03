@@ -4,6 +4,7 @@ import { Navbar } from './components/Navbar';
 import { SinglePageMissionControl } from './components/SinglePageMissionControl';
 import { FoundationZeroView } from './components/FoundationZeroView';
 import { SubjectPrerequisiteInspector } from './components/SubjectPrerequisiteInspector';
+import { GateHqView } from './components/GateHqView';
 import { SubjectsView } from './components/SubjectsView';
 import { CodingHqView } from './components/CodingHqView';
 import { SettingsView } from './components/SettingsView';
@@ -17,6 +18,7 @@ const MainContent: React.FC = () => {
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       {activeView === 'dashboard' && <SinglePageMissionControl />}
       {activeView === 'subjects' && <SubjectsView />}
+      {activeView === 'gateHq' && <GateHqView />}
       {activeView === 'foundationZero' && <FoundationZeroView />}
       {activeView === 'prereqInspector' && <SubjectPrerequisiteInspector />}
       {activeView === 'coding' && <CodingHqView />}
