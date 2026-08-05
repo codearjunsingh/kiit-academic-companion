@@ -139,9 +139,9 @@ export const SUBJECT_PREREQUISITE_MAP: SubjectPrerequisiteData[] = [
   // 5. LINEAR ALGEBRA & FOURIER (MA11011)
   {
     subjectCode: 'MA11011',
-    subjectName: 'Linear Algebra and Fourier Analysis',
+    subjectName: 'Linear Algebra, Numerical Methods & Fourier Analysis',
     chapterId: 'ma2_ch1',
-    chapterTitle: 'Vector Spaces & Systems of Linear Equations',
+    chapterTitle: 'Unit-I: Vector Spaces & Systems of Linear Equations (Ch 7.1, 7.3, 7.4, 7.8, 7.9, 20.3)',
     class6to12Prerequisites: [
       { id: 'req_la1', label: 'Class 9 Linear Equations in Two Variables', classLevel: 'Class 9' },
       { id: 'req_la2', label: 'Class 12 Matrices & Determinants (Row/Column Operations)', classLevel: 'Class 12' },
@@ -150,12 +150,34 @@ export const SUBJECT_PREREQUISITE_MAP: SubjectPrerequisiteData[] = [
     suggestions: [
       'Practice Gauss-Jordan elimination to convert matrices into Row Echelon form.',
       'Watch 3Blue1Brown "Essence of Linear Algebra" for visual intuition on vector spaces.',
-      'Refer to Erwin Kreyszig Chapter 7 (Pages 250-290).'
+      'Refer to Erwin Kreyszig 10th Edition Chapter 7 & Jain, Iyengar & Jain for Numerical Methods.'
     ],
     newKnowledgeTopics: [
       { id: 'kn_la1', label: 'Matrix Rank & Consistency of Linear Systems (AX = B)', category: 'Linear Systems' },
       { id: 'kn_la2', label: 'Eigenvalues & Eigenvectors (det(A - lambda*I) = 0)', category: 'Spectral Theory' },
       { id: 'kn_la3', label: 'Fourier Series & Harmonic Analysis', category: 'Signal Processing' }
+    ]
+  },
+
+  // 5.1 CHEMISTRY PRACTICAL (CH19001)
+  {
+    subjectCode: 'CH19001',
+    subjectName: 'Chemistry Laboratory (Practical)',
+    chapterId: 'chlab_expt1',
+    chapterTitle: 'Expt 1: Determination of Hardness of Water Sample (EDTA Method)',
+    class6to12Prerequisites: [
+      { id: 'req_chlab_1', label: 'Class 7 Acids, Bases, Salts & Indicators', classLevel: 'Class 7' },
+      { id: 'req_chlab_2', label: 'Class 9 Molar Concentration & Titration Calculations', classLevel: 'Class 9' },
+      { id: 'req_chlab_3', label: 'Class 12 Buffer Solutions & EDTA Complexometry', classLevel: 'Class 12' }
+    ],
+    suggestions: [
+      'Understand Eriochrome Black T (EBT) buffer pH 10 wine-red to blue color transition.',
+      'Always rinse burette with titrant and pipette with solution before titration.'
+    ],
+    newKnowledgeTopics: [
+      { id: 'kn_chlab_1', label: 'EDTA Complexometric Titration & Total/Permanent Hardness', category: 'Volumetric Analysis' },
+      { id: 'kn_chlab_2', label: 'Spectrophotometric Beer-Lambert Law Calibration', category: 'Instrumental Analysis' },
+      { id: 'kn_chlab_3', label: 'Synthesis & Size Determination of ZnO/Silver Nanoparticles', category: 'Nanotechnology Lab' }
     ]
   },
 
