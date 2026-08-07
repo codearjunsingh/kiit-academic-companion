@@ -65,6 +65,7 @@ export const ALL_DOMAINS = [
   'Mechanical',
   'Civil',
   'Communication & Soft Skills',
+  'Universal Human Values',
   'Aptitude & Reasoning',
   'Interview Prep',
   'Projects & Code',
@@ -227,6 +228,43 @@ export const MASTER_TEACHER_TOPICS: TeacherTopic[] = [
       class12: 'Practice spotting errors in prepositions (e.g. "discuss about" is WRONG, use "discuss").',
       college: 'Master idiom & phrase contextual usage and 20 cloze test paragraphs.',
       examRevision: '⚡ Quick Tip: Read editorial paragraphs daily; context clues solve 80% of Cloze test gaps.'
+    }
+  },
+  {
+    id: 'tp_uhv_1',
+    domain: 'Universal Human Values',
+    title: 'Self-Exploration, Sentient "I" vs Body & Value Education',
+    difficulty: 2,
+    yourLevel: 3,
+    timeRequired: '1 Hour',
+    whatIsIt: 'Holistic framework for value education, self-exploration, and understanding human harmony across 4 levels (Self, Family, Society, Nature).',
+    whyDoINeedIt: 'Mandatory GER course (ID10003) for KIIT B.Tech 1st Year, carrying 3 credits for SGPA.',
+    whereUsed: 'Ethical engineering decisions, team leadership, eco-friendly product design, personal well-being.',
+    repairPath: ['Basic Civics & Ethics', 'Self Reflection'],
+    prerequisites: [],
+    bestYouTube: [
+      { level: 'Beginner', teacherName: 'UHV NPTEL / AICTE Value Education', url: 'https://www.youtube.com/results?search_query=universal+human+values+id10003+aicte' },
+      { level: 'Exam Focus', teacherName: 'Gate Smashers UHV / KIIT Lectures', url: 'https://www.youtube.com/results?search_query=universal+human+values+r+r+gaur' }
+    ],
+    bestBook: {
+      bookTitle: 'Human Values and Professional Ethics',
+      author: 'R R Gaur, R Sangal, G P Bagaria (Excel Books)',
+      pageRange: 'Pages 1 - 98 (Modules 1 & 2)',
+      rating: 5,
+      badge: 'Best for University'
+    },
+    practiceAndPyqs: {
+      easy: 15,
+      medium: 15,
+      hard: 5,
+      pyqSummary: '5 Theory questions in KIIT Mid-Sem & End-Sem exams'
+    },
+    teachMe: {
+      knowNothing: '💡 Understand that true happiness is continuous state of harmony within yourself, family, society, and nature!',
+      class10: 'Differentiate between physical needs (food, clothing) which are limited, and mental needs (respect, trust) which are continuous.',
+      class12: 'Realize that Human Being is a co-existence of Sentient "I" (Self) and Material "Body". "I" is the seer, doer, and enjoyer.',
+      college: 'Master the 9 Universal Values in Relationships: Trust (intention vs competence), Respect, Affection, Care, Guidance, Reverence, Glory, Gratitude, and Love.',
+      examRevision: '⚡ Exam Summary: Priorities = 1. Right Understanding -> 2. Relationship -> 3. Physical Facility. Health = Sanyam + Swasthya.'
     }
   }
 ];

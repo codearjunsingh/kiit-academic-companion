@@ -330,5 +330,29 @@ export const SUBJECT_PREREQUISITE_MAP: SubjectPrerequisiteData[] = [
       { id: 'kn_ml1', label: 'Multilayer Perceptrons (MLP) & Activation Functions (ReLU, Sigmoid)', category: 'Deep Learning' },
       { id: 'kn_ml2', label: 'Gradient Descent & Backpropagation Algorithm', category: 'Optimization' }
     ]
+  },
+
+  // 13. UNIVERSAL HUMAN VALUES (ID10003)
+  {
+    subjectCode: 'ID10003',
+    subjectName: 'Universal Human Values',
+    chapterId: 'uhv_ch1',
+    chapterTitle: 'Module 1: Value Education, Self-Exploration & Natural Acceptance',
+    class6to12Prerequisites: [
+      { id: 'req_uhv1', label: 'Class 6-8 Value Education, Moral Science & Civics', classLevel: 'Class 6-8' },
+      { id: 'req_uhv2', label: 'Class 9-10 Fundamental Duties & Environmental Awareness', classLevel: 'Class 9-10' },
+      { id: 'req_uhv3', label: 'Class 11-12 Critical Reasoning & Self-Reflection', classLevel: 'Class 11-12' }
+    ],
+    suggestions: [
+      'Reflect on Natural Acceptance vs arbitrary personal likings/dislikings.',
+      'Study R.R. Gaur Textbook Chapter 1-2 for university exam questions.',
+      'Differentiate clearly between Intention and Competence in relationships.'
+    ],
+    newKnowledgeTopics: [
+      { id: 'kn_uhv1', label: 'Sentient I vs Material Body Co-existence', category: 'Human Harmony' },
+      { id: 'kn_uhv2', label: 'Sanyam (Self-regulation) & Swasthya (Health)', category: 'Self-Management' },
+      { id: 'kn_uhv3', label: '9 Universal Values in Relationships & Undivided Society', category: 'Social Harmony' },
+      { id: 'kn_uhv4', label: '4 Orders of Nature & Eco-Friendly Production Systems', category: 'Professional Ethics' }
+    ]
   }
 ];

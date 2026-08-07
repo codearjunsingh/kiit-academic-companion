@@ -137,14 +137,16 @@ export const SCHEME_A_SEM1_COURSES: Subject[] = [
     category: 'GER',
     type: 'Theory',
     ltpc: { l: 3, t: 0, p: 0, total: 3, credits: 3 },
-    prerequisites: 'None',
-    textbook: 'Human Values and Professional Ethics by R.R. Gaur',
-    youtubeSearchQuery: 'Universal Human Values ID10003',
+    prerequisites: 'NIL',
+    textbook: 'Human Values and Professional Ethics by R R Gaur, R Sangal, G P Bagaria, Excel Books, New Delhi, 2010',
+    referenceBook: 'Jeevan Vidya: EkParichaya (A. Nagaraj), Human Values (A.N. Tripathi), The Story of Stuff, The Story of My Experiments with Truth (M.K. Gandhi), Small is Beautiful (E.F. Schumacher)',
+    youtubeSearchQuery: 'Universal Human Values ID10003 KIIT',
     chapters: [
-      { id: 'uhv_ch1', title: 'Self-Exploration, Natural Acceptance & Continuous Happiness', module: 'Module 1', difficulty: 'Easy' },
-      { id: 'uhv_ch2', title: 'Harmony in Myself: Sentient I vs Physical Body', module: 'Module 1', difficulty: 'Easy' },
-      { id: 'uhv_ch3', title: 'Harmony in Family & Society: Trust, Respect & Justice', module: 'Module 3', difficulty: 'Easy' },
-      { id: 'uhv_ch4', title: 'Harmony in Nature & Professional Ethics', module: 'Module 4', difficulty: 'Easy' },
+      { id: 'uhv_ch1', title: 'Module 1: Need, Basic Guidelines, Content & Process for Value Education (Self Exploration, Natural Acceptance & Continuous Happiness)', module: 'Module 1', difficulty: 'Easy' },
+      { id: 'uhv_ch2', title: 'Module 2: Understanding Harmony in the Human Being (Sentient I vs Material Body, Sanyam & Swasthya)', module: 'Module 2', difficulty: 'Easy' },
+      { id: 'uhv_ch3', title: 'Module 3: Understanding Harmony in Family & Society (Trust, Respect, Justice & Universal Harmonious Order)', module: 'Module 3', difficulty: 'Easy' },
+      { id: 'uhv_ch4', title: 'Module 4: Understanding Harmony in Nature & Existence (4 Orders of Nature, Recyclability & Co-existence in Space)', module: 'Module 4', difficulty: 'Medium' },
+      { id: 'uhv_ch5', title: 'Module 5: Implications of Holistic Understanding on Professional Ethics (Humanistic Education, Constitution & Eco-Friendly Production)', module: 'Module 5', difficulty: 'Medium' },
     ]
   },
   {

@@ -228,5 +228,24 @@ export const OFFICIAL_FIRST_YEAR_TEXTBOOKS: PhysicalBook[] = [
       { chapterNumber: 'Part C: Chapter 11', chapterTitle: 'Fourier Analysis and PDEs', pageRange: 'pp. 474-539', subtopics: ['Fourier Series & Half-Range Expansions', 'Fourier Integrals & Fourier Transforms', 'Fourier Cosine & Sine Transforms'] },
       { chapterNumber: 'Part E: Chapter 19 & 20', chapterTitle: 'Numeric Analysis & Linear Algebra', pageRange: 'pp. 788-870', subtopics: ['Numeric Solution of Equations', 'Interpolation & Splines', 'Numeric Integration & Differentiation'] }
     ]
+  },
+  {
+    id: 'book_uhv_gaur',
+    title: 'Human Values and Professional Ethics',
+    author: 'R R Gaur, R Sangal, G P Bagaria',
+    publisher: 'Excel Books, New Delhi',
+    edition: '1st Edition (2010)',
+    courseCode: 'ID10003',
+    courseName: 'Universal Human Values',
+    schemeApplies: 'Scheme A (Sem 1) / Scheme B (Sem 2)',
+    coverColor: 'from-emerald-700 to-teal-950',
+    recommendedFor: 'Self Exploration, Natural Acceptance, Sentient I vs Body, Trust/Respect & Professional Ethics',
+    index: [
+      { chapterNumber: 'Module 1', chapterTitle: 'Value Education & Self-Exploration', pageRange: 'pp. 1-45', subtopics: ['Purpose & Motivation for Value Education', 'Self-Exploration Process & Content', 'Natural Acceptance & Experiential Validation', 'Continuous Happiness & Prosperity Aspirations', 'Right Understanding, Relationship & Physical Facility Priority'] },
+      { chapterNumber: 'Module 2', chapterTitle: 'Harmony in the Human Being (Myself)', pageRange: 'pp. 46-98', subtopics: ['Co-existence of Sentient I and Material Body', 'Needs of Self (I) vs Needs of Body', 'Body as Instrument of I (Doer, Seer, Enjoyer)', 'Sanyam (Self-regulation) and Swasthya (Health)', 'Prosperity vs Accumulation & Programs for Health'] },
+      { chapterNumber: 'Module 3', chapterTitle: 'Harmony in Family and Society', pageRange: 'pp. 99-165', subtopics: ['Values in Human Relationships & Meaning of Justice', 'Trust: Difference Between Intention & Competence', 'Respect: Difference Between Respect & Differentiation', 'Nine Universal Relationship Values & Gratitude', 'Universal Harmonious Order & Undivided Society (Akhand Samaj)'] },
+      { chapterNumber: 'Module 4', chapterTitle: 'Harmony in Nature and Existence', pageRange: 'pp. 166-215', subtopics: ['Harmony in Nature & 4 Orders of Nature', 'Interconnectedness, Recyclability & Self-Regulation', 'Existence as Co-existence in All-Pervasive Space', 'Human Imbalance, Pollution & Resource Depletion', 'Role of Eco-Friendly Technologies'] },
+      { chapterNumber: 'Module 5', chapterTitle: 'Implications on Professional Ethics', pageRange: 'pp. 216-270', subtopics: ['Natural Acceptance of Human Values', 'Definitiveness of Ethical Human Conduct', 'Humanistic Education, Constitution & Universal Order', 'Competence in Professional Ethics & Eco-Friendly Systems', 'Transition Strategy for Individual & Society'] }
+    ]
   }
 ];
