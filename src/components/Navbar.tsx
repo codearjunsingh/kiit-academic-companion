@@ -22,6 +22,7 @@ import {
   FlaskConical,
   Library,
   Activity,
+  Calculator,
   HelpCircle
 } from 'lucide-react';
 
@@ -50,6 +51,7 @@ export const Navbar: React.FC = () => {
   ];
 
   const secondaryModules = [
+    { id: 'sgpaCalculator', label: '🧮 SGPA & Target Calculator', icon: Calculator },
     { id: 'knowledgeGraph', label: '🌌 Master Knowledge Graph', icon: Network },
     { id: 'cds', label: '🛡️ UPSC CDS II Target', icon: Shield },
     { id: 'goalEngine', label: '🎯 AI Goal Engine', icon: Target },

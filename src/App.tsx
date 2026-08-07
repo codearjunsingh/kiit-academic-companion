@@ -24,6 +24,7 @@ import { ChannelDirectoryView } from './components/ChannelDirectoryView';
 import { CuriosityEngineView } from './components/CuriosityEngineView';
 import { LearnUniversalView } from './components/LearnUniversalView';
 import { MonthlyCalendar } from './components/MonthlyCalendar';
+import { SgpaCalculatorView } from './components/SgpaCalculatorView';
 
 const MainContent: React.FC = () => {
   const { activeView } = useApp();
@@ -53,6 +54,7 @@ const MainContent: React.FC = () => {
       {activeView === 'curiosityEngine' && <CuriosityEngineView />}
       {activeView === 'learnUniversal' && <LearnUniversalView />}
       {activeView === 'monthlyCalendar' && <MonthlyCalendar />}
+      {activeView === 'sgpaCalculator' && <SgpaCalculatorView />}
     </main>
   );
 };
