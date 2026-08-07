@@ -10,6 +10,12 @@ import { CodingHqView } from './components/CodingHqView';
 import { SettingsView } from './components/SettingsView';
 import { CalendarView } from './components/CalendarView';
 import { CountdownView } from './components/CountdownView';
+import { KnowledgeGraphView } from './components/KnowledgeGraphView';
+import { CdsView } from './components/CdsView';
+import { LifeHealthView } from './components/LifeHealthView';
+import { UniversalLibraryView } from './components/UniversalLibraryView';
+import { FaqView } from './components/FaqView';
+import { ExperimentsView } from './components/ExperimentsView';
 
 const MainContent: React.FC = () => {
   const { activeView } = useApp();
@@ -25,6 +31,12 @@ const MainContent: React.FC = () => {
       {activeView === 'calendar' && <CalendarView />}
       {activeView === 'countdown' && <CountdownView />}
       {activeView === 'settings' && <SettingsView />}
+      {activeView === 'knowledgeGraph' && <KnowledgeGraphView />}
+      {activeView === 'cds' && <CdsView />}
+      {activeView === 'lifeHealth' && <LifeHealthView />}
+      {activeView === 'universalLibrary' && <UniversalLibraryView />}
+      {activeView === 'faq' && <FaqView />}
+      {activeView === 'experiments' && <ExperimentsView />}
     </main>
   );
 };
@@ -41,3 +53,4 @@ export function App() {
 }
 
 export default App;
+
