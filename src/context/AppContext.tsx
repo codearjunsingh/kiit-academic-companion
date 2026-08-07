@@ -101,7 +101,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   });
 
   const [checkedGate, setCheckedGate] = useState<Record<string, boolean>>(() => {
-    const saved = localStorage.getItem('kiit_checked_gate');
+    const saved = localStorage.getItem('kiit_gate_checked_topics') || localStorage.getItem('kiit_checked_gate');
     return saved ? JSON.parse(saved) : {};
   });
 
@@ -171,6 +171,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   useEffect(() => {
     localStorage.setItem('kiit_checked_gate', JSON.stringify(checkedGate));
+    localStorage.setItem('kiit_gate_checked_topics', JSON.stringify(checkedGate));
   }, [checkedGate]);
 
   useEffect(() => {
@@ -243,14 +244,26 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setCheckedSkills({});
     setCheckedGate({});
     setCheckedCds({});
-    localStorage.removeItem('kiit_checked_syllabus');
-    localStorage.removeItem('kiit_checked_foundation');
-    localStorage.removeItem('kiit_checked_foundation_zero');
-    localStorage.removeItem('kiit_confidence_ratings');
-    localStorage.removeItem('kiit_foundation_streak');
-    localStorage.removeItem('kiit_checked_skills');
-    localStorage.removeItem('kiit_checked_gate');
-    localStorage.removeItem('kiit_checked_cds');
+    const keysToRemove = [
+      'kiit_checked_syllabus',
+      'kiit_checked_foundation',
+      'kiit_checked_foundation_zero',
+      'kiit_confidence_ratings',
+      'kiit_foundation_streak',
+      'kiit_checked_skills',
+      'kiit_checked_gate',
+      'kiit_gate_checked_topics',
+      'kiit_checked_cds',
+      'cds_questions_solved',
+      'kiit_coding_solved_count',
+      'kiit_prereq_inspector_checked',
+      'kiit_mastery_states',
+      'kiit_brain_dumps',
+      'kiit_failure_logs',
+      'kiit_decision_journal',
+      'kiit_experiments_log'
+    ];
+    keysToRemove.forEach(k => localStorage.removeItem(k));
   };
 
   return (

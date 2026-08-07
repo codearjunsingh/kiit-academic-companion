@@ -23,7 +23,7 @@ import {
 } from 'lucide-react';
 
 export const SinglePageMissionControl: React.FC = () => {
-  const { scheme, checkedSyllabus, toggleSyllabusTopic, foundationStreak, setActiveView } = useApp();
+  const { scheme, checkedSyllabus, toggleSyllabusTopic, foundationStreak, setActiveView, checkedGate } = useApp();
   const [selectedSem, setSelectedSem] = useState<number>(1);
   const [selectedDay, setSelectedDay] = useState<string>('Monday');
 
@@ -55,12 +55,6 @@ export const SinglePageMissionControl: React.FC = () => {
     0
   );
   const semProgressPct = totalChapters > 0 ? Math.round((completedChapters / totalChapters) * 100) : 0;
-
-  // Dynamically calculate GATE CS completion percentage from localStorage
-  const checkedGate: Record<string, boolean> = (() => {
-    const saved = localStorage.getItem('kiit_gate_checked_topics');
-    return saved ? JSON.parse(saved) : {};
-  })();
 
   const totalGateChapters = GATE_CSE_SYLLABUS.reduce((acc, sub) => acc + sub.chapters.length, 0);
   const completedGateChapters = GATE_CSE_SYLLABUS.reduce(

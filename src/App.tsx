@@ -16,6 +16,14 @@ import { LifeHealthView } from './components/LifeHealthView';
 import { UniversalLibraryView } from './components/UniversalLibraryView';
 import { FaqView } from './components/FaqView';
 import { ExperimentsView } from './components/ExperimentsView';
+import { GoalEngineView } from './components/GoalEngineView';
+import { DecisionJournalView } from './components/DecisionJournalView';
+import { TimelineView } from './components/TimelineView';
+import { SkillsView } from './components/SkillsView';
+import { ChannelDirectoryView } from './components/ChannelDirectoryView';
+import { CuriosityEngineView } from './components/CuriosityEngineView';
+import { LearnUniversalView } from './components/LearnUniversalView';
+import { MonthlyCalendar } from './components/MonthlyCalendar';
 
 const MainContent: React.FC = () => {
   const { activeView } = useApp();
@@ -37,6 +45,14 @@ const MainContent: React.FC = () => {
       {activeView === 'universalLibrary' && <UniversalLibraryView />}
       {activeView === 'faq' && <FaqView />}
       {activeView === 'experiments' && <ExperimentsView />}
+      {activeView === 'goalEngine' && <GoalEngineView />}
+      {activeView === 'decisionJournal' && <DecisionJournalView />}
+      {activeView === 'timeline' && <TimelineView />}
+      {activeView === 'skills' && <SkillsView />}
+      {activeView === 'channelDirectory' && <ChannelDirectoryView />}
+      {activeView === 'curiosityEngine' && <CuriosityEngineView />}
+      {activeView === 'learnUniversal' && <LearnUniversalView />}
+      {activeView === 'monthlyCalendar' && <MonthlyCalendar />}
     </main>
   );
 };

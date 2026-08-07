@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useApp } from '../context/AppContext';
 import { GATE_CSE_SYLLABUS, GateSubject } from '../data/gateSyllabus';
 import {
   GraduationCap,
@@ -12,18 +13,8 @@ import {
 } from 'lucide-react';
 
 export const GateHqView: React.FC = () => {
-  const [checkedGate, setCheckedGate] = useState<Record<string, boolean>>(() => {
-    const saved = localStorage.getItem('kiit_gate_checked_topics');
-    return saved ? JSON.parse(saved) : {};
-  });
-
+  const { checkedGate, toggleGateTopic } = useApp();
   const [selectedSubjectId, setSelectedSubjectId] = useState<string>('all');
-
-  const toggleGateTopic = (id: string) => {
-    const updated = { ...checkedGate, [id]: !checkedGate[id] };
-    setCheckedGate(updated);
-    localStorage.setItem('kiit_gate_checked_topics', JSON.stringify(updated));
-  };
 
   const totalChapters = GATE_CSE_SYLLABUS.reduce((acc, sub) => acc + sub.chapters.length, 0);
   const completedChapters = GATE_CSE_SYLLABUS.reduce(
