@@ -82,14 +82,15 @@ export const SCHEME_A_SEM1_COURSES: Subject[] = [
     type: 'Theory',
     ltpc: { l: 2, t: 0, p: 0, total: 2, credits: 2 },
     prerequisites: 'Class 12 Current Electricity, Ohm Law, Magnetic Field',
-    textbook: 'Principles of Electrical Engineering and Electronics by V.K. Mehta & Rohit Mehta (S. Chand)',
-    referenceBook: 'Basic Electrical Engineering by D.C. Kulshreshtha',
-    youtubeSearchQuery: 'Basic Electrical Engineering EE10002',
+    textbook: 'Principles of Electrical Engineering and Electronics by V.K. Mehta & Rohit Mehta (S. Chand, LPSPE Edition)',
+    referenceBook: 'Basic Electrical Engineering by D.C. Kulshreshtha (McGraw Hill)',
+    youtubeSearchQuery: 'Basic Electrical Engineering EE10002 KIIT',
     chapters: [
-      { id: 'ee1_ch1', title: 'DC Circuits: KVL, KCL, Nodal/Mesh & Thevenin-Norton Theorems', module: 'Module 1', difficulty: 'Medium' },
-      { id: 'ee1_ch2', title: 'AC Circuits: RMS Values, Phasors & 3-Phase Star/Delta', module: 'Module 2', difficulty: 'Medium' },
-      { id: 'ee1_ch3', title: 'Magnetic Circuits: B-H Curve, Reluctance & Permeance', module: 'Module 3', difficulty: 'Easy' },
-      { id: 'ee1_ch4', title: 'Electrical Energy & Safety: Transformers, Motors & ELCB/MCB', module: 'Module 4', difficulty: 'Easy' },
+      { id: 'ee1_ch1', title: 'Module 1: D.C. Circuits & Network Theorems (KVL, KCL, Nodal/Mesh, Superposition, Thevenin, Norton & Max Power Transfer)', module: 'Module 1', difficulty: 'Medium' },
+      { id: 'ee1_ch2', title: 'Module 2: Single-Phase A.C. Circuits (Series RL, RC, RLC, Complex Impedance Z=R+jX, Power Factor & Series/Parallel Resonance)', module: 'Module 2', difficulty: 'Hard' },
+      { id: 'ee1_ch3', title: 'Module 3: Complex Power & Three-Phase Circuits (Active P=VIcosθ, Reactive Q=VIsinθ, Complex S=VI*, Star Y VL=√3Vph vs Delta Δ IL=√3Iph)', module: 'Module 3', difficulty: 'Hard' },
+      { id: 'ee1_ch4', title: 'Module 4: Magnetic Circuits & Induction (m.m.f=NI, Reluctance S=l/aμμ0, Air Gap, B-H Curve, Hysteresis Loop & Electric Comparison)', module: 'Module 4', difficulty: 'Medium' },
+      { id: 'ee1_ch5', title: 'Module 5: Transformers, Electrical Machines & Safety (Single-Phase Transformer EMF Eq, 3-Phase Induction Motor RMF/Slip & ELCB/MCB/Earthing)', module: 'Module 5', difficulty: 'Easy' },
     ]
   },
   {

@@ -93,7 +93,7 @@ export const SUBJECT_PREREQUISITE_MAP: SubjectPrerequisiteData[] = [
     subjectCode: 'EE10002',
     subjectName: 'Basic Electrical Engineering',
     chapterId: 'ee1_ch1',
-    chapterTitle: 'DC Circuits: KVL, KCL, Nodal/Mesh & Thevenin-Norton',
+    chapterTitle: 'DC Circuits: KVL, KCL, Nodal/Mesh & Network Theorems',
     class6to12Prerequisites: [
       { id: 'req_ee1_1', label: 'Class 7 Electric Current & Battery Circuits', classLevel: 'Class 7' },
       { id: 'req_ee1_2', label: 'Class 8 Linear Equations in 2 Variables (Simultaneous Equations)', classLevel: 'Class 8-9' },
@@ -108,6 +108,30 @@ export const SUBJECT_PREREQUISITE_MAP: SubjectPrerequisiteData[] = [
       { id: 'kn_ee1_1', label: 'Nodal Analysis Matrix Solving', category: 'Circuit Theory' },
       { id: 'kn_ee1_2', label: 'Thevenin & Norton Equivalent Circuits', category: 'Network Theorems' },
       { id: 'kn_ee1_3', label: 'Maximum Power Transfer Theorem (R_L = R_th)', category: 'Power Analysis' }
+    ]
+  },
+  {
+    subjectCode: 'EE10002',
+    subjectName: 'Basic Electrical Engineering',
+    chapterId: 'ee1_ch2',
+    chapterTitle: 'AC Circuits, 3-Phase Systems & Magnetic Circuits',
+    class6to12Prerequisites: [
+      { id: 'req_ee1_ac1', label: 'Class 11 Complex Numbers (a + jb = r∠θ)', classLevel: 'Class 11' },
+      { id: 'req_ee1_ac2', label: 'Class 12 AC Alternating Current (RMS, Peak Values & Phasors)', classLevel: 'Class 12' },
+      { id: 'req_ee1_ac3', label: 'Class 12 Inductors (L), Capacitors (C) & Reactance (X_L, X_C)', classLevel: 'Class 12' },
+      { id: 'req_ee1_mag1', label: 'Class 12 Electromagnetic Induction & Solenoids', classLevel: 'Class 12' }
+    ],
+    suggestions: [
+      'Remember Star connection: V_Line = √3 * V_Phase, I_Line = I_Phase.',
+      'Remember Delta connection: V_Line = V_Phase, I_Line = √3 * I_Phase.',
+      'In Series RL, current lags voltage by θ; in Series RC, current leads voltage by θ.',
+      'Magnetic reluctance S = l / (a * μ0 * μr) is analogous to electrical resistance R = l / (a * σ).'
+    ],
+    newKnowledgeTopics: [
+      { id: 'kn_ee1_ac1', label: 'Complex Impedance (Z = R + jX) & Power Factor (cos θ)', category: 'AC Circuits' },
+      { id: 'kn_ee1_ac2', label: 'Active (P), Reactive (Q) & Apparent Power (S = P + jQ)', category: 'Complex Power' },
+      { id: 'kn_ee1_3p1', label: '3-Phase Star (Y) vs Delta (Δ) Balanced Systems', category: '3-Phase Power' },
+      { id: 'kn_ee1_mag2', label: 'B-H Magnetisation Curve & Hysteresis Loss Loop', category: 'Magnetic Circuits' }
     ]
   },
 
