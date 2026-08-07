@@ -4,6 +4,7 @@ import { MASTER_KNOWLEDGE_GRAPH } from '../data/knowledgeGraph';
 import { FOUNDATION_ZERO_TOPICS } from '../data/foundationZero';
 import { OFFICIAL_FIRST_YEAR_TEXTBOOKS } from '../data/books';
 import { CODING_TRACKS } from '../data/codingHq';
+import { GATE_CSE_SYLLABUS } from '../data/gateSyllabus';
 import {
   Search,
   X,
@@ -12,7 +13,8 @@ import {
   Code,
   Layers,
   FileText,
-  ArrowRight
+  ArrowRight,
+  Award
 } from 'lucide-react';
 
 interface Props {
@@ -62,6 +64,14 @@ export const EverythingSearchModal: React.FC<Props> = ({ isOpen, onClose }) => {
     t.title.toLowerCase().includes(q) ||
     t.keyConcepts.some(c => c.toLowerCase().includes(q))
   ) : [];
+
+  const matchingGateTopics = q ? GATE_CSE_SYLLABUS.flatMap(s =>
+    s.chapters.filter(ch =>
+      ch.title.toLowerCase().includes(q) ||
+      s.name.toLowerCase().includes(q)
+    ).map(ch => ({ ...ch, subjectName: s.name }))
+  ) : [];
+
 
   const handleSelect = (viewId: string) => {
     setActiveView(viewId);
@@ -157,6 +167,28 @@ export const EverythingSearchModal: React.FC<Props> = ({ isOpen, onClose }) => {
                     <p className="text-[11px] text-slate-500">Author: {b.author} • {b.publisher}</p>
                   </div>
                   <ArrowRight className="w-4 h-4 text-blue-500 shrink-0" />
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* GATE CS Syllabus Results */}
+          {matchingGateTopics.length > 0 && (
+            <div className="space-y-2">
+              <p className="font-black text-amber-600 dark:text-amber-400 uppercase tracking-wider flex items-center gap-1">
+                <Award className="w-3.5 h-3.5" /> GATE CS Tracker ({matchingGateTopics.length})
+              </p>
+              {matchingGateTopics.map(g => (
+                <div
+                  key={g.id}
+                  onClick={() => handleSelect('gateHq')}
+                  className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 hover:bg-amber-50 dark:hover:bg-amber-950/40 cursor-pointer border border-slate-200 dark:border-slate-700 transition-colors flex items-center justify-between"
+                >
+                  <div>
+                    <span className="font-bold text-slate-900 dark:text-white">{g.title}</span>
+                    <p className="text-[11px] text-slate-500">{g.subjectName} • Weightage: {g.weightage}</p>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-amber-500 shrink-0" />
                 </div>
               ))}
             </div>
