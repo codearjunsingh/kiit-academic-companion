@@ -44,9 +44,9 @@ export const SgpaCalculatorView: React.FC = () => {
   let totalCredits = 0;
   let weightedPoints = 0;
   courses.forEach(c => {
-    totalCredits += c.credits;
+    totalCredits += c.ltpc.credits;
     const g = grades[c.code] || 'O';
-    weightedPoints += c.credits * getPoints(g);
+    weightedPoints += c.ltpc.credits * getPoints(g);
   });
 
   const sgpa = totalCredits > 0 ? (weightedPoints / totalCredits).toFixed(2) : '0.00';
@@ -141,12 +141,12 @@ export const SgpaCalculatorView: React.FC = () => {
                     <span className="text-xs font-extrabold text-slate-900 dark:text-white">{c.name}</span>
                   </div>
                   <p className="text-[11px] text-slate-500 dark:text-slate-400 font-semibold mt-0.5">
-                    L-T-P-C: {c.ltpc} • {c.credits} Credits • Type: {c.type}
+                    L-T-P-C: {c.ltpc.l}-{c.ltpc.t}-{c.ltpc.p}-{c.ltpc.total} • {c.ltpc.credits} Credits • Type: {c.type}
                   </p>
                 </div>
 
                 <div className="flex items-center space-x-3">
-                  <span className="text-xs font-bold text-slate-500">Points: <strong className="text-emerald-600 dark:text-emerald-400">{points * c.credits}</strong></span>
+                  <span className="text-xs font-bold text-slate-500">Points: <strong className="text-emerald-600 dark:text-emerald-400">{points * c.ltpc.credits}</strong></span>
                   <select
                     value={currentGrade}
                     onChange={e => handleGradeChange(c.code, e.target.value)}
